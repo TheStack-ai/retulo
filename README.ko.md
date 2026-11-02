@@ -11,8 +11,8 @@
 
 Retulo는 AI 에이전트의 파일 작업에 독립된 로컬 작업공간을 제공합니다. 원본 자료와 이전 결과 버전, 결정 사항, 남은 작업, 검증·승인 기록을 한곳에 보관해 에이전트가 진행 상황을 파악하도록 돕습니다. Codex 연동을 설정하고 신뢰하면, 매번 Retulo를 지정하지 않아도 에이전트가 일반 파일 요청에 이 절차를 적용할 수 있습니다. 다른 대화에서 이어갈 때는 같은 작업이나 작업공간을 지정해 기록된 상태에서 계속 진행합니다.
 
-[![미리보기 버전 0.4.0rc1](assets/badges/preview.svg)](docs/RELEASE.md)
-[![로컬 검사 — 검증 기록 참고](assets/badges/checks.svg)](docs/QUALIFICATION.md)
+[![미리보기 버전 0.4.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc1)
+[![릴리스 검사](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 이상](assets/badges/python.svg)](#support)
 [![MIT 라이선스](assets/badges/license.svg)](LICENSE)
 

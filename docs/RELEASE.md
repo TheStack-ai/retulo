@@ -29,7 +29,7 @@ new-task recipe reuse. Independent reviewers reproduced and rechecked fixes.
 
 See [qualification details](QUALIFICATION.md) for methods, earlier failed
 attempts, runtime distinctions and limits. Source, wheel and sdist contents are
-inspected separately; the release process does not upload anything.
+inspected separately. Download the [published candidate](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc1) or browse the [documentation site](https://thestack-ai.github.io/retulo/site/).
 
 ## Scope
 
@@ -40,4 +40,4 @@ inherit approvals or establish that a new input will satisfy a past judgement.
 Existing clients must connect to the intended package and skill version; the
 example and release checks do not replace an operating installation.
 
-Review and trust the exact new hook definitions in the client. Prior prototype client runs do not substitute for this step. GitHub-hosted CI has not run before upload. No general token-cost or content-quality guarantee is made.
+Review and trust the exact new hook definitions in the client. Prior prototype client runs do not substitute for this step. [GitHub-hosted checks](https://github.com/TheStack-ai/retulo/actions/runs/41441041094) passed on macOS with Python 3.11 and 3.14. No general token-cost or content-quality guarantee is made.

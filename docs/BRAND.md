@@ -118,3 +118,6 @@ SVG source. It is below GitHub's 1 MB social-preview limit. The export was
 rendered by the local browser at 2× and downsampled with Lanczos; the SVG remains
 the editable source. Regenerating the SVG does not automatically refresh this
 PNG. Export and inspect it again after changing the artwork or copy.
+
+The published README uses the actual GitHub Actions `ci.yml` status badge.
+The bundled `checks.svg` remains an explicitly local-only fallback.

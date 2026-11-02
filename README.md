@@ -11,8 +11,8 @@
 
 Retulo gives AI agents a dedicated local workspace for file-producing work. It keeps source material, previous output versions, decisions, remaining work, checks, and approvals together, helping the agent keep track of the work. Once the Codex integration is connected and trusted, your agent can apply this workspace procedure to everyday file requests without being asked to use Retulo each time. When resuming in another conversation, identify the task or workspace to continue from its recorded state.
 
-[![Preview 0.4.0rc1](assets/badges/preview.svg)](docs/RELEASE.md)
-[![Local checks; see qualification](assets/badges/checks.svg)](docs/QUALIFICATION.md)
+[![Preview 0.4.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc1)
+[![Release checks](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 or later](assets/badges/python.svg)](#support)
 [![MIT license](assets/badges/license.svg)](LICENSE)
 

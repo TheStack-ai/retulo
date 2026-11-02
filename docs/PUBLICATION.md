@@ -2,8 +2,9 @@
 
 This is the maintainer's publication checklist for **Retulo 0.4.0rc1**. The source
 package and local checks are prepared separately from GitHub publication. The public repository is [TheStack-ai/retulo](https://github.com/TheStack-ai/retulo).
-Discussions and private vulnerability reporting are enabled. Hosted checks and
-release assets are linked below when their actual runs are available.
+Discussions and private vulnerability reporting are enabled. The first [hosted validation](https://github.com/TheStack-ai/retulo/actions/runs/41441041094)
+and [documentation deployment](https://github.com/TheStack-ai/retulo/actions/runs/41441041053)
+passed. The candidate release is linked below.
 
 ## Repository metadata
 

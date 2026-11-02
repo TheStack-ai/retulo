@@ -11,8 +11,8 @@
 
 Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中管理原始资料、历史输出版本、关键决策、剩余工作、检查与审批记录，方便 Agent 追踪进度。配置并信任 Codex 集成后，Agent 可在处理日常文件请求时应用这一流程，无需每次指定使用 Retulo。切换到新会话时，指定同一任务或工作区，即可根据已记录的状态继续推进。
 
-[![预览版 0.4.0rc1](assets/badges/preview.svg)](docs/RELEASE.md)
-[![本地检查；详见验证记录](assets/badges/checks.svg)](docs/QUALIFICATION.md)
+[![预览版 0.4.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc1)
+[![发布检查](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 及以上](assets/badges/python.svg)](#support)
 [![MIT 许可证](assets/badges/license.svg)](LICENSE)
 

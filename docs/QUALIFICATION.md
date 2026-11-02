@@ -1,5 +1,14 @@
 # Qualification — Retulo
 
+## GitHub-hosted validation — 2026-11-02
+
+The first public source commit, `85da50712bc9b208ffec68d6d6c808e38004bcb9`,
+passed [Release checks](https://github.com/TheStack-ai/retulo/actions/runs/41441041094)
+on the macOS runners for Python 3.11 and 3.14. The workflow runs the full
+regression suite, isolated install/lifecycle/restore smoke, source inspection,
+and wheel/sdist build and inspection. [Documentation deployment](https://github.com/TheStack-ai/retulo/actions/runs/41441041053)
+also passed. The current default-branch status is available from the README badge.
+
 ## 0.4.0rc1 — 2026-11-02
 
 The workflow/recipe candidate was checked on macOS arm64. Its original 0.3.1rc1
@@ -104,6 +113,6 @@ This candidate's name, package and integration paths changed. Its deterministic 
 
 ## Limits
 
-Qualified target: macOS and a local filesystem. Python 3.11 is the declared minimum. Both 3.11.15 and 3.14.4 passed locally; the prepared CI matrix targets 3.11 and 3.14. GitHub Actions is prepared but cannot be reported as a hosted pass before the repository is uploaded. Other providers, Linux, Windows, NAS and multi-host concurrency remain unqualified.
+Qualified target: macOS and a local filesystem. Python 3.11 is the declared minimum. Both 3.11.15 and 3.14.4 passed locally; the prepared CI matrix targets 3.11 and 3.14. The linked GitHub Actions run records the hosted result for its exact source commit. Other providers, Linux, Windows, NAS and multi-host concurrency remain unqualified.
 
 Integrity checks do not establish content quality or human approval. The optional memory receiver and external orchestrators are not required. No general token-cost saving or cache-hit rate is claimed. Snapshot restoration protects against detected changes but does not provide a power-loss recovery journal.
