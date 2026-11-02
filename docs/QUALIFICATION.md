@@ -1,5 +1,29 @@
 # Qualification — Retulo
 
+## 0.4.0rc2 — 2026-11-02
+
+| Check | Observed result |
+|---|---|
+| Python 3.14.4 source suite | 367 tests passed |
+| Python 3.11.15 fresh environment, installed rc2 wheel | 367 tests passed |
+| Archive boundary regressions | 27 passed on both Python versions |
+| Core MCP surface | 24 tools; removed private routes unavailable |
+| Isolated install, hooks, reinstall and restore | Passed; no host settings changed |
+| File-task continuity example | Same task/workspace, original and earlier version preserved; 16 CLI calls |
+| Actual inventory workflow and recipe example | 5 affected steps regenerated, profile reused; 127 CLI calls; new recipe task and old result preserved |
+| Independent archive patch review | Confirmed container-header gap was corrected with an input-size cap and a regression test |
+
+The original 20,000-entry TAR and ZIP trigger was compared directly with the
+previous public source. The corrected inspector rejects excess central records
+before ZIP metadata objects are created and stops TAR header parsing at its
+limit. Forged ZIP/ZIP64 counts, extension sizes and recursion, sparse forms,
+container metadata and ordinary long paths are covered by focused checks.
+
+These are automated local results for this candidate. Hosted CI and deployment
+are recorded by the GitHub Actions runs for the exact published commit. The
+operating installation and existing user configuration were not replaced.
+
+
 ## GitHub-hosted validation — 2026-11-02
 
 The first public source commit, `85da50712bc9b208ffec68d6d6c808e38004bcb9`,
@@ -57,13 +81,12 @@ Reproduce the relevant checks from the source checkout:
 .venv/bin/python scripts/check_release.py --artifact dist/retulo-0.4.0rc1-py3-none-any.whl --artifact dist/retulo-0.4.0rc1.tar.gz
 ```
 
-Use a new empty example directory. The engine core makes no model calls and
-requires neither Main Brain nor another agent orchestrator. No new runtime
-dependency was added for workflows or recipes.
+Use a new empty example directory. The engine core makes no model calls.
+No new runtime dependency was added for workflows or recipes.
 
 ## Public presentation refresh — 2026-11-02
 
-The current source passed the 379-test suite again after the multilingual README,
+The earlier rc1 presentation source passed the 379-test suite again after the multilingual README,
 community forms, site, and brand assets were added. The runtime and test files
 were unchanged during that run. The [continuity example](../examples/continuity/README.md)
 also ran through 16 separate CLI calls: it reopened the same task, preserved its
@@ -91,7 +114,6 @@ Local runs on macOS arm64 with Python 3.14.4 (source environment) and Python 3.1
 | Three lifecycle hook commands | Bounded context, no task creation |
 | Separate CLI invocations | Same task completed at v1 and v2; v1 preserved |
 | Real MCP stdio | 22 tools; registered files verified |
-| Optional memory receiver | Unconfigured explicitly; core works without it |
 | Restore preview and apply | Original settings restored, artifacts retained |
 | Wheel and sdist | Built and inspected separately from source |
 
@@ -115,4 +137,4 @@ This candidate's name, package and integration paths changed. Its deterministic 
 
 Qualified target: macOS and a local filesystem. Python 3.11 is the declared minimum. Both 3.11.15 and 3.14.4 passed locally; the prepared CI matrix targets 3.11 and 3.14. The linked GitHub Actions run records the hosted result for its exact source commit. Other providers, Linux, Windows, NAS and multi-host concurrency remain unqualified.
 
-Integrity checks do not establish content quality or human approval. The optional memory receiver and external orchestrators are not required. No general token-cost saving or cache-hit rate is claimed. Snapshot restoration protects against detected changes but does not provide a power-loss recovery journal.
+Integrity checks do not establish content quality or human approval. No general token-cost saving or cache-hit rate is claimed. Snapshot restoration protects against detected changes but does not provide a power-loss recovery journal.

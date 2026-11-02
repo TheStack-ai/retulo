@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0rc2 — 2026-11-02
+
+- Remove the private memory-system bridge, its five tools, configuration and installer option from the public package.
+- Keep the 24 core task, workflow and recipe tools self-contained. Unsupported configuration keys now produce a configuration error.
+- Bound actual ZIP/ZIP64 central-directory records before metadata object allocation, regardless of footer counts.
+- Enforce TAR header, extension, nesting and metadata budgets while parsing, and reject sparse archive forms in the release inspector.
+- Refresh the English, Chinese and Korean public documentation and site to match the standalone package.
+
+
 ## 0.4.0rc1 — 2026-11-02
 
 - Add opt-in v2 tasks with explicit input bindings, workflow definitions and immutable execution history.
@@ -21,7 +30,7 @@ Initial Retulo public candidate, prepared from the locally qualified 0.3.0 devel
 - Preserve task UUIDs, output versions, bounded reads, approval boundaries and idempotent operations.
 - Add guarded installation-snapshot restore with a read-only preview.
 - Add licensing, dependency notices, reporting guidance, CI and release checks.
-- Keep Main Brain and external agent executors optional.
+- Keep the core independent of an additional agent executor.
 - Target macOS source installation; candidate preparation performs no public upload.
 
 The renamed candidate has its own qualification record. Earlier client observations are historical evidence, not a guarantee for future clients or requests.

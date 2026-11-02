@@ -11,7 +11,7 @@
 
 Retulo gives AI agents a dedicated local workspace for file-producing work. It keeps source material, previous output versions, decisions, remaining work, checks, and approvals together, helping the agent keep track of the work. Once the Codex integration is connected and trusted, your agent can apply this workspace procedure to everyday file requests without being asked to use Retulo each time. When resuming in another conversation, identify the task or workspace to continue from its recorded state.
 
-[![Preview 0.4.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc1)
+[![Preview 0.4.0rc2](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2)
 [![Release checks](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 or later](assets/badges/python.svg)](#support)
 [![MIT license](assets/badges/license.svg)](LICENSE)
@@ -130,14 +130,14 @@ A recipe pins a workflow, typed parameters, and completion requirements. New inp
 
 `RETULO_CONFIG` can supply the configuration path. Configuration is created only by an explicit `init-config` or installer operation. JSON is the state contract; `WORKSPACE.md` is a readable view of current state. Request IDs make retries idempotent, and mutations check the last observed revision.
 
-Main Brain is an optional evidence and memory integration. Neither Main Brain nor an additional agent orchestrator, including OmO/OmO Native, is required for core operation.
+Retulo keeps task and file records locally. An existing agent or CLI client uses the core; no separate service is needed.
 
 <a id="support"></a>
 ## Support and scope
 
 | Area | Current scope |
 |---|---|
-| Release | `0.4.0rc1`, preview |
+| Release | `0.4.0rc2`, preview |
 | Runtime | Python 3.11+; source and installed-wheel checks on Python 3.11 and 3.14 |
 | Qualified environment | macOS, local filesystem |
 | Interfaces | CLI and MCP; packaged Codex integration |
@@ -158,7 +158,7 @@ The public name, paths, and MCP key differ from the earlier development prototyp
 - [Frequently asked questions](docs/FAQ.md)
 - [한국어 사용 안내](docs/USER_GUIDE.ko.md)
 - [Workflows and recipes](docs/WORKFLOWS.md)
-- [Agent and optional memory integration](docs/INTEGRATIONS.md)
+- [Agent integration](docs/INTEGRATIONS.md)
 - [Task history and managed upgrades](docs/SUSTAINABILITY.md)
 - [Format and safety contract](docs/FORMAT_AND_SAFETY.md) · [Architecture](docs/ARCHITECTURE.md)
 - [Qualification](docs/QUALIFICATION.md) · [Release notes](docs/RELEASE.md) · [Changelog](CHANGELOG.md)

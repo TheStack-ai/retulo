@@ -50,9 +50,11 @@ The host agent executes the affected steps. Previous completed results remain pr
 
 Continue the existing task when revising the same result. Use a recipe when repeating a process for new material, a different period, or another customer. A recipe fixes a workflow revision, typed inputs, and completion requirements. A new recipe task starts with fresh checks and does not inherit old approvals or passed verdicts.
 
-## Are Main Brain or OmO required?
+## What do I need to install and connect?
 
-Neither is required for installation or core operation. Main Brain is an optional integration for retrieving and storing decisions and evidence with provenance. It has a separate role from the task and file ledger. OmO/OmO Native are optional executors governed by the host's own rules. Removing them does not remove Retulo's task records, tools, or output versions. See [integrations](INTEGRATIONS.md) and [task history](SUSTAINABILITY.md).
+Install Python 3.11 or later and the package dependencies, then configure local workspace and allowed source roots. Use the CLI directly or connect the MCP server to your existing agent. The source checkout also includes a separate Codex installer for its guidance and context hooks. Follow the [installation steps](../README.md#quick-start) and [integration contract](INTEGRATIONS.md).
+
+Retulo stores the managed task and file ledger locally. The existing host agent runs its own tools; Retulo adds no AI runtime or background service.
 
 ## Which environments are verified?
 

@@ -1,43 +1,42 @@
-# Retulo 0.4.0rc1
+# Retulo 0.4.0rc2
 
 Local workspaces for AI agents, with incremental workflows and reusable recipes.
 
-The current agent runs producer tools. The core does not launch models, execute
-recipe commands, watch folders or publish results. v1 tasks remain supported;
-workflow-enabled tasks use v2, which an old engine must reject.
+This candidate removes a private memory-system bridge from the public package.
+Retulo provides 24 task, file, workflow and recipe tools through its CLI and MCP.
+It remains independent of an additional orchestration runtime. Existing local
+configuration files must contain only the documented core settings; unsupported
+keys fail with a configuration error and are not executed.
 
-## Included
+## Security correction
 
-- Stable task UUIDs and explicit cross-conversation continuation.
-- Reserved output paths, immutable versions and byte verification.
-- Revision checks, idempotent requests and preserved review history.
-- Explicit input bindings and scoped steps for partial regeneration.
-- Fixed execution snapshots, complete step output sets and coherent final targets.
+The development release inspector previously parsed every TAR/ZIP metadata
+record before applying its 10,000-member limit. A deliberately supplied hostile
+archive could therefore waste developer-process memory and CPU. ZIP and ZIP64
+central records are now counted before `ZipFile` construction; TAR physical
+headers, extension bodies, nesting, total bytes and effective PAX metadata are
+bounded as they are parsed. Sparse TAR forms are rejected by the inspector.
+The inspector never extracts archives. This issue concerns manually invoked
+release checks; it does not introduce a runtime network endpoint.
+
+## Preserved functionality
+
+- Stable task UUIDs and explicit continuation across conversations.
+- Reserved paths, immutable output versions, integrity and revision checks.
+- v1 tasks, opt-in v2 workflows, scoped regeneration and execution history.
 - Typed, version-pinned recipes that create new tasks with fresh checks.
-- CLI and 29 typed MCP tools with bounded context and explicit detail reads.
-- A runnable HTML/SVG report example based on actual repository inventories.
 - Preview-first Codex installation and guarded snapshot restoration.
-- MIT licensing, dependency notices and reproducible synthetic checks.
+- English, Chinese and Korean documentation with the existing visual design.
 
-## Validation
-
-379 regression tests passed on Python 3.14.4 source and on a normally installed
-wheel in a fresh Python 3.11.15 virtualenv. Isolated installation, reinstall,
-read-only hooks, real MCP transport and restoration also passed. The real report
-example exercised changed-input regeneration, previous-output preservation and
-new-task recipe reuse. Independent reviewers reproduced and rechecked fixes.
-
-See [qualification details](QUALIFICATION.md) for methods, earlier failed
-attempts, runtime distinctions and limits. Source, wheel and sdist contents are
-inspected separately. Download the [published candidate](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc1) or browse the [documentation site](https://thestack-ai.github.io/retulo/site/).
+See [qualification](QUALIFICATION.md) for the exact checks and their scope.
+Download the [candidate release](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2)
+or browse the [documentation site](https://thestack-ai.github.io/retulo/site/).
 
 ## Scope
 
-Start with the source-install instructions in the README on macOS with a local filesystem. Other operating systems, NAS and multi-host operation are not qualified. Main Brain is optional. A wheel contains the core CLI/MCP, not the source integration installer.
-
-Partial regeneration operates at declared file/step granularity. Recipes do not
-inherit approvals or establish that a new input will satisfy a past judgement.
-Existing clients must connect to the intended package and skill version; the
-example and release checks do not replace an operating installation.
-
-Review and trust the exact new hook definitions in the client. Prior prototype client runs do not substitute for this step. [GitHub-hosted checks](https://github.com/TheStack-ai/retulo/actions/runs/41441041094) passed on macOS with Python 3.11 and 3.14. No general token-cost or content-quality guarantee is made.
+The qualified target is macOS with a local filesystem and Python 3.11 or later.
+A wheel contains the CLI/MCP core; install the Codex integration from the source
+package. Review and trust the exact hook definitions in the client. Tests do not
+establish user approval or automatic adoption by an already-connected client.
+The core does not launch models, execute recipe commands, watch folders or publish
+results. Other operating systems, NAS and multi-host operation are not qualified.

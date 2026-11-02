@@ -353,7 +353,7 @@ def hook_components(raw, python, engine_config):
 
 
 def _install_unlocked(repo, codex_home, engine_config, skills_home, workspace_home, source_roots,
-                      snapshot_home, main_brain=None, apply=False):
+                      snapshot_home, apply=False):
     repo, codex_home, engine_config, skills_home, workspace_home, snapshot_home = [
         Path(p).expanduser().absolute() for p in
         (repo, codex_home, engine_config, skills_home, workspace_home, snapshot_home)]
@@ -401,8 +401,6 @@ def _install_unlocked(repo, codex_home, engine_config, skills_home, workspace_ho
                 'state_home':str(workspace_home/'.retulo'),
                 'allowed_workspace_roots':[str(workspace_home)],
                 'allowed_source_roots':[str(Path(p).expanduser().resolve()) for p in source_roots]}
-    if main_brain is not None:
-        settings['main_brain'] = main_brain
     settings_old = engine_config.read_bytes() if engine_config.exists() else None
     settings_bytes = (json.dumps(settings,ensure_ascii=False,indent=2)+'\n').encode()
     if settings_old is not None:
@@ -414,7 +412,7 @@ def _install_unlocked(repo, codex_home, engine_config, skills_home, workspace_ho
         # Reinstall only compares settings the caller actually supplies. Valid
         # state storage, workspace allowlists and schema metadata belong to the
         # existing configuration, not to the installer's new-install defaults.
-        for field in ('workspace_home', 'allowed_source_roots', 'main_brain'):
+        for field in ('workspace_home', 'allowed_source_roots'):
             if current_settings.get(field) != requested_settings.get(field):
                 raise ValueError(f'Existing engine configuration differs for {field}; refusing to overwrite')
         # Preserve every existing byte, including formatting and optional fields.
@@ -546,10 +544,10 @@ def _install_unlocked(repo, codex_home, engine_config, skills_home, workspace_ho
 
 
 def install(repo, codex_home, engine_config, skills_home, workspace_home, source_roots,
-            snapshot_home, main_brain=None, apply=False):
+            snapshot_home, apply=False):
     options = dict(repo=repo,codex_home=codex_home,engine_config=engine_config,
                    skills_home=skills_home,workspace_home=workspace_home,source_roots=source_roots,
-                   snapshot_home=snapshot_home,main_brain=main_brain)
+                   snapshot_home=snapshot_home)
     targets = [Path(codex_home).expanduser()/'config.toml',Path(engine_config).expanduser(),
                Path(skills_home).expanduser()/'retulo/SKILL.md',
                Path(codex_home).expanduser()/'AGENTS.md',Path(codex_home).expanduser()/'hooks.json',
@@ -577,10 +575,7 @@ def main():
     p.add_argument('--workspace-home',default=str(Path.home()/'Documents/RetuloWorkspaces'))
     p.add_argument('--source-root',action='append',default=[])
     p.add_argument('--snapshot-home',default=str(Path.home()/'.local/state/retulo/install'))
-    p.add_argument('--main-brain-config',help='JSON file with command/args/scope; never credentials')
     a=p.parse_args(); opts=vars(a)
-    config=opts.pop('main_brain_config')
-    opts['main_brain']=json.loads(Path(config).read_text()) if config else None
     opts['source_roots']=opts.pop('source_root')
     try:
         print(json.dumps(install(**opts),ensure_ascii=False,indent=2))

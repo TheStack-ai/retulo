@@ -74,7 +74,7 @@ The four local badge images show the candidate version, local-check scope,
 required Python version, and MIT license. They make no claim of hosted CI,
 publication, download count, coverage, or production stability.
 
-- `preview.svg`: `preview | 0.4.0rc1`
+- `preview.svg`: `preview | 0.4.0rc2`
 - `checks.svg`: `checks | local only`
 - `python.svg`: `python | >=3.11`
 - `license.svg`: `license | MIT`

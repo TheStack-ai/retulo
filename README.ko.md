@@ -11,7 +11,7 @@
 
 Retulo는 AI 에이전트의 파일 작업에 독립된 로컬 작업공간을 제공합니다. 원본 자료와 이전 결과 버전, 결정 사항, 남은 작업, 검증·승인 기록을 한곳에 보관해 에이전트가 진행 상황을 파악하도록 돕습니다. Codex 연동을 설정하고 신뢰하면, 매번 Retulo를 지정하지 않아도 에이전트가 일반 파일 요청에 이 절차를 적용할 수 있습니다. 다른 대화에서 이어갈 때는 같은 작업이나 작업공간을 지정해 기록된 상태에서 계속 진행합니다.
 
-[![미리보기 버전 0.4.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc1)
+[![미리보기 버전 0.4.0rc2](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2)
 [![릴리스 검사](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 이상](assets/badges/python.svg)](#support)
 [![MIT 라이선스](assets/badges/license.svg)](LICENSE)
@@ -130,14 +130,14 @@ Retulo는 현재 상태와 남은 일을 짧게 보여주고, 상세 기록은 �
 
 `RETULO_CONFIG`로 설정 경로를 지정할 수도 있습니다. 설정은 명시적인 `init-config` 또는 설치 작업에서만 생성됩니다. JSON이 상태의 기준이고, `WORKSPACE.md`는 현재 상태를 읽기 쉽게 보여주는 안내서입니다. 요청 ID로 같은 요청의 재시도를 구분하고, 변경 시 마지막으로 읽은 revision을 확인합니다.
 
-Main Brain은 선택적으로 연결하는 근거·기억 시스템입니다. 핵심 기능에 Main Brain이나 OmO·OmO Native 같은 별도 에이전트 실행 관리 도구가 필요하지 않습니다.
+Retulo는 작업과 파일 기록을 로컬에 보관합니다. 기존 에이전트나 CLI 클라이언트로 코어를 사용하며 별도 서비스는 필요하지 않습니다.
 
 <a id="support"></a>
 ## 지원 범위
 
 | 항목 | 현재 범위 |
 |---|---|
-| 버전 | `0.4.0rc1` 미리보기 |
+| 버전 | `0.4.0rc2` 미리보기 |
 | 실행 환경 | Python 3.11 이상. Python 3.11·3.14에서 소스와 정상 설치한 wheel 검사 |
 | 검증 환경 | macOS, 로컬 파일시스템 |
 | 인터페이스 | CLI·MCP, 소스에 포함된 Codex 연동 |
@@ -158,7 +158,7 @@ Retulo는 절차를 통해 등록한 파일과 작업을 관리합니다. 다른
 - [자주 묻는 질문](docs/FAQ.md)
 - [한국어 사용 안내](docs/USER_GUIDE.ko.md)
 - [작업과 레시피](docs/WORKFLOWS.md)
-- [에이전트·선택적 기억 시스템 연동](docs/INTEGRATIONS.md)
+- [에이전트 연동](docs/INTEGRATIONS.md)
 - [작업 기록과 관리 기본본 갱신](docs/SUSTAINABILITY.md)
 - [파일 형식과 안전 계약](docs/FORMAT_AND_SAFETY.md) · [구조](docs/ARCHITECTURE.md)
 - [검증 기록](docs/QUALIFICATION.md) · [릴리스 안내](docs/RELEASE.md) · [변경 기록](CHANGELOG.md)

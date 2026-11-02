@@ -137,7 +137,7 @@ injected into every prompt or lifecycle hook.
 Short state stays in `task.json`; detailed outputs/logs use managed artifacts.
 Existing state/journal size and receipt limits remain. The engine reports a
 limit instead of dropping evidence or claiming that unbounded retention is
-solved. Main Brain remains optional.
+solved.
 
 ## Runnable example
 

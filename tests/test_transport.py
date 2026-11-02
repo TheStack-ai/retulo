@@ -22,6 +22,7 @@ from retulo.mcp import INSTRUCTIONS, build_server
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+REMOVED_TOOLS = frozenset({"brain_prepare", "brain_capture", "brain_sync", "brain_receipt", "review_context"})
 
 
 class ConfigTests(unittest.TestCase):
@@ -74,6 +75,34 @@ class ConfigTests(unittest.TestCase):
             with self.subTest(bad=bad), self.assertRaises(ConfigError):
                 validate_config(bad)
 
+    def test_removed_integration_configuration_is_unsupported_and_not_applied(self):
+        self.config.parent.mkdir(parents=True)
+        for value in ({}, None, {"command": "synthetic-unavailable-command"}):
+            with self.subTest(value=value):
+                self.config.write_text(json.dumps({"workspace_home": str(self.home), "main_brain": value}))
+                before = self.config.read_bytes()
+                with self.assertRaisesRegex(ConfigError, "unsupported keys: main_brain"):
+                    load_config(self.config)
+                result = subprocess.run([sys.executable, "-m", "retulo", "--config", str(self.config),
+                                         "list", "--json"], cwd=PROJECT_ROOT, text=True,
+                                        capture_output=True, timeout=20)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertEqual(json.loads(result.stdout)["error"]["code"], "configuration_error")
+                self.assertIn("unsupported keys: main_brain", result.stdout)
+                self.assertEqual(self.config.read_bytes(), before)
+                self.assertFalse(self.home.exists())
+
+    def test_cli_rejects_removed_tool_names_before_loading_configuration(self):
+        for name in sorted(REMOVED_TOOLS):
+            with self.subTest(name=name):
+                result = subprocess.run([sys.executable, "-m", "retulo", "--config", str(self.config),
+                                         "call", name], cwd=PROJECT_ROOT, text=True,
+                                        capture_output=True, timeout=20)
+                self.assertEqual(result.returncode, 2)
+                self.assertIn("invalid choice", result.stderr)
+                self.assertFalse(self.config.parent.exists())
+                self.assertFalse(self.home.exists())
+
     def test_help_and_missing_config_read_have_no_side_effects(self):
         before = set(self.root.rglob("*"))
         help_result = subprocess.run([sys.executable, "-m", "retulo", "--config", str(self.config),
@@ -96,7 +125,8 @@ class SDKSurfaceTests(unittest.IsolatedAsyncioTestCase):
         self.assertLessEqual(len(encoded), 24 * 1024, "Exported tool definitions exceeded their context budget")
         self.assertLessEqual(len(INSTRUCTIONS.encode()), 1200, "Shared MCP guidance should stay concise")
         tools = {tool.name: tool for tool in listed}
-        self.assertEqual(len(tools), 29)
+        self.assertEqual(set(tools), METHODS)
+        self.assertTrue(REMOVED_TOOLS.isdisjoint(tools))
         self.assertTrue(tools["harness_context"].annotations.read_only_hint)
         self.assertEqual(tools["harness_context"].input_schema["properties"]["limit"]["default"], 5)
         self.assertTrue(tools["read_records"].annotations.read_only_hint)
@@ -104,8 +134,6 @@ class SDKSurfaceTests(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(tools["abandon_output"].annotations.read_only_hint)
         self.assertTrue(tools["verify"].annotations.read_only_hint)
         self.assertFalse(tools["resume_task"].annotations.read_only_hint)
-        self.assertFalse(tools["brain_capture"].annotations.read_only_hint)
-        self.assertTrue(tools["brain_receipt"].annotations.read_only_hint)
         begin_schema = tools["begin_task"].input_schema
         self.assertNotIn("invoke", begin_schema["properties"])
         self.assertEqual(set(begin_schema["required"]), {"start_request_id", "title", "goal"})
@@ -129,9 +157,6 @@ class SDKSurfaceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(tools["get_context"].input_schema["properties"]["detail"]["enum"], ["compact", "full"])
         self.assertEqual(tools["resume_task"].input_schema["properties"]["detail"]["default"], "compact")
         self.assertEqual(tools["resume_task"].input_schema["properties"]["detail"]["enum"], ["compact", "full"])
-        self.assertIn("event_id", tools["review_context"].input_schema["properties"])
-        self.assertEqual(tools["brain_prepare"].input_schema["properties"]["detail"]["default"], "compact")
-        self.assertEqual(tools["review_context"].input_schema["properties"]["detail"]["default"], "compact")
         self.assertIn("criteria_history", tools["read_records"].input_schema["properties"]["section"]["enum"])
         self.assertEqual(set(tools["read_records"].input_schema["properties"]["section"]["enum"]),
                          set(RECORD_SECTIONS))
@@ -228,10 +253,11 @@ class SDKSurfaceTests(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(result.is_error)
         self.assertEqual(result.structured_content["task_id"], "synthetic")
 
-    async def test_optional_brain_is_explicitly_unconfigured(self):
-        result = await build_server(object()).call_tool("brain_prepare", {"task_id": "synthetic"})
-        self.assertTrue(result.is_error)
-        self.assertEqual(result.structured_content["error"]["code"], "brain_not_configured")
+    async def test_removed_tools_are_unavailable(self):
+        server = build_server(object())
+        for name in sorted(REMOVED_TOOLS):
+            with self.subTest(name=name), self.assertRaises(ToolError):
+                await server.call_tool(name, {"task_id": "synthetic"})
 
     async def test_typed_criterion_preserves_false_and_rejects_coercion_before_dispatch(self):
         class FakeEngine:
@@ -549,12 +575,17 @@ class WireTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(cli.returncode, 0, cli.stderr)
         self.assertEqual(json.loads(cli.stdout), verified)
 
-    async def test_stdio_missing_brain_does_not_mutate_workspace(self):
+    async def test_stdio_removed_tools_are_unknown_without_mutating_workspace(self):
         async with self.connect() as client:
-            result = await client.call_tool("brain_prepare", {"task_id": "not-created"})
-            self.assertTrue(result.is_error)
-            self.assertEqual(result.structured_content["error"]["code"], "brain_not_configured")
-            self.assertFalse(self.home.exists())
+            listed = await client.list_tools()
+            self.assertEqual({tool.name for tool in listed.tools}, METHODS)
+            for name in sorted(REMOVED_TOOLS):
+                with self.subTest(name=name):
+                    result = await client.call_tool(name, {"task_id": "not-created"})
+                    self.assertTrue(result.is_error)
+                    self.assertIsNone(result.structured_content)
+                    self.assertTrue(any("Unknown tool" in item.text for item in result.content))
+                    self.assertFalse(self.home.exists())
 
     async def test_stdio_false_human_review_replays_omission_and_preserves_approval_gate(self):
         async with self.connect() as client:

@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0rc1",
+  "version": "0.4.0rc2",
   "locales": {
     "en": {
       "name": "English",
@@ -28,7 +28,7 @@
       ],
       "facts": [
         [
-          "0.4.0rc1",
+          "0.4.0rc2",
           "Preview release"
         ],
         [
@@ -87,7 +87,7 @@
           "Read the short current guide, then retrieve detailed records when the next step needs them."
         ]
       ],
-      "how_note": "The core runs locally. It does not launch models or agents, execute recipe commands, watch folders, or publish results. A separate memory service or agent orchestrator is optional.",
+      "how_note": "The core runs locally. It does not launch models or agents, execute recipe commands, watch folders, or publish results.",
       "quick_label": "03 / QUICK START",
       "quick_title": "Start from the source checkout.",
       "quick_intro": "Unpack the source archive and open a terminal in its project directory. This preview uses source installation.",
@@ -135,7 +135,7 @@
         ],
         [
           "Integration",
-          "The host agent, context hooks, and optional memory connection.",
+          "The host agent, context hooks, and task coordination.",
           "docs/INTEGRATIONS.md"
         ],
         [
@@ -169,8 +169,8 @@
           "The qualified target is macOS with a local filesystem, using Python 3.11 or later. Other operating systems, network storage, multiple hosts, and other clients need separate validation."
         ],
         [
-          "Can I use it without Main Brain or OmO?",
-          "Yes. The core works without a memory service or an additional agent orchestrator. Those are optional integrations."
+          "What do I need to install and connect?",
+          "Install Python 3.11+ and the package dependencies, then configure local workspace and source roots. Use the CLI or connect the MCP server to your existing agent. Codex guidance and hooks have a separate installer; Retulo adds no AI runtime or background service."
         ]
       ],
       "help_label": "06 / HELP AND CONTRIBUTIONS",
@@ -224,7 +224,7 @@
       ],
       "facts": [
         [
-          "0.4.0rc1",
+          "0.4.0rc2",
           "预览版本"
         ],
         [
@@ -283,7 +283,7 @@
           "先阅读简短的当前指引，需要时再获取详细记录。"
         ]
       ],
-      "how_note": "核心在本地运行，不启动模型或 Agent，不执行模板中的命令，不监视文件夹，也不发布结果。独立记忆服务与额外的 Agent 编排器均为可选项。",
+      "how_note": "核心在本地运行，不启动模型或 Agent，不执行模板中的命令，不监视文件夹，也不发布结果。",
       "quick_label": "03 / 快速开始",
       "quick_title": "从源代码目录开始。",
       "quick_intro": "解压源代码包，并在项目目录中打开终端。当前预览版采用源代码安装。",
@@ -331,7 +331,7 @@
         ],
         [
           "集成说明",
-          "宿主 Agent、上下文钩子与可选记忆连接。",
+          "宿主 Agent、上下文钩子与任务协调。",
           "docs/INTEGRATIONS.md"
         ],
         [
@@ -365,8 +365,8 @@
           "验证目标为 macOS、本地文件系统与 Python 3.11 或更高版本。其他操作系统、网络存储、多主机与其他客户端需要单独验证。"
         ],
         [
-          "不使用 Main Brain 或 OmO 也可以吗？",
-          "可以。核心无需记忆服务或额外的 Agent 编排器即可运行，这些均为可选集成。"
+          "需要安装和连接哪些内容？",
+          "安装 Python 3.11+ 与软件包依赖，并配置本地工作区和源文件根目录。通过 CLI 使用，或将 MCP 服务连接到现有 Agent。Codex 指引与钩子由单独的安装程序配置；Retulo 不添加 AI 运行时或后台服务。"
         ]
       ],
       "help_label": "06 / 帮助与贡献",
@@ -420,7 +420,7 @@
       ],
       "facts": [
         [
-          "0.4.0rc1",
+          "0.4.0rc2",
           "공개 준비 버전"
         ],
         [
@@ -479,7 +479,7 @@
           "짧은 현재 안내를 읽고, 다음 단계에 필요하면 상세 기록을 확인합니다."
         ]
       ],
-      "how_note": "코어는 로컬에서 동작합니다. 모델이나 에이전트를 시작하거나 레시피 명령을 실행하지 않으며 폴더 감시와 결과 공개도 하지 않습니다. 별도 기억 서비스나 에이전트 실행 관리자는 선택 사항입니다.",
+      "how_note": "코어는 로컬에서 동작합니다. 모델이나 에이전트를 시작하거나 레시피 명령을 실행하지 않으며 폴더 감시와 결과 공개도 하지 않습니다.",
       "quick_label": "03 / 빠른 시작",
       "quick_title": "소스 폴더에서 시작하세요.",
       "quick_intro": "소스 압축 파일을 풀고 프로젝트 폴더에서 터미널을 엽니다. 현재 공개 준비본은 소스 설치를 사용합니다.",
@@ -527,7 +527,7 @@
         ],
         [
           "연동 안내",
-          "현재 에이전트, 문맥 훅과 선택적 기억 연결.",
+          "현재 에이전트, 문맥 훅과 작업 조정.",
           "docs/INTEGRATIONS.md"
         ],
         [
@@ -561,8 +561,8 @@
           "macOS의 로컬 파일 시스템과 Python 3.11 이상이 검증 대상입니다. 다른 운영체제, 네트워크 저장소, 여러 호스트와 다른 클라이언트는 별도 검증이 필요합니다."
         ],
         [
-          "Main Brain이나 OmO 없이도 쓸 수 있나요?",
-          "네. 코어는 기억 서비스나 별도의 에이전트 실행 관리자 없이 사용할 수 있습니다. 이들은 선택적인 연결입니다."
+          "무엇을 설치하고 연결해야 하나요?",
+          "Python 3.11 이상과 패키지 의존성을 설치하고 로컬 작업공간과 자료 루트를 설정합니다. CLI로 사용하거나 기존 에이전트에 MCP 서버를 연결합니다. Codex 지침과 훅은 별도 설치기로 설정하며, Retulo가 AI 실행 환경이나 백그라운드 서비스를 추가하지는 않습니다."
         ]
       ],
       "help_label": "06 / 도움과 기여",

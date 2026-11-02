@@ -22,8 +22,6 @@ METHODS = frozenset({
     "define_workflow", "bind_input", "plan_rebuild", "begin_step_run", "finish_step_run",
     "check_recipe", "begin_from_recipe",
 })
-BRAIN_METHODS = {"brain_prepare": "prepare", "brain_capture": "capture", "brain_sync": "sync",
-                 "brain_receipt": "receipt", "review_context": "review_context"}
 
 
 class ConfigError(ValueError):
@@ -66,9 +64,10 @@ def validate_config(data: Any) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise ConfigError("Configuration must be a JSON object")
     allowed = {"schema_version", "workspace_home", "state_home", "allowed_source_roots",
-               "allowed_workspace_roots", "main_brain"}
-    if set(data) - allowed:
-        raise ConfigError("Configuration contains unknown keys")
+               "allowed_workspace_roots"}
+    unsupported = set(data) - allowed
+    if unsupported:
+        raise ConfigError("Configuration contains unsupported keys: " + ", ".join(sorted(unsupported)))
     if type(data.get("schema_version", 1)) is not int or data.get("schema_version", 1) != 1:
         raise ConfigError("Unsupported configuration schema_version")
     normalized = dict(data)
@@ -81,8 +80,6 @@ def validate_config(data: Any) -> dict[str, Any]:
         if not isinstance(values, list) or len(values) > 128:
             raise ConfigError(f"{field} must be a bounded array of paths")
         normalized[field] = [_absolute_path(item, field) for item in values]
-    if "main_brain" in data and not isinstance(data["main_brain"], dict):
-        raise ConfigError("main_brain must be an object")
     return normalized
 
 
@@ -173,30 +170,6 @@ def error_payload(exc: Exception) -> dict[str, Any]:
     return {"ok": False, "error": error}
 
 
-async def dispatch_brain(engine: Any, settings: dict[str, Any] | None, name: str,
-                         arguments: dict[str, Any]) -> Any:
-    """Optional portable MCP bridge; no direct Main Brain storage access."""
-    from .brain import BrainBridge
-    if name not in BRAIN_METHODS:
-        raise ConfigError("Unknown Main Brain bridge method")
-    bridge = BrainBridge(engine, settings)
-    function = getattr(bridge, BRAIN_METHODS[name])
-    try:
-        inspect.signature(function).bind(**arguments)
-    except TypeError as exc:
-        raise ConfigError(f"Invalid arguments for {name}: {exc}") from exc
-    return await function(**arguments)
-
-
-def call_method(engine: Any, config: dict[str, Any], name: str, arguments: dict[str, Any]) -> Any:
-    if name in BRAIN_METHODS:
-        import anyio
-        async def run():
-            return await dispatch_brain(engine, config.get("main_brain"), name, arguments)
-        return anyio.run(run)
-    return dispatch(engine, name, arguments)
-
-
 def parse_arguments(raw: str) -> dict[str, Any]:
     if raw == "-":
         raw = sys.stdin.read(131073)
@@ -225,7 +198,7 @@ def make_parser() -> argparse.ArgumentParser:
     init.add_argument("--json", action="store_true")
 
     call = sub.add_parser("call", help="Call one engine method with structured JSON arguments")
-    call.add_argument("name", choices=sorted(METHODS | BRAIN_METHODS.keys()))
+    call.add_argument("name", choices=sorted(METHODS))
     call.add_argument("--arguments", default="{}", help="JSON object, or '-' to read JSON from stdin")
     call.add_argument("--json", action="store_true")
 
@@ -268,10 +241,10 @@ def main(argv: list[str] | None = None) -> int:
             engine = build_engine(config)
             if args.command == "mcp":
                 from .mcp import build_server
-                build_server(engine, main_brain=config.get("main_brain")).run(transport="stdio")
+                build_server(engine).run(transport="stdio")
                 return 0
             if args.command == "call":
-                result = call_method(engine, config, args.name, parse_arguments(args.arguments))
+                result = dispatch(engine, args.name, parse_arguments(args.arguments))
             else:
                 method = {"verify": "verify", "get-context": "get_context", "resume": "resume_task",
                           "list": "list_tasks", "capabilities": "capabilities",

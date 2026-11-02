@@ -10,7 +10,7 @@ from pydantic import BeforeValidator, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Required, TypedDict
 
 from . import __version__
-from .cli import dispatch, dispatch_brain, error_payload
+from .cli import dispatch, error_payload
 
 
 def _human_review_type(value: Any) -> str | Literal[False]:
@@ -73,7 +73,7 @@ and inspect the same task on resume. Preserve originals, existing repositories a
 Use compact context and bounded read_records; read full history only when needed.
 Files, tool success and agent claims are not quality approval or task completion. Keep failed/unknown
 results. Omit human_review or use false unless actual human judgment is required; a string or
-requires_approval=true retains the approval gate. Main Brain needs genuine source IDs and evidence.
+requires_approval=true retains the approval gate.
 No sending, publishing, model changes, background execution, new chats or permission expansion.
 Codex remains the coordinator; optional executors are not dependencies. Report actual errors.
 Workflow plans do not execute tools. The current agent runs steps; recipes start new tasks without inherited verdicts.
@@ -86,7 +86,7 @@ def _annotations(read_only: bool = False) -> ToolAnnotations:
                            idempotent_hint=True, open_world_hint=False)
 
 
-def build_server(engine: Any, main_brain: dict[str, Any] | None = None) -> MCPServer:
+def build_server(engine: Any) -> MCPServer:
     server = MCPServer(name="retulo", version=__version__, instructions=INSTRUCTIONS,
                        log_level="WARNING")
 
@@ -102,17 +102,6 @@ def build_server(engine: Any, main_brain: dict[str, Any] | None = None) -> MCPSe
         return CallToolResult(content=[TextContent(type="text", text=json.dumps(result, ensure_ascii=False,
                                                                                separators=(",", ":"), allow_nan=False))],
                               structured_content=structured, is_error=failed)
-
-    async def invoke_brain(name: str, parameters: dict[str, Any]) -> CallToolResult:
-        parameters = {key: value for key, value in parameters.items() if key != "invoke_brain"}
-        try:
-            result = await dispatch_brain(engine, main_brain, name, parameters)
-            failed = isinstance(result, dict) and result.get("ok") is False
-        except Exception as exc:
-            result, failed = error_payload(exc), True
-        return CallToolResult(content=[TextContent(type="text", text=json.dumps(result, ensure_ascii=False,
-                                                                               separators=(",", ":"), allow_nan=False))],
-                              structured_content=result, is_error=failed)
 
     @server.tool(annotations=_annotations(True))
     def capabilities() -> CallToolResult:
@@ -278,34 +267,5 @@ def build_server(engine: Any, main_brain: dict[str, Any] | None = None) -> MCPSe
                           binding: dict[str, Any] | None = None) -> CallToolResult:
         """Create a new task from an exact recipe version and typed inputs. Retry the same request; inherit no approvals."""
         return invoke("begin_from_recipe", locals())
-
-    @server.tool(annotations=_annotations(True))
-    async def brain_prepare(task_id: str, prompt: str = "Review prior decisions for this task",
-                             detail: Literal["compact", "full"] = "compact") -> CallToolResult:
-        """Read compact task and optional memory context; retrieve exact evidence before relying on it."""
-        return await invoke_brain("brain_prepare", locals())
-
-    @server.tool(annotations=_annotations())
-    async def brain_capture(task_id: str, event_id: str, title: str, body: str, source_id: str,
-                             quote: str, kind: str = "task", metadata: dict[str, Any] | None = None) -> CallToolResult:
-        """Capture actual source evidence with its exact quote. Retry the same event ID and payload;
-        model prose is not execution proof and missing synchronization never implies success."""
-        return await invoke_brain("brain_capture", locals())
-
-    @server.tool(annotations=_annotations())
-    async def brain_sync(task_id: str, event_id: str) -> CallToolResult:
-        """Reconcile/retry the exact immutable saved event; no new body or event is synthesized."""
-        return await invoke_brain("brain_sync", locals())
-
-    @server.tool(annotations=_annotations(True))
-    async def brain_receipt(task_id: str, event_id: str) -> CallToolResult:
-        """Read the exact remote receipt and local sync state; receipt is not current evidence validation."""
-        return await invoke_brain("brain_receipt", locals())
-
-    @server.tool(annotations=_annotations(True))
-    async def review_context(task_id: str, detail: Literal["compact", "full"] = "compact",
-                              event_id: str | None = None) -> CallToolResult:
-        """Read bounded current facts and prior evidence; event_id selects one event. The caller judges applicability."""
-        return await invoke_brain("review_context", locals())
 
     return server

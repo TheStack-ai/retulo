@@ -1,12 +1,15 @@
 import importlib.util
 import hashlib
+import gzip
 import io
 import json
+import struct
 from pathlib import Path
 import tarfile
 import tempfile
 import unittest
 import zipfile
+from unittest.mock import patch
 from contextlib import redirect_stdout
 
 
@@ -263,6 +266,140 @@ class ReleaseChecksTests(unittest.TestCase):
         self.assertEqual(status, 1)
         self.assertFalse(result["ok"])
         self.assertIn("missing_distribution", self.codes(result["findings"]))
+
+    def test_zip_limit_precedes_object_allocation_even_with_forged_count(self):
+        path = self.base / "many.zip"
+        with zipfile.ZipFile(path, "w") as archive:
+            for index in range(20):
+                archive.writestr(str(index), b"")
+        raw = bytearray(path.read_bytes())
+        # The EOCD count is untrusted: the parser follows actual directory bytes.
+        offset = raw.rfind(b"PK\x05\x06")
+        raw[offset + 8:offset + 12] = b"\x00" * 4
+        path.write_bytes(raw)
+        original = zipfile.ZipInfo
+        with patch.object(checks, "MAX_ARCHIVE_MEMBERS", 3), \
+                patch.object(checks.zipfile, "ZipInfo", wraps=original) as infos:
+            findings, _ = checks.check_archive(path)
+        self.assertEqual(self.codes(findings), {"invalid_archive"})
+        self.assertLessEqual(infos.call_count, 3)
+
+    def test_tar_member_limit_stops_metadata_parsing_early(self):
+        path = self.base / "many.tar.gz"
+        with tarfile.open(path, "w:gz") as archive:
+            for index in range(20):
+                archive.addfile(tarfile.TarInfo(str(index)))
+        original = tarfile.TarInfo._proc_member
+        parsed = []
+        def process(info, archive):
+            parsed.append(info)
+            return original(info, archive)
+        with patch.object(checks, "MAX_ARCHIVE_MEMBERS", 3), \
+                patch.object(tarfile.TarInfo, "_proc_member", process):
+            findings, _ = checks.check_archive(path)
+        self.assertEqual(self.codes(findings), {"invalid_archive"})
+        self.assertLessEqual(len(parsed), 3)
+
+    def test_member_limit_boundary_preserves_valid_zip_and_tar(self):
+        for suffix in ("zip", "tar.gz"):
+            for count in (3, 4):
+                with self.subTest(suffix=suffix, count=count):
+                    path = self.base / ("boundary." + suffix)
+                    if suffix == "zip":
+                        with zipfile.ZipFile(path, "w") as archive:
+                            for index in range(count):
+                                archive.writestr(str(index), b"")
+                    else:
+                        with tarfile.open(path, "w:gz") as archive:
+                            for index in range(count):
+                                archive.addfile(tarfile.TarInfo(str(index)))
+                    with patch.object(checks, "MAX_ARCHIVE_MEMBERS", 3):
+                        if count == 3:
+                            self.assertEqual(len(list(checks._archive_entries(path))), 3)
+                        else:
+                            findings, inspected = checks.check_archive(path)
+                            self.assertEqual((self.codes(findings), inspected), ({"invalid_archive"}, 0))
+
+    def test_zip64_control_and_forged_counts(self):
+        path = self.base / "zip64.zip"
+        with patch.object(zipfile, "ZIP64_LIMIT", 0):
+            with zipfile.ZipFile(path, "w") as archive:
+                for index in range(4):
+                    archive.writestr(str(index), b"ok")
+        self.assertEqual(len(list(checks._archive_entries(path))), 4)
+        raw = bytearray(path.read_bytes())
+        end64 = raw.rfind(b"PK\x06\x06")
+        self.assertGreaterEqual(end64, 0)
+        struct.pack_into("<QQ", raw, end64 + 24, 0, 0)
+        end = raw.rfind(b"PK\x05\x06")
+        raw[end + 8:end + 12] = b"\x00" * 4
+        path.write_bytes(raw)
+        with patch.object(checks, "MAX_ARCHIVE_MEMBERS", 3), \
+                patch.object(checks.zipfile, "ZipFile", side_effect=AssertionError("must preflight first")):
+            findings, count = checks.check_archive(path)
+        self.assertEqual((self.codes(findings), count), ({"invalid_archive"}, 0))
+
+    def test_zip_metadata_byte_budget_precedes_constructor(self):
+        path = self.base / "metadata.zip"
+        with zipfile.ZipFile(path, "w") as archive:
+            archive.writestr("long-" + "x" * 200, b"")
+        with patch.object(checks, "MAX_ARCHIVE_BYTES", 128), \
+                patch.object(checks.zipfile, "ZipFile", side_effect=AssertionError("must preflight first")):
+            findings, count = checks.check_archive(path)
+        self.assertEqual((self.codes(findings), count), ({"invalid_archive"}, 0))
+
+    def test_tar_extension_body_is_bounded_before_read(self):
+        path = self.base / "large-extension.tar"
+        for kind in (tarfile.GNUTYPE_LONGNAME, tarfile.XHDTYPE, tarfile.XGLTYPE):
+            with self.subTest(kind=kind):
+                info = tarfile.TarInfo("extension")
+                info.type = kind
+                info.size = checks.MAX_FILE_BYTES + 1
+                path.write_bytes(info.tobuf())
+                with patch.object(tarfile.TarInfo, "_proc_gnulong", side_effect=AssertionError("no body parse")), \
+                        patch.object(tarfile.TarInfo, "_proc_pax", side_effect=AssertionError("no body parse")):
+                    findings, count = checks.check_archive(path)
+                self.assertEqual((self.codes(findings), count), ({"invalid_archive"}, 0))
+
+    def test_tar_recursive_extensions_are_bounded_and_sparse_is_rejected(self):
+        path = self.base / "extensions.tar"
+        for kind in (tarfile.GNUTYPE_LONGNAME, tarfile.XHDTYPE):
+            info = tarfile.TarInfo("extension")
+            info.type = kind
+            raw = info.tobuf() * 350 + tarfile.TarInfo("plain").tobuf() + b"\0" * 1024
+            path.write_bytes(raw)
+            findings, count = checks.check_archive(path)
+            self.assertEqual((self.codes(findings), count), ({"invalid_archive"}, 0))
+        info = tarfile.TarInfo("sparse")
+        info.type = tarfile.GNUTYPE_SPARSE
+        path.write_bytes(info.tobuf(format=tarfile.GNU_FORMAT) + b"\0" * 1024)
+        findings, count = checks.check_archive(path)
+        self.assertEqual((self.codes(findings), count), ({"invalid_archive"}, 0))
+
+    def test_normal_longname_pax_and_prepended_zip_remain_supported(self):
+        for form in (tarfile.PAX_FORMAT, tarfile.GNU_FORMAT):
+            path = self.base / "long.tar.gz"
+            with tarfile.open(path, "w:gz", format=form) as archive:
+                info = tarfile.TarInfo("folder/" + "x" * 150 + ".txt")
+                info.size = 2
+                archive.addfile(info, io.BytesIO(b"ok"))
+            entries = list(checks._archive_entries(path))
+            self.assertEqual((entries[0][0], entries[0][-1]), (info.name, b"ok"))
+        path = self.wheel()
+        path.write_bytes(b"synthetic prepended bytes\n" + path.read_bytes())
+        findings, _ = checks.check_archive(path)
+        self.assertEqual(findings, [])
+
+    def test_compression_container_metadata_is_bounded_before_tar_open(self):
+        path = self.base / "container.tar.gz"
+        raw = bytearray(gzip.compress(tarfile.TarInfo("normal").tobuf() + b"\0" * 1024))
+        raw[3] |= 8  # gzip FNAME; the container parser consumes this first.
+        raw[10:10] = b"x" * 16384 + b"\0"
+        path.write_bytes(raw)
+        with patch.object(checks, "MAX_ARCHIVE_BYTES", 4096), \
+                patch.object(checks.tarfile, "open", side_effect=AssertionError("no container parse")):
+            findings, count = checks.check_archive(path)
+        self.assertEqual((self.codes(findings), count), ({"invalid_archive"}, 0))
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@
 
 Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中管理原始资料、历史输出版本、关键决策、剩余工作、检查与审批记录，方便 Agent 追踪进度。配置并信任 Codex 集成后，Agent 可在处理日常文件请求时应用这一流程，无需每次指定使用 Retulo。切换到新会话时，指定同一任务或工作区，即可根据已记录的状态继续推进。
 
-[![预览版 0.4.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc1)
+[![预览版 0.4.0rc2](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2)
 [![发布检查](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 及以上](assets/badges/python.svg)](#support)
 [![MIT 许可证](assets/badges/license.svg)](LICENSE)
@@ -130,14 +130,14 @@ Retulo 提供简短的当前状态与待办摘要，详细记录仍可按需查�
 
 也可用 `RETULO_CONFIG` 指定配置路径。只有显式运行 `init-config` 或安装操作才会创建配置。JSON 是状态依据，`WORKSPACE.md` 是当前状态的可读视图。请求 ID 让重试保持幂等，修改操作还会检查上次读取的版本号。
 
-Main Brain 是可选的证据与记忆集成。核心功能无需 Main Brain，也不依赖 OmO/OmO Native 等额外 Agent 编排器。
+Retulo 将任务与文件记录保存在本地。通过现有 Agent 或 CLI 客户端即可使用核心功能，无需单独运行服务。
 
 <a id="support"></a>
 ## 支持范围
 
 | 方面 | 当前范围 |
 |---|---|
-| 版本 | `0.4.0rc1` 预览版 |
+| 版本 | `0.4.0rc2` 预览版 |
 | 运行环境 | Python 3.11+；已在 Python 3.11 与 3.14 检查源码及正常安装的 wheel |
 | 已验证环境 | macOS、本地文件系统 |
 | 接口 | CLI、MCP，以及随源码提供的 Codex 集成 |
@@ -158,7 +158,7 @@ Retulo 管理通过其流程登记的文件与任务，不会拦截其他宿主�
 - [常见问题](docs/FAQ.md)
 - [한국어 사용 안내](docs/USER_GUIDE.ko.md)
 - [工作流与工作流模板](docs/WORKFLOWS.md)
-- [Agent 与可选记忆集成](docs/INTEGRATIONS.md)
+- [Agent 集成](docs/INTEGRATIONS.md)
 - [任务历史与受管更新](docs/SUSTAINABILITY.md)
 - [文件格式与安全契约](docs/FORMAT_AND_SAFETY.md) · [架构](docs/ARCHITECTURE.md)
 - [验证记录](docs/QUALIFICATION.md) · [版本说明](docs/RELEASE.md) · [变更记录](CHANGELOG.md)

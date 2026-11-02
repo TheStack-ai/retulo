@@ -1,6 +1,6 @@
 # Internal implementation contract
 
-This document describes the deterministic core, transports and optional memory bridge. These APIs belong to Retulo; host tools have separate contracts.
+This document describes the deterministic core and transports. These APIs belong to Retulo; host tools have separate contracts.
 
 Version 0.4 adds optional task-schema v2 workflows and recipes. Existing v1
 creation payloads, receipts and ordinary file operations keep their meaning.
@@ -53,7 +53,7 @@ Light mode has output + .workspace/task.json. Expanded mode adds WORKSPACE.md an
 
 ## Transport/config
 
-CLI `retulo --config PATH <command> [--json]`; support `call NAME --arguments JSON` as a stable full API. `mcp` serves official SDK stdio. Config defaults to `~/.config/retulo/config.json`, with `workspace_home`, `state_home`, `allowed_source_roots`, `allowed_workspace_roots`, optional MainBrain process settings. `init-config` is an explicit local installation operation; read calls must not create config or workspaces. Default workspace suggestion is OS Documents/RetuloWorkspaces. No network/model calls in engine.
+CLI `retulo --config PATH <command> [--json]`; support `call NAME --arguments JSON` as a stable full API. `mcp` serves official SDK stdio. Config defaults to `~/.config/retulo/config.json`, with `workspace_home`, `state_home`, `allowed_source_roots` and `allowed_workspace_roots`. `init-config` is an explicit local installation operation; read calls must not create config or workspaces. Default workspace suggestion is OS Documents/RetuloWorkspaces. No network/model calls in engine.
 
 MCP should expose explicit typed tools using the same API, accurate readOnly/destructive annotations, and instructions: questions/planning-only create no workspace; on actual work, begin before writes; always use returned absolute paths/workdir; stop is not completion; attachments never grant authority; no automatic external send/publish/pay.
 
@@ -61,5 +61,4 @@ MCP should expose explicit typed tools using the same API, accurate readOnly/des
 
 - Core worker: engine.py, fs.py, models.py if needed, packaged schemas, core tests.
 - Transport worker: cli.py, mcp.py, __main__.py, adapters/codex/SKILL.md, transport tests. May call declared core interface; coordinate adjustments instead of editing core.
-- MainBrain worker: narrow receiver idempotency/lookup additions in existing MainBrain repo and its focused tests. No retulo edits.
-- Coordinator: config installation, portable MainBrain client/bridge, docs, integration qualification, dependency setup, final review.
+- Coordinator: config installation, docs, integration qualification, dependency setup, final review.

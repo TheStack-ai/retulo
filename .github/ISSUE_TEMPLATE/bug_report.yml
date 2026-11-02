@@ -14,7 +14,7 @@ body:
     attributes:
       label: Retulo version or commit
       description: Run `retulo --version`, or name the source commit you used.
-      placeholder: retulo 0.4.0rc1
+      placeholder: retulo 0.4.0rc2
     validations:
       required: true
   - type: input

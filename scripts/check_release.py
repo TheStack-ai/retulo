@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import re
+import struct
 import tarfile
 import tomllib
 import zipfile
@@ -48,6 +49,7 @@ PRIVATE_NAMES = {"auth.json", "credentials.json", "credentials.yaml", "credentia
 MAX_FILE_BYTES = 2 * 1024 * 1024
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
 MAX_ARCHIVE_MEMBERS = 10000
+MAX_TAR_EXTENSION_DEPTH = 32
 OLD_BRANDING = re.compile(r"workspace[_-]engine", re.IGNORECASE)
 HOME_PATH = re.compile(r"/(?:Users|home)/([A-Za-z0-9._-]+)/")
 PLACEHOLDER_USERS = {"user", "username", "example", "example-user", "your-user"}
@@ -180,24 +182,107 @@ def check_source(root):
     return results, inspected
 
 
+def _preflight_zip(stream):
+    """Bound actual central records before ZipFile creates any ZipInfo objects.
+
+    Use the same stdlib footer reader (including ZIP64/prepended-data handling)
+    as ZipFile. The footer's advertised member count is not a safe loop bound.
+    """
+    end = zipfile._EndRecData(stream)
+    if end is None:
+        raise ValueError("Missing ZIP end record")
+    size = end[zipfile._ECD_SIZE]
+    location = end[zipfile._ECD_LOCATION]
+    if size > MAX_ARCHIVE_BYTES:
+        raise ValueError("Archive exceeds inspection limits")
+    # Patched Python releases locate ZIP64 at its own end record; older
+    # releases locate the classic EOCD. Inspect that fixed signature instead
+    # of guessing from the Python minor version.
+    if end[zipfile._ECD_SIGNATURE] == zipfile.stringEndArchive64:
+        stream.seek(location)
+        signature = stream.read(4)
+        if signature == zipfile.stringEndArchive:
+            location -= zipfile.sizeEndCentDir64 + zipfile.sizeEndCentDir64Locator
+        elif signature != zipfile.stringEndArchive64:
+            raise ValueError("Invalid ZIP64 end record location")
+    start = location - size
+    if start < 0:
+        raise ValueError("Invalid ZIP central directory offset")
+    stream.seek(start)
+    consumed = count = 0
+    while consumed < size:
+        header = stream.read(zipfile.sizeCentralDir)
+        if len(header) != zipfile.sizeCentralDir or header[:4] != zipfile.stringCentralDir:
+            raise ValueError("Invalid ZIP central directory record")
+        count += 1
+        if count > MAX_ARCHIVE_MEMBERS:
+            raise ValueError("Archive exceeds inspection limits")
+        lengths = struct.unpack_from("<HHH", header, 28)
+        consumed += zipfile.sizeCentralDir + sum(lengths)
+        if consumed > size:
+            raise ValueError("Truncated ZIP central directory record")
+        stream.seek(start + consumed)
+    stream.seek(0)
+
+
+class _BoundedTarInfo(tarfile.TarInfo):
+    """Intercept every physical header before stdlib extension parsing."""
+
+    def _proc_member(self, archive):
+        archive._release_headers = getattr(archive, "_release_headers", 0) + 1
+        archive._release_bytes = getattr(archive, "_release_bytes", 0) + 512 + self._block(self.size)
+        depth = getattr(archive, "_release_depth", 0)
+        if (self.size < 0 or archive._release_headers > MAX_ARCHIVE_MEMBERS or
+                archive._release_bytes > MAX_ARCHIVE_BYTES * 2 or depth >= MAX_TAR_EXTENSION_DEPTH):
+            raise ValueError("Archive exceeds inspection limits")
+        extension = self.type in (tarfile.GNUTYPE_LONGNAME, tarfile.GNUTYPE_LONGLINK,
+                                 tarfile.XHDTYPE, tarfile.XGLTYPE, tarfile.SOLARIS_XHDTYPE)
+        if extension and self.size > MAX_FILE_BYTES:
+            raise ValueError("TAR extension exceeds inspection limits")
+        archive._release_depth = depth + 1
+        try:
+            return super()._proc_member(archive)
+        finally:
+            archive._release_depth = depth
+
+    def _proc_sparse(self, *args):
+        raise ValueError("Sparse TAR members are not release files")
+
+    _proc_gnusparse_00 = _proc_sparse
+    _proc_gnusparse_01 = _proc_sparse
+    _proc_gnusparse_10 = _proc_sparse
+
+
 def _archive_entries(path):
     """Validate member metadata before reading any payload; never extract."""
+    # Compression-container metadata (for example gzip optional name/comment
+    # fields) is parsed before the first TAR header reaches our TarInfo hook.
+    if path.stat().st_size > MAX_ARCHIVE_BYTES * 2:
+        raise ValueError("Archive exceeds inspection limits")
     if path.suffix == ".whl" or path.suffix == ".zip":
-        with zipfile.ZipFile(path) as archive:
-            members = archive.infolist()
-            if len(members) > MAX_ARCHIVE_MEMBERS or sum(m.file_size for m in members) > MAX_ARCHIVE_BYTES:
-                raise ValueError("Archive exceeds inspection limits")
-            for member in members:
-                mode = (member.external_attr >> 16) & 0o170000
-                yield member.filename, member.is_dir(), mode == 0o120000, member.file_size, (
-                    b"" if member.is_dir() or mode == 0o120000 or member.file_size > MAX_FILE_BYTES
-                    else archive.read(member))
+        with path.open("rb") as stream:
+            _preflight_zip(stream)
+            with zipfile.ZipFile(stream) as archive:
+                members = archive.infolist()
+                if len(members) > MAX_ARCHIVE_MEMBERS or sum(m.file_size for m in members) > MAX_ARCHIVE_BYTES:
+                    raise ValueError("Archive exceeds inspection limits")
+                for member in members:
+                    mode = (member.external_attr >> 16) & 0o170000
+                    yield member.filename, member.is_dir(), mode == 0o120000, member.file_size, (
+                        b"" if member.is_dir() or mode == 0o120000 or member.file_size > MAX_FILE_BYTES
+                        else archive.read(member))
     else:
-        with tarfile.open(path, "r:*") as archive:
-            members = archive.getmembers()
-            if len(members) > MAX_ARCHIVE_MEMBERS or sum(m.size for m in members) > MAX_ARCHIVE_BYTES:
-                raise ValueError("Archive exceeds inspection limits")
-            for member in members:
+        with tarfile.open(path, "r:*", tarinfo=_BoundedTarInfo) as archive:
+            count = total = metadata = 0
+            for member in archive:
+                count += 1
+                total += member.size
+                metadata += sum(len(k) + len(v) for k, v in member.pax_headers.items())
+                if (count > MAX_ARCHIVE_MEMBERS or member.size < 0 or total > MAX_ARCHIVE_BYTES or
+                        metadata > MAX_ARCHIVE_BYTES):
+                    raise ValueError("Archive exceeds inspection limits")
+                # We never resolve TAR links; don't retain copied global PAX maps.
+                archive.members.clear()
                 special = not (member.isdir() or member.isfile())
                 raw = b""
                 if member.isfile() and member.size <= MAX_FILE_BYTES:
@@ -227,7 +312,8 @@ def check_archive(path):
             entries[name] = raw
             if size > MAX_FILE_BYTES:
                 results.append(finding(name, "oversized_file", "Archive member exceeds inspection limit"))
-    except (OSError, ValueError, tarfile.TarError, zipfile.BadZipFile) as exc:
+    except (OSError, ValueError, EOFError, UnicodeError, struct.error,
+            tarfile.TarError, zipfile.BadZipFile) as exc:
         return [finding(path.name, "invalid_archive", str(exc))], 0
     wheel = path.suffix == ".whl"
     paths = list(entries)

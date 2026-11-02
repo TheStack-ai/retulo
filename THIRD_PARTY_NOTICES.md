@@ -49,6 +49,6 @@ License labels come from installed distribution metadata and do not replace the 
 
 ## Provenance
 
-This candidate is a clean source export of the local development prototype. Private Git history and operating data are excluded. The core contains no implementation copied from the research articles cited in the design notes; those articles informed the design. The optional Main Brain bridge is interface code only and does not include the receiver, private databases or original documents.
+This candidate is a clean source export of the local development prototype. Private Git history and operating data are excluded. The core contains no implementation copied from the research articles cited in the design notes; those articles informed the design.
 
 The MIT text is available from the [Open Source Initiative](https://opensource.org/license/mit). Links above identify the inspected dependency versions.

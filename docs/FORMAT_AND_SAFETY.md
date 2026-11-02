@@ -4,7 +4,7 @@
 
 `task.json` is the current task state. JSON Schema is packaged under `src/retulo/schemas`. `WORKSPACE.md` is a generated view with a state revision, not a transcript or second editable state store. User edits to that guide are preserved and reported. Separate user notes can be kept as ordinary artifacts.
 
-Task state includes goal, explicit completion criteria, status, source references, immutable artifact revisions/hashes, optional approval snapshots, decisions (proposed/confirmed/superseded), optional application bindings, next action and review date. Current task facts live here. Historical decisions and evidence may be linked to Main Brain; stale memory cannot overwrite the current task state.
+Task state includes goal, explicit completion criteria, status, source references, immutable artifact revisions/hashes, optional approval snapshots, decisions (proposed/confirmed/superseded), optional application bindings, next action and review date. Current task facts live here; earlier records do not override the current state or user request.
 
 Opt-in schema v2 adds a workflow definition, current input bindings, immutable
 run records, selected step outputs and a final target set. v1 remains supported;
@@ -12,7 +12,7 @@ an old engine must reject v2 instead of ignoring its completion contract. The
 workflow and recipe schema versions are distinct from the task schema version.
 See [workflows and recipes](WORKFLOWS.md).
 
-Core approval and decision provenance is honestly labeled caller-supplied. The engine validates the referenced artifact version and preserves bytes, but it does not authenticate a human just because a caller submits `actor=user`. The client must use actual user evidence. Main Brain independently verifies registered evidence when connected.
+Core approval and decision provenance is honestly labeled caller-supplied. The engine validates the referenced artifact version and preserves bytes, but it does not authenticate a human just because a caller submits `actor=user`. The client must use actual user evidence.
 
 ## Files
 

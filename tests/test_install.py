@@ -133,11 +133,10 @@ class InstallTests(unittest.TestCase):
         existing=json.loads(settings.read_text())
         existing.update(schema_version=1,state_home=str(self.root/'custom-state'),
                         allowed_workspace_roots=[str(self.kw['workspace_home']),str(self.root/'another-workspace')],
-                        allowed_source_roots=[str(self.root/'source-a'),str(self.root/'source-b')],
-                        main_brain={'command':'synthetic-brain','args':['--scope','fixture']})
+                        allowed_source_roots=[str(self.root/'source-a'),str(self.root/'source-b')])
         original=('\n'+json.dumps(existing,indent='\t')+'\n\n').encode()
         settings.write_bytes(original)
-        options={**self.kw,'source_roots':existing['allowed_source_roots'],'main_brain':existing['main_brain']}
+        options={**self.kw,'source_roots':existing['allowed_source_roots']}
         (self.kw['repo']/'adapters/codex/SKILL.md').write_text('updated skill')
         for apply in (False,True):
             with self.subTest(apply=apply):
@@ -148,10 +147,10 @@ class InstallTests(unittest.TestCase):
         self.assertEqual((self.kw['skills_home']/'retulo/SKILL.md').read_text(),'updated skill')
 
     def test_reinstall_keeps_omitted_optional_config_defaults_omitted(self):
-        existing={'workspace_home':str(self.kw['workspace_home']),'allowed_source_roots':[],'main_brain':{}}
+        existing={'workspace_home':str(self.kw['workspace_home']),'allowed_source_roots':[]}
         original=json.dumps(existing,separators=(',',':')).encode()
         self.kw['engine_config'].write_bytes(original)
-        result=installer.install(**self.kw,main_brain={},apply=True)
+        result=installer.install(**self.kw,apply=True)
         self.assertEqual(self.kw['engine_config'].read_bytes(),original)
         self.assertFalse(next(row for row in result['files'] if row['path']==str(self.kw['engine_config']))['changed'])
 
@@ -160,15 +159,12 @@ class InstallTests(unittest.TestCase):
         settings=self.kw['engine_config'];existing=json.loads(settings.read_text())
         existing.update(state_home=str(self.root/'custom-state'),
                         allowed_workspace_roots=[str(self.root/'other-workspace')],
-                        allowed_source_roots=[str(self.root/'source')],
-                        main_brain={'command':'synthetic-brain'})
+                        allowed_source_roots=[str(self.root/'source')])
         settings.write_text(json.dumps(existing,indent=4))
-        options={**self.kw,'source_roots':existing['allowed_source_roots'],'main_brain':existing['main_brain']}
+        options={**self.kw,'source_roots':existing['allowed_source_roots']}
         cases=[({'workspace_home':self.root/'different-home'},'workspace_home'),
                ({'source_roots':[]},'allowed_source_roots'),
-               ({'source_roots':existing['allowed_source_roots']+[str(self.root/'extra-source')]},'allowed_source_roots'),
-               ({'main_brain':None},'main_brain'),
-               ({'main_brain':{'command':'different-brain'}},'main_brain')]
+               ({'source_roots':existing['allowed_source_roots']+[str(self.root/'extra-source')]},'allowed_source_roots')]
         before={p:p.read_bytes() for p in self.root.rglob('*') if p.is_file()}
         for override,field in cases:
             for apply in (False,True):
@@ -179,7 +175,8 @@ class InstallTests(unittest.TestCase):
     def test_reinstall_rejects_invalid_custom_configuration_before_writes(self):
         original={'workspace_home':str(self.kw['workspace_home']),'allowed_source_roots':[]}
         invalid=[{'schema_version':2},{'state_home':'relative'}, {'allowed_workspace_roots':['relative']},
-                 {'unexpected':'value'},{'main_brain':'invalid'}]
+                 {'unexpected':'value'},{'main_brain':'invalid'},{'main_brain':{}},
+                 {'main_brain':{'command':'synthetic-unavailable-command'}}]
         for fields in invalid:
             self.kw['engine_config'].write_text(json.dumps({**original,**fields}))
             before=self.kw['engine_config'].read_bytes()
@@ -193,7 +190,7 @@ class InstallTests(unittest.TestCase):
     def test_harness_preserves_global_guidance_hooks_order_and_feature_settings(self):
         codex=self.kw['codex_home'];codex.mkdir()
         # Preserve the existing bytes, including non-UTF8 comments and CRLF.
-        guidance=b'# Global\r\n<!-- omo-native-workflow:start -->\r\nkeep \xff exact\r\n<!-- omo-native-workflow:end -->'
+        guidance=b'# Global\r\n<!-- unrelated-existing-workflow:start -->\r\nkeep \xff exact\r\n<!-- unrelated-existing-workflow:end -->'
         (codex/'AGENTS.md').write_bytes(guidance)
         command='printf "%s" "$(never-run) `never-run`" && other-hook --literal "a b" && echo retulo codex-hook'
         existing={'hooks':{event:[{'matcher':'*','hooks':[{'type':'command','command':command}]}]

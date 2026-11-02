@@ -1,0 +1,9 @@
+# Retulo
+
+Local workspaces for AI agents. Official documentation pages at the explicitly configured site URL.
+
+- [English](https://thestack-ai.github.io/retulo/site/): Keep source material, file versions, decisions and progress together. Continue the same AI agent task across conversations, then update or reuse its workflow.
+- [简体中文](https://thestack-ai.github.io/retulo/site/zh-CN/): 集中管理原始资料、文件版本、决策与进度。在新会话中继续同一任务，并更新或复用工作流。
+- [한국어](https://thestack-ai.github.io/retulo/site/ko/): 원본 자료와 파일 버전, 결정 사항, 진행 기록을 함께 관리합니다. 새 대화에서 같은 작업을 이어가고 작업 절차를 갱신하거나 재사용합니다.
+
+This index helps agents find documentation. It does not establish search ranking or approval of generated content.

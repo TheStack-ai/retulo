@@ -40,12 +40,9 @@ async def wire(server, task_id):
                 initialized = await client.initialize()
                 assert initialized.server_info.name == "retulo"
                 listed = await client.list_tools()
-                assert len(listed.tools) == 29
+                assert len(listed.tools) == 24
                 checked = await client.call_tool("verify", {"task_id": task_id})
                 assert not checked.is_error and checked.structured_content["ok"]
-                optional = await client.call_tool("brain_prepare", {"task_id": task_id})
-                assert optional.is_error
-                assert optional.structured_content["error"]["code"] == "brain_not_configured"
     return len(listed.tools)
 
 
@@ -136,7 +133,7 @@ def main():
             assert hashlib.sha256(Path(path).read_bytes()).hexdigest() == checksum
         print(json.dumps({"ok": True, "install_preview_read_only": True, "reinstall_no_change": True,
             "hook_events": 3, "hooks_read_only": True, "completed_versions": len(preserved),
-            "same_task_resumed": True, "stdio_mcp_tools": tool_count, "main_brain_required": False,
+            "same_task_resumed": True, "stdio_mcp_tools": tool_count,
             "restore_preview_read_only": True, "original_settings_restored": True,
             "artifacts_preserved_after_restore": True, "model_calls": 0,
             "host_settings_modified": False}))

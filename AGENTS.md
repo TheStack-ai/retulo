@@ -7,6 +7,5 @@
 - Preserve task UUIDs, originals, immutable output versions, revision checks and receipts.
 - JSON state is authoritative; generated Markdown is a projection.
 - File integrity, content validation, user approval and external delivery are distinct.
-- Main Brain and optional orchestrators are not required for core execution.
 - Verify changed behavior and reuse valid checks. Simulations do not establish real-client compatibility.
 - Uploading or publishing requires a separate explicit instruction.
