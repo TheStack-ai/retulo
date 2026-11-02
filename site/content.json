@@ -1,0 +1,593 @@
+{
+  "version": "0.4.0rc1",
+  "locales": {
+    "en": {
+      "name": "English",
+      "title": "Retulo — Local workspaces for AI agents",
+      "description": "Keep source material, file versions, decisions and progress together. Continue the same AI agent task across conversations, then update or reuse its workflow.",
+      "skip": "Skip to content",
+      "nav": [
+        "Overview",
+        "How it works",
+        "Quick start",
+        "Docs",
+        "Get help"
+      ],
+      "preview": "LOCAL PREVIEW",
+      "headline": "Local workspaces\nfor AI agents.",
+      "intro": "Retulo gives AI agents a dedicated local workspace for file-producing work. It keeps source material, output versions, decisions, and checks together. Identify the same task in a new conversation to continue from its recorded state.",
+      "start": "Get started",
+      "see": "See the workflow",
+      "ledger_label": "WHAT A WORKSPACE KEEPS",
+      "ledger_title": "The files.\nThe progress.\nThe next step.",
+      "ledger_items": [
+        "Source material",
+        "Output versions",
+        "Decisions and remaining work",
+        "Checks and approvals"
+      ],
+      "facts": [
+        [
+          "0.4.0rc1",
+          "Preview release"
+        ],
+        [
+          "macOS",
+          "Local filesystem"
+        ],
+        [
+          "3.11+",
+          "Python required"
+        ],
+        [
+          "MIT",
+          "Open source"
+        ]
+      ],
+      "core_label": "01 / THE FOUNDATION",
+      "core_title": "Keep the work together.",
+      "core_intro": "A task is more than its latest file. Retulo keeps source material, output history, decisions, and checks organized for your agent.",
+      "features": [
+        [
+          "Use an ordinary request",
+          "After setup and trust, the connected agent can follow the same file-work procedure while handling your usual requests. Questions and planning alone do not create a workspace."
+        ],
+        [
+          "Continue the same task",
+          "A stable task ID and workspace connect the work across conversations. Provide the task, workspace path, or an actual artifact reference when continuing."
+        ],
+        [
+          "Keep sources and earlier versions",
+          "Reserve output destinations, register saved files, and retain managed previous outputs. Existing code repositories stay in place."
+        ],
+        [
+          "Know what is done",
+          "Keep a concise current guide with decisions, remaining work, checks, and approvals. A saved file, checked content, and user approval remain distinct."
+        ]
+      ],
+      "continuity_alt": "A task keeps its source material, versioned outputs and progress when an agent continues it in another conversation using the same task or workspace.",
+      "continuity_caption": "Same task. New conversation. Continue from recorded files and progress by identifying the workspace.",
+      "how_label": "02 / HOW IT WORKS",
+      "how_title": "Your agent runs the tools.\nRetulo keeps the task in order.",
+      "steps": [
+        [
+          "Describe the work",
+          "The current agent interprets your request and makes the goal and completion criteria explicit."
+        ],
+        [
+          "Connect the task",
+          "The agent starts a workspace or identifies the existing one before producing files."
+        ],
+        [
+          "Save and check",
+          "Retulo records versions and file integrity. The agent or user evaluates content and records the result."
+        ],
+        [
+          "Continue with context",
+          "Read the short current guide, then retrieve detailed records when the next step needs them."
+        ]
+      ],
+      "how_note": "The core runs locally. It does not launch models or agents, execute recipe commands, watch folders, or publish results. A separate memory service or agent orchestrator is optional.",
+      "quick_label": "03 / QUICK START",
+      "quick_title": "Start from the source checkout.",
+      "quick_intro": "Unpack the source archive and open a terminal in its project directory. This preview uses source installation.",
+      "install_title": "Install the CLI and MCP core",
+      "install_note": "The final command should display Retulo’s available commands.",
+      "connect_title": "Preview the Codex integration",
+      "connect_note": "The first command previews changes. Apply them when ready, then review and trust the exact hooks in Codex. Keep this source checkout in place. Existing MCP connections are not restarted automatically.",
+      "copy": "Copy",
+      "copied": "Copied",
+      "copy_failed": "Select and copy the command below.",
+      "after_install": "Then ask for ordinary work",
+      "request": "Create a visitor guide as a Markdown file. Preserve the source material.",
+      "continue_request": "Continue this guide in the same workspace. Add a contact section and keep the previous version.",
+      "continue_label": "In another conversation, include the existing workspace or file reference",
+      "source_guide": "Read the installation and restore guide",
+      "workflow_label": "04 / UPDATE AND REPEAT",
+      "workflow_title": "Change the input.\nKeep the useful work.",
+      "workflow_intro": "For declared workflows, Retulo connects inputs, production steps, and exact outputs. The agent can see which steps need work after an input changes.",
+      "workflow_features": [
+        [
+          "Rebuild affected steps",
+          "The host agent reruns the necessary tools while earlier final files remain preserved. Undeclared dependencies are not automatically discovered."
+        ],
+        [
+          "Reuse a workflow recipe",
+          "Use versioned inputs and parameters to create a new task. Its checks start fresh; previous approvals and verdicts are not copied."
+        ]
+      ],
+      "workflow_alt": "Declared input changes affect linked workflow steps while an independent step can be reused and the previous final report remains preserved.",
+      "workflow_caption": "Observed report example: five affected steps regenerated, one independent step reused. This is an example result, not a general saving guarantee.",
+      "demo_title": "Run the complete local example",
+      "demo_note": "Choose a new, empty output directory. The example creates an HTML report from the checkout’s inventory, updates affected steps, preserves the earlier report, saves a recipe, and creates a new report from another inventory. It makes no model calls and changes no global installation settings.",
+      "docs_label": "05 / DOCUMENTATION",
+      "docs_title": "Go from the first task\nto the full contract.",
+      "documents": [
+        [
+          "README",
+          "Overview, source installation, and everyday use.",
+          "README.md"
+        ],
+        [
+          "Workflows and recipes",
+          "Declared steps, exact inputs and outputs, and new-task reuse.",
+          "docs/WORKFLOWS.md"
+        ],
+        [
+          "Integration",
+          "The host agent, context hooks, and optional memory connection.",
+          "docs/INTEGRATIONS.md"
+        ],
+        [
+          "Qualification",
+          "Tested environments, actual methods, and current limits.",
+          "docs/QUALIFICATION.md"
+        ],
+        [
+          "Restore",
+          "Installation snapshots and guarded restoration.",
+          "docs/RESTORE.md"
+        ],
+        [
+          "Frequently asked questions",
+          "Common setup, continuity, and validation questions.",
+          "docs/FAQ.md"
+        ]
+      ],
+      "faq_title": "A few useful distinctions.",
+      "faqs": [
+        [
+          "Does Retulo remember every conversation?",
+          "Retulo records managed tasks, files, and progress. To continue across conversations, identify the same task or workspace. The core does not reconstruct conversations it has not received."
+        ],
+        [
+          "Does Retulo write or assess the content?",
+          "The current agent interprets the request and runs its tools. Retulo manages the workspace and records file integrity, checks, and approvals. Recorded checks do not guarantee content quality."
+        ],
+        [
+          "What is supported today?",
+          "The qualified target is macOS with a local filesystem, using Python 3.11 or later. Other operating systems, network storage, multiple hosts, and other clients need separate validation."
+        ],
+        [
+          "Can I use it without Main Brain or OmO?",
+          "Yes. The core works without a memory service or an additional agent orchestrator. Those are optional integrations."
+        ]
+      ],
+      "help_label": "06 / HELP AND CONTRIBUTIONS",
+      "help_title": "Make the next task easier.",
+      "help_intro": "Start with the guides, share a minimal reproduction for a bug, or describe the work a proposed feature should help you complete.",
+      "help_links": [
+        [
+          "Community guide",
+          "docs/COMMUNITY.md"
+        ],
+        [
+          "Contribute",
+          "CONTRIBUTING.md"
+        ],
+        [
+          "Report a security issue",
+          "SECURITY.md"
+        ]
+      ],
+      "publication_note": "Preview release. Install from the GitHub source checkout, and read the qualification record for tested environments and current limits.",
+      "footer": "Local workspaces. Recorded progress. Work you can continue.",
+      "source": "Source overview",
+      "license": "MIT license",
+      "continuity_demo_title": "Run the file-work continuity example",
+      "continuity_demo_note": "Use a new, empty output directory. Separate CLI processes create a guide, inspect the same task again, and save a second version while preserving the source and first result. This checks task continuity; it is not a test of a new Codex conversation."
+    },
+    "zh-CN": {
+      "name": "简体中文",
+      "title": "Retulo — 为 AI Agent 提供本地工作区",
+      "description": "集中管理原始资料、文件版本、决策与进度。在新会话中继续同一任务，并更新或复用工作流。",
+      "skip": "跳转到正文",
+      "nav": [
+        "概览",
+        "工作原理",
+        "快速开始",
+        "文档",
+        "获取帮助"
+      ],
+      "preview": "本地预览版",
+      "headline": "为 AI Agent\n提供本地工作区。",
+      "intro": "Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中管理原始资料、输出版本、关键决策与检查记录。在新会话中指定同一任务，即可根据已记录的状态继续推进。",
+      "start": "开始使用",
+      "see": "查看工作流程",
+      "ledger_label": "工作区保留的内容",
+      "ledger_title": "文件。\n进度。\n下一步。",
+      "ledger_items": [
+        "原始资料",
+        "输出版本",
+        "决策与剩余工作",
+        "检查与审批记录"
+      ],
+      "facts": [
+        [
+          "0.4.0rc1",
+          "预览版本"
+        ],
+        [
+          "macOS",
+          "本地文件系统"
+        ],
+        [
+          "3.11+",
+          "Python 要求"
+        ],
+        [
+          "MIT",
+          "开源许可"
+        ]
+      ],
+      "core_label": "01 / 基础功能",
+      "core_title": "将任务所需的信息放在一起。",
+      "core_intro": "一项任务不只是最新生成的文件。Retulo 为已连接的 Agent 整理原始资料、历史版本、决策与检查记录。",
+      "features": [
+        [
+          "从日常请求开始",
+          "完成配置与信任后，已连接的 Agent 可在处理日常请求时遵循同一文件工作流程。纯问答和规划不会创建工作区。"
+        ],
+        [
+          "继续同一个任务",
+          "稳定的任务 ID 与工作区将不同会话中的工作连接起来。继续时，请提供任务 ID、工作区路径或实际产物引用。"
+        ],
+        [
+          "管理原始资料与历史版本",
+          "预留输出位置、登记已保存的文件，并保留受管理的历史输出。现有代码仓库保持原有位置。"
+        ],
+        [
+          "了解任务进展",
+          "精炼的当前指引中包含决策、剩余工作、检查与审批记录。文件已保存、内容已检查与用户已批准分别记录。"
+        ]
+      ],
+      "continuity_alt": "通过指定同一任务或工作区，Agent 可以在新会话中继续使用原始资料、历史输出与任务进度。",
+      "continuity_caption": "同一任务，新的会话。指定工作区，从已记录的文件与进度继续。",
+      "how_label": "02 / 工作原理",
+      "how_title": "Agent 运行工具。\nRetulo 整理任务。",
+      "steps": [
+        [
+          "描述工作",
+          "当前 Agent 理解请求，并明确目标与完成标准。"
+        ],
+        [
+          "连接任务",
+          "生成文件前，Agent 创建工作区或识别已有工作区。"
+        ],
+        [
+          "保存与检查",
+          "Retulo 记录版本并检查文件完整性。Agent 或用户评估内容，并记录结果。"
+        ],
+        [
+          "带着当前状态继续",
+          "先阅读简短的当前指引，需要时再获取详细记录。"
+        ]
+      ],
+      "how_note": "核心在本地运行，不启动模型或 Agent，不执行模板中的命令，不监视文件夹，也不发布结果。独立记忆服务与额外的 Agent 编排器均为可选项。",
+      "quick_label": "03 / 快速开始",
+      "quick_title": "从源代码目录开始。",
+      "quick_intro": "解压源代码包，并在项目目录中打开终端。当前预览版采用源代码安装。",
+      "install_title": "安装 CLI 与 MCP 核心",
+      "install_note": "最后一条命令应显示 Retulo 的可用命令。",
+      "connect_title": "预览 Codex 集成变更",
+      "connect_note": "第一条命令只预览变更。准备好后再应用，并在 Codex 中查看、信任具体的钩子定义。请保留该源代码目录。现有 MCP 连接不会自动重启。",
+      "copy": "复制",
+      "copied": "已复制",
+      "copy_failed": "请选择并复制下方命令。",
+      "after_install": "然后提出日常工作请求",
+      "request": "请制作一份 Markdown 访客指南，并保留原始资料。",
+      "continue_request": "在同一工作区继续这份指南，添加联系方式，并保留上一版本。",
+      "continue_label": "在新会话中，请同时提供现有工作区或文件引用",
+      "source_guide": "阅读安装与恢复说明",
+      "workflow_label": "04 / 更新与复用",
+      "workflow_title": "输入发生变动，\n有效成果依然保留。",
+      "workflow_intro": "对于已声明的工作流，Retulo 连接输入、生成步骤与具体输出。输入变化后，Agent 可以判断哪些步骤需要重新处理。",
+      "workflow_features": [
+        [
+          "重建受影响的步骤",
+          "宿主 Agent 重新运行所需工具，保留此前的最终文件。未声明的依赖关系不会被自动发现。"
+        ],
+        [
+          "复用工作流模板",
+          "用带版本的输入与参数创建新任务。新任务重新检查，不继承已有审批或检查结论。"
+        ]
+      ],
+      "workflow_alt": "已声明的输入变化影响相连的工作步骤；独立步骤可以复用，之前的最终报告得到保留。",
+      "workflow_caption": "实际报告示例中，5 个受影响步骤重新生成，1 个独立步骤复用。这是单个示例结果，并非普遍节省承诺。",
+      "demo_title": "运行完整的本地示例",
+      "demo_note": "请选择一个新的空输出目录。示例根据当前代码目录的文件清单生成 HTML 报告、更新受影响步骤、保留旧报告、保存模板，再根据另一份清单创建新报告。它不调用模型，也不更改全局安装设置。",
+      "docs_label": "05 / 文档",
+      "docs_title": "从第一个任务，\n了解完整的工作约定。",
+      "documents": [
+        [
+          "README",
+          "概览、源代码安装与日常使用。",
+          "README.zh-CN.md"
+        ],
+        [
+          "工作流与模板",
+          "声明步骤、输入输出与新任务复用。",
+          "docs/WORKFLOWS.md"
+        ],
+        [
+          "集成说明",
+          "宿主 Agent、上下文钩子与可选记忆连接。",
+          "docs/INTEGRATIONS.md"
+        ],
+        [
+          "验证范围",
+          "已测试环境、实际方法与当前限制。",
+          "docs/QUALIFICATION.md"
+        ],
+        [
+          "恢复安装",
+          "安装快照与带检查的恢复流程。",
+          "docs/RESTORE.md"
+        ],
+        [
+          "常见问题",
+          "配置、跨会话继续与验证问题。",
+          "docs/FAQ.md"
+        ]
+      ],
+      "faq_title": "先了解这几个区别。",
+      "faqs": [
+        [
+          "Retulo 会记住所有对话吗？",
+          "Retulo 记录受管理的任务、文件与进度。跨会话继续时，请指定同一任务或工作区。核心不会重建未接收的对话。"
+        ],
+        [
+          "Retulo 会编写或评估内容吗？",
+          "当前 Agent 理解请求并运行工具。Retulo 管理工作区，记录文件完整性、检查与审批。检查记录本身不保证内容质量。"
+        ],
+        [
+          "目前支持哪些环境？",
+          "验证目标为 macOS、本地文件系统与 Python 3.11 或更高版本。其他操作系统、网络存储、多主机与其他客户端需要单独验证。"
+        ],
+        [
+          "不使用 Main Brain 或 OmO 也可以吗？",
+          "可以。核心无需记忆服务或额外的 Agent 编排器即可运行，这些均为可选集成。"
+        ]
+      ],
+      "help_label": "06 / 帮助与贡献",
+      "help_title": "让下一项工作更顺利。",
+      "help_intro": "先查看指南；报告问题时提供最小复现；提出功能建议时说明希望完成的具体工作。",
+      "help_links": [
+        [
+          "社区指南",
+          "docs/COMMUNITY.md"
+        ],
+        [
+          "参与贡献",
+          "CONTRIBUTING.md"
+        ],
+        [
+          "安全问题报告",
+          "SECURITY.md"
+        ]
+      ],
+      "publication_note": "当前为预览版。请按 GitHub 源码中的说明安装，并查看验证记录，了解已测试环境与当前限制。",
+      "footer": "本地工作区。记录进度。继续未完成的工作。",
+      "source": "源代码概览",
+      "license": "MIT 许可",
+      "continuity_demo_title": "运行文件任务续接示例",
+      "continuity_demo_note": "请使用新的空输出目录。独立 CLI 进程创建指南，再检查同一任务，保存第二版本，并保留原始资料与第一版本。这用于检查任务续接，并不验证新 Codex 会话的集成行为。"
+    },
+    "ko": {
+      "name": "한국어",
+      "title": "Retulo — AI 에이전트를 위한 로컬 작업공간",
+      "description": "원본 자료와 파일 버전, 결정 사항, 진행 기록을 함께 관리합니다. 새 대화에서 같은 작업을 이어가고 작업 절차를 갱신하거나 재사용합니다.",
+      "skip": "본문으로 건너뛰기",
+      "nav": [
+        "소개",
+        "작동 방식",
+        "빠른 시작",
+        "문서",
+        "도움받기"
+      ],
+      "preview": "로컬 공개 준비본",
+      "headline": "AI 에이전트를 위한\n로컬 작업공간.",
+      "intro": "Retulo는 AI 에이전트의 파일 작업에 독립된 로컬 작업공간을 제공합니다. 원본 자료, 결과물 버전, 결정 사항과 검증 기록을 한곳에 보관합니다. 새 대화에서 같은 작업을 지정하면 기록된 상태에서 계속 진행할 수 있습니다.",
+      "start": "시작하기",
+      "see": "작업 흐름 보기",
+      "ledger_label": "작업공간이 함께 보관하는 것",
+      "ledger_title": "파일.\n진행 상황.\n다음 할 일.",
+      "ledger_items": [
+        "원본 자료",
+        "결과물 버전",
+        "결정 사항과 남은 일",
+        "검증과 승인 기록"
+      ],
+      "facts": [
+        [
+          "0.4.0rc1",
+          "공개 준비 버전"
+        ],
+        [
+          "macOS",
+          "로컬 파일 시스템"
+        ],
+        [
+          "3.11+",
+          "필요한 Python 버전"
+        ],
+        [
+          "MIT",
+          "오픈소스 라이선스"
+        ]
+      ],
+      "core_label": "01 / 기본 작업 관리",
+      "core_title": "작업에 필요한 것을 한곳에.",
+      "core_intro": "작업은 마지막 결과물 파일 하나로 끝나지 않습니다. Retulo는 연결된 에이전트가 참조할 수 있도록 원본 자료, 버전 내역, 결정 사항과 검증 기록을 체계적으로 보관합니다.",
+      "features": [
+        [
+          "평소처럼 요청하기",
+          "연동을 설정하고 신뢰하면, 연결된 에이전트가 일반 요청에도 같은 파일 작업 절차를 적용할 수 있습니다. 질문과 계획만으로는 작업공간을 만들지 않습니다."
+        ],
+        [
+          "같은 작업 이어가기",
+          "고정된 작업 ID와 작업공간으로 대화가 바뀌어도 작업을 연결합니다. 이어갈 때 작업 ID, 작업공간 경로 또는 실제 결과물 참조를 제공합니다."
+        ],
+        [
+          "원본과 이전 결과 관리",
+          "저장할 경로를 정하고 실제 파일을 등록하며 관리 대상의 이전 결과를 보존합니다. 기존 코드 저장소는 원래 위치에서 작업합니다."
+        ],
+        [
+          "현재 상태 파악하기",
+          "짧은 현재 안내에 결정 사항, 남은 일, 검증과 승인 기록을 남깁니다. 파일 저장, 내용 확인, 사용자 승인을 구분합니다."
+        ]
+      ],
+      "continuity_alt": "에이전트가 같은 작업이나 작업공간을 지정해 새 대화에서도 원본 자료, 결과물 버전과 진행 기록을 이어 사용하는 흐름.",
+      "continuity_caption": "같은 작업, 새로운 대화. 작업공간을 지정해 기록된 파일과 진행 상황에서 이어갑니다.",
+      "how_label": "02 / 작동 방식",
+      "how_title": "에이전트가 도구를 실행하고,\nRetulo가 작업을 관리합니다.",
+      "steps": [
+        [
+          "할 일 설명",
+          "현재 에이전트가 요청을 해석하고 목표와 완료 기준을 구체화합니다."
+        ],
+        [
+          "작업 연결",
+          "파일을 만들기 전에 에이전트가 작업공간을 시작하거나 기존 작업을 식별합니다."
+        ],
+        [
+          "저장하고 확인",
+          "Retulo가 버전과 파일 무결성을 기록합니다. 에이전트나 사용자가 내용을 평가하고 결과를 남깁니다."
+        ],
+        [
+          "현재 상태로 이어가기",
+          "짧은 현재 안내를 읽고, 다음 단계에 필요하면 상세 기록을 확인합니다."
+        ]
+      ],
+      "how_note": "코어는 로컬에서 동작합니다. 모델이나 에이전트를 시작하거나 레시피 명령을 실행하지 않으며 폴더 감시와 결과 공개도 하지 않습니다. 별도 기억 서비스나 에이전트 실행 관리자는 선택 사항입니다.",
+      "quick_label": "03 / 빠른 시작",
+      "quick_title": "소스 폴더에서 시작하세요.",
+      "quick_intro": "소스 압축 파일을 풀고 프로젝트 폴더에서 터미널을 엽니다. 현재 공개 준비본은 소스 설치를 사용합니다.",
+      "install_title": "CLI와 MCP 코어 설치",
+      "install_note": "마지막 명령을 실행하면 Retulo에서 사용할 수 있는 명령이 표시됩니다.",
+      "connect_title": "Codex 연동 변경 미리 보기",
+      "connect_note": "첫 명령은 변경 사항을 미리 보여줍니다. 준비되면 적용한 뒤 Codex에서 실제 훅 정의를 확인하고 신뢰하도록 설정합니다. 소스 폴더는 그대로 보관하세요. 기존 MCP 연결은 자동으로 다시 시작되지 않습니다.",
+      "copy": "복사",
+      "copied": "복사됨",
+      "copy_failed": "아래 명령을 선택해 복사하세요.",
+      "after_install": "그다음 평소처럼 작업 요청",
+      "request": "방문객 안내문을 Markdown 파일로 만들어줘. 원본 자료는 보존해줘.",
+      "continue_request": "같은 작업공간에서 이 안내문을 이어서 수정해줘. 연락처를 추가하고 이전 버전도 남겨줘.",
+      "continue_label": "새 대화에서는 기존 작업공간이나 파일 참조를 함께 제공",
+      "source_guide": "설치와 복구 안내 읽기",
+      "workflow_label": "04 / 갱신과 반복",
+      "workflow_title": "자료가 바뀌어도,\n쓸 수 있는 작업은 그대로.",
+      "workflow_intro": "단계가 명시된 작업에서는 Retulo가 입력 자료, 제작 단계, 정확한 결과물을 연결합니다. 입력이 바뀌면 에이전트가 어느 단계에 작업이 필요한지 확인합니다.",
+      "workflow_features": [
+        [
+          "영향받은 단계 갱신",
+          "현재 에이전트가 필요한 도구를 다시 실행하고 이전 최종본은 보존합니다. 명시되지 않은 의존 관계까지 자동으로 알아내지는 않습니다."
+        ],
+        [
+          "작업 레시피 재사용",
+          "버전이 정해진 입력과 매개변수로 새 작업을 만듭니다. 검증은 새로 진행하며 기존 승인이나 통과 판정을 복사하지 않습니다."
+        ]
+      ],
+      "workflow_alt": "명시된 입력 변경으로 연결된 작업 단계가 갱신되고 독립된 단계는 재사용되며 이전 보고서도 보존되는 흐름.",
+      "workflow_caption": "실제 보고서 예제에서 관련 5단계를 다시 만들고 독립된 1단계를 재사용했습니다. 개별 예제의 결과이며 일반적인 절감률을 뜻하지 않습니다.",
+      "demo_title": "완전한 로컬 예제 실행",
+      "demo_note": "새로 만든 빈 출력 폴더를 사용하세요. 현재 소스 폴더의 실제 파일 목록으로 HTML 보고서를 만들고, 관련 단계 갱신, 이전 보고서 보존, 레시피 저장과 다른 자료로 새 보고서 생성을 확인합니다. 모델을 호출하거나 전역 설치 설정을 변경하지 않습니다.",
+      "docs_label": "05 / 문서",
+      "docs_title": "첫 작업부터\n상세 사용 규칙까지.",
+      "documents": [
+        [
+          "README",
+          "소개, 소스 설치와 일반적인 사용 방법.",
+          "README.ko.md"
+        ],
+        [
+          "작업 흐름과 레시피",
+          "명시된 단계, 입력과 출력, 새 작업 재사용.",
+          "docs/WORKFLOWS.md"
+        ],
+        [
+          "연동 안내",
+          "현재 에이전트, 문맥 훅과 선택적 기억 연결.",
+          "docs/INTEGRATIONS.md"
+        ],
+        [
+          "검증 범위",
+          "확인한 환경, 실제 검증 방법과 현재 한계.",
+          "docs/QUALIFICATION.md"
+        ],
+        [
+          "설치 복구",
+          "설치 스냅샷과 변경을 확인하는 복구 절차.",
+          "docs/RESTORE.md"
+        ],
+        [
+          "자주 묻는 질문",
+          "설정, 이어 하기와 검증에 관한 질문.",
+          "docs/FAQ.md"
+        ]
+      ],
+      "faq_title": "이 차이를 알아두세요.",
+      "faqs": [
+        [
+          "모든 대화를 자동으로 기억하나요?",
+          "Retulo는 관리하는 작업, 파일과 진행 상황을 기록합니다. 다른 대화에서 이어갈 때 같은 작업이나 작업공간을 지정합니다. 코어가 전달받지 않은 대화를 복원하지는 않습니다."
+        ],
+        [
+          "내용을 쓰거나 평가하는 것도 Retulo인가요?",
+          "현재 에이전트가 요청을 해석하고 도구를 실행합니다. Retulo는 작업공간을 관리하고 파일 무결성, 검증과 승인을 기록합니다. 검증 기록만으로 내용의 품질이 보장되는 것은 아닙니다."
+        ],
+        [
+          "현재 확인된 환경은 무엇인가요?",
+          "macOS의 로컬 파일 시스템과 Python 3.11 이상이 검증 대상입니다. 다른 운영체제, 네트워크 저장소, 여러 호스트와 다른 클라이언트는 별도 검증이 필요합니다."
+        ],
+        [
+          "Main Brain이나 OmO 없이도 쓸 수 있나요?",
+          "네. 코어는 기억 서비스나 별도의 에이전트 실행 관리자 없이 사용할 수 있습니다. 이들은 선택적인 연결입니다."
+        ]
+      ],
+      "help_label": "06 / 도움과 기여",
+      "help_title": "다음 작업이 더 쉬워지도록.",
+      "help_intro": "먼저 안내를 확인하고, 버그는 작은 재현 예제로, 새 기능은 그 기능으로 끝내고 싶은 작업과 함께 설명해 주세요.",
+      "help_links": [
+        [
+          "커뮤니티 안내",
+          "docs/COMMUNITY.md"
+        ],
+        [
+          "기여하기",
+          "CONTRIBUTING.md"
+        ],
+        [
+          "보안 문제 알리기",
+          "SECURITY.md"
+        ]
+      ],
+      "publication_note": "프리뷰 버전입니다. GitHub 저장소의 소스 설치 안내를 따라 시작하세요. 확인한 환경과 현재 한계는 검증 기록에서 볼 수 있습니다.",
+      "footer": "로컬 작업공간. 남겨진 진행 기록. 이어갈 수 있는 작업.",
+      "source": "소스 소개",
+      "license": "MIT 라이선스",
+      "continuity_demo_title": "파일 작업 이어 하기 예제 실행",
+      "continuity_demo_note": "새로 만든 빈 출력 폴더를 사용하세요. 별도 CLI 프로세스가 안내문을 만들고 같은 작업을 다시 확인한 뒤 두 번째 버전을 저장합니다. 원본과 첫 결과는 보존합니다. 작업 이어 하기를 검사하며 실제 새 Codex 대화의 연동 동작을 확인하는 예제는 아닙니다."
+    }
+  }
+}

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retulo"
+version = "0.4.0rc1"
+description = "Local workspaces for AI agents"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development",
+]
+dependencies = ["mcp==2.3.0", "jsonschema==4.26.0"]
+
+[project.scripts]
+retulo = "retulo.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+retulo = ["schemas/*.json"]

@@ -1,0 +1,74 @@
+name: Documentation site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.11'
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Build hosted documentation with the Python standard library
+        run: |
+          python scripts/build_site.py \
+            --base-url https://thestack-ai.github.io/retulo/site/ \
+            --repository-url https://github.com/TheStack-ai/retulo \
+            --social-image-url https://thestack-ai.github.io/retulo/assets/brand/social-preview.png
+      - name: Stage public pages and shared assets
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+
+          destination = Path('_site')
+          destination.mkdir()
+          for name in ('site', 'assets'):
+              shutil.copytree(name, destination / name)
+          (destination / 'index.html').write_text(
+              '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
+              '<meta name="viewport" content="width=device-width,initial-scale=1">'
+              '<title>Retulo documentation</title>'
+              '<meta http-equiv="refresh" content="0;url=site/">'
+              '<link rel="canonical" href="https://thestack-ai.github.io/retulo/site/">'
+              '</head><body><p><a href="site/">Open Retulo documentation</a></p>'
+              '</body></html>\n', encoding='utf-8')
+          PY
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy documentation site
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

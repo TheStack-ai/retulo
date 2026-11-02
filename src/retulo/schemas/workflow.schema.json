@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:retulo:workflow:1",
+  "title": "Retulo workflow definition v1",
+  "type": "object",
+  "properties": {
+    "workflow_schema_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "inputs": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/input"
+      },
+      "minProperties": 0,
+      "maxProperties": 128
+    },
+    "parameters": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/parameter"
+      },
+      "minProperties": 0,
+      "maxProperties": 128
+    },
+    "environment": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/environment"
+      },
+      "minProperties": 0,
+      "maxProperties": 64
+    },
+    "steps": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/step"
+      },
+      "minProperties": 1,
+      "maxProperties": 128
+    },
+    "targets": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/target"
+      },
+      "minProperties": 1,
+      "maxProperties": 64
+    }
+  },
+  "required": [
+    "workflow_schema_version",
+    "steps",
+    "targets"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "format": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string",
+            "integer",
+            "number",
+            "boolean"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "default": {
+          "type": [
+            "string",
+            "integer",
+            "number",
+            "boolean"
+          ],
+          "maxLength": 16384
+        },
+        "enum": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "integer",
+              "number",
+              "boolean"
+            ],
+            "maxLength": 16384
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "input_ref": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "input": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+            }
+          },
+          "required": [
+            "input"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "step": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+            },
+            "output": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+            }
+          },
+          "required": [
+            "step",
+            "output"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "action": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "agent",
+                "manual"
+              ]
+            },
+            "instruction": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16000
+            }
+          },
+          "required": [
+            "kind",
+            "instruction"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "command"
+            },
+            "argv": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 128,
+              "items": {
+                "type": "string",
+                "maxLength": 16000
+              }
+            },
+            "instruction": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16000
+            }
+          },
+          "required": [
+            "kind",
+            "argv"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "logical_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "format": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 80
+        }
+      },
+      "required": [
+        "logical_name"
+      ],
+      "additionalProperties": false
+    },
+    "step": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "action": {
+          "$ref": "#/$defs/action"
+        },
+        "inputs": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/input_ref"
+          },
+          "minProperties": 0,
+          "maxProperties": 128
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+          },
+          "uniqueItems": true,
+          "maxItems": 128
+        },
+        "environment": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+          },
+          "uniqueItems": true,
+          "maxItems": 128
+        },
+        "outputs": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/output"
+          },
+          "minProperties": 1,
+          "maxProperties": 64
+        },
+        "reuse_policy": {
+          "enum": [
+            "if_unchanged",
+            "never",
+            "manual"
+          ]
+        },
+        "required_checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+          },
+          "uniqueItems": true,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "action",
+        "outputs"
+      ],
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "step": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+              },
+              "output": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+              }
+            },
+            "required": [
+              "step",
+              "output"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "required_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,95}(?![\\s\\S])"
+          },
+          "uniqueItems": true,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "outputs"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

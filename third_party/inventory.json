@@ -1,0 +1,560 @@
+[
+  {
+    "name": "annotated-types",
+    "version": "0.8.0",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/annotated-types/0.8.0/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/annotated-types/LICENSE",
+        "sha256": "fe1049884b1a0d9342901e88e07f32925d24b3121d9972b6a6805fb9824b095d"
+      }
+    ]
+  },
+  {
+    "name": "anyio",
+    "version": "4.16.0",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/anyio/4.16.0/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/anyio/LICENSE",
+        "sha256": "5361ac9dc58f2ef5fd2e9b09c68297c17f04950909bbc8023bdb82eacf22c2b0"
+      }
+    ]
+  },
+  {
+    "name": "attrs",
+    "version": "26.1.0",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/attrs/26.1.0/",
+    "requires_python": ">=3.9",
+    "license_files": [
+      {
+        "path": "third_party/licenses/attrs/LICENSE",
+        "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f"
+      }
+    ]
+  },
+  {
+    "name": "cffi",
+    "version": "2.1.1",
+    "kind": "runtime",
+    "license_expression": "MIT-0",
+    "pypi": "https://pypi.org/project/cffi/2.1.1/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/cffi/LICENSE",
+        "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63"
+      }
+    ]
+  },
+  {
+    "name": "click",
+    "version": "8.5.0",
+    "kind": "runtime",
+    "license_expression": "BSD-3-Clause",
+    "pypi": "https://pypi.org/project/click/8.5.0/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/click/LICENSE.txt",
+        "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+      }
+    ]
+  },
+  {
+    "name": "cryptography",
+    "version": "50.0.2",
+    "kind": "runtime",
+    "license_expression": "Apache-2.0 OR BSD-3-Clause",
+    "pypi": "https://pypi.org/project/cryptography/50.0.2/",
+    "requires_python": ">=3.9, !=3.9.0, !=3.9.1",
+    "license_files": [
+      {
+        "path": "third_party/licenses/cryptography/LICENSE",
+        "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb"
+      },
+      {
+        "path": "third_party/licenses/cryptography/LICENSE.APACHE",
+        "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe"
+      },
+      {
+        "path": "third_party/licenses/cryptography/LICENSE.BSD",
+        "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb"
+      }
+    ]
+  },
+  {
+    "name": "h11",
+    "version": "0.16.0",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/h11/0.16.0/",
+    "requires_python": ">=3.8",
+    "license_files": [
+      {
+        "path": "third_party/licenses/h11/LICENSE.txt",
+        "sha256": "37db5bb85926db28a427a25867f10b1232003aea1be69ccb851138adb8e6f361"
+      }
+    ]
+  },
+  {
+    "name": "httpcore2",
+    "version": "2.16.0",
+    "kind": "runtime",
+    "license_expression": "BSD-3-Clause",
+    "pypi": "https://pypi.org/project/httpcore2/2.16.0/",
+    "requires_python": ">=3.11",
+    "license_files": [
+      {
+        "path": "third_party/licenses/httpcore2/LICENSE.md",
+        "sha256": "c4df125c807b0613501e943a5c92496dd11d2c16604ce396097a8dde396304d9"
+      }
+    ]
+  },
+  {
+    "name": "httpx2",
+    "version": "2.16.0",
+    "kind": "runtime",
+    "license_expression": "BSD-3-Clause",
+    "pypi": "https://pypi.org/project/httpx2/2.16.0/",
+    "requires_python": ">=3.11",
+    "license_files": [
+      {
+        "path": "third_party/licenses/httpx2/LICENSE.md",
+        "sha256": "7e7d6dbaf7fe160d39fd6e84fd02c33cab96bcbea34d36998d545bceb4a19c30"
+      }
+    ]
+  },
+  {
+    "name": "idna",
+    "version": "3.20",
+    "kind": "runtime",
+    "license_expression": "BSD-3-Clause",
+    "pypi": "https://pypi.org/project/idna/3.20/",
+    "requires_python": ">=3.9",
+    "license_files": [
+      {
+        "path": "third_party/licenses/idna/LICENSE.md",
+        "sha256": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04"
+      }
+    ]
+  },
+  {
+    "name": "jsonschema",
+    "version": "4.26.0",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/jsonschema/4.26.0/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/jsonschema/COPYING",
+        "sha256": "4f92a015a13c4d1a040bef018aa13430b4f1bc73b41b16bb846c346766de7439"
+      }
+    ]
+  },
+  {
+    "name": "jsonschema-specifications",
+    "version": "2025.9.1",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/jsonschema-specifications/2025.9.1/",
+    "requires_python": ">=3.9",
+    "license_files": [
+      {
+        "path": "third_party/licenses/jsonschema-specifications/COPYING",
+        "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+      }
+    ]
+  },
+  {
+    "name": "mcp",
+    "version": "2.3.0",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/mcp/2.3.0/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/mcp/LICENSE",
+        "sha256": "5e13dbbc1d120fc2a03cecde7c91424ae2d7de11b63d58ded2f4431e261ee50d"
+      }
+    ]
+  },
+  {
+    "name": "mcp-types",
+    "version": "2.3.0",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/mcp-types/2.3.0/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/mcp-types/LICENSE",
+        "sha256": "5e13dbbc1d120fc2a03cecde7c91424ae2d7de11b63d58ded2f4431e261ee50d"
+      }
+    ]
+  },
+  {
+    "name": "opentelemetry-api",
+    "version": "1.45.2",
+    "kind": "runtime",
+    "license_expression": "Apache-2.0",
+    "pypi": "https://pypi.org/project/opentelemetry-api/1.45.2/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/opentelemetry-api/LICENSE",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      }
+    ]
+  },
+  {
+    "name": "pycparser",
+    "version": "3.12",
+    "kind": "runtime",
+    "license_expression": "BSD-3-Clause",
+    "pypi": "https://pypi.org/project/pycparser/3.12/",
+    "requires_python": ">=3.11",
+    "license_files": [
+      {
+        "path": "third_party/licenses/pycparser/LICENSE",
+        "sha256": "0a9e78156ae8b96caf1b4f11ac2df424b83de29736f9e757630548a6272fdf90"
+      }
+    ]
+  },
+  {
+    "name": "pydantic",
+    "version": "2.14.2",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/pydantic/2.14.2/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/pydantic/LICENSE",
+        "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+      }
+    ]
+  },
+  {
+    "name": "pydantic_core",
+    "version": "2.50.2",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/pydantic_core/2.50.2/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/pydantic_core/LICENSE",
+        "sha256": "2afdd30d54b4d62b6f488a6bcc1546e84ec5061f13f4209c03d012348783795a"
+      }
+    ]
+  },
+  {
+    "name": "PyJWT",
+    "version": "2.15.1",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/PyJWT/2.15.1/",
+    "requires_python": ">=3.9",
+    "license_files": [
+      {
+        "path": "third_party/licenses/PyJWT/AUTHORS.rst",
+        "sha256": "925ce43461029eedbf558ec0b7cf7fc4b045def5120ebb97937c70814071cf07"
+      },
+      {
+        "path": "third_party/licenses/PyJWT/LICENSE",
+        "sha256": "797a7a20231d4c433e9f1911db1731d06b5828b98f499819a034f7c0f56f5ce5"
+      }
+    ]
+  },
+  {
+    "name": "python-multipart",
+    "version": "0.0.33",
+    "kind": "runtime",
+    "license_expression": "Apache-2.0",
+    "pypi": "https://pypi.org/project/python-multipart/0.0.33/",
+    "requires_python": ">=3.11",
+    "license_files": [
+      {
+        "path": "third_party/licenses/python-multipart/LICENSE.txt",
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      }
+    ]
+  },
+  {
+    "name": "referencing",
+    "version": "0.37.0",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/referencing/0.37.0/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/referencing/COPYING",
+        "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+      }
+    ]
+  },
+  {
+    "name": "rpds-py",
+    "version": "2026.9.1",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/rpds-py/2026.9.1/",
+    "requires_python": ">=3.11",
+    "license_files": [
+      {
+        "path": "third_party/licenses/rpds-py/LICENSE",
+        "sha256": "314e4e91be3baa93c0fb4bccc9e4e97cd643eb839b065af921782c2175fe9909"
+      }
+    ]
+  },
+  {
+    "name": "sse-starlette",
+    "version": "3.6.0",
+    "kind": "runtime",
+    "license_expression": "BSD-3-Clause",
+    "pypi": "https://pypi.org/project/sse-starlette/3.6.0/",
+    "requires_python": ">=3.11",
+    "license_files": [
+      {
+        "path": "third_party/licenses/sse-starlette/AUTHORS",
+        "sha256": "c2ff63d2ecf128bbda8ab1b2016830a5da124202fbb97168685bb9946aed3f1a"
+      },
+      {
+        "path": "third_party/licenses/sse-starlette/LICENSE",
+        "sha256": "80af6bfccbebd2c14d4aab96695cab9950e177190cc80f5ef819e99996883e8e"
+      }
+    ]
+  },
+  {
+    "name": "starlette",
+    "version": "1.10.0",
+    "kind": "runtime",
+    "license_expression": "BSD-3-Clause",
+    "pypi": "https://pypi.org/project/starlette/1.10.0/",
+    "requires_python": ">=3.11",
+    "license_files": [
+      {
+        "path": "third_party/licenses/starlette/LICENSE.md",
+        "sha256": "dcb95677a02240243187e964f941847d19b17821cf99e5afae684fab328c19bf"
+      }
+    ]
+  },
+  {
+    "name": "truststore",
+    "version": "0.10.5",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/truststore/0.10.5/",
+    "requires_python": ">= 3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/truststore/LICENSE",
+        "sha256": "33be7b7e8fa4fd19b1760e1a8ed8a668bdab852c91b692dd41424bcb725a9fca"
+      }
+    ]
+  },
+  {
+    "name": "typing-inspection",
+    "version": "0.4.4",
+    "kind": "runtime",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/typing-inspection/0.4.4/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/typing-inspection/LICENSE",
+        "sha256": "804b59b25f2c31bd278f9202a19ae49a3945aa2664387e2d0a128c7cacc61ec3"
+      }
+    ]
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.16.0",
+    "kind": "runtime",
+    "license_expression": "PSF-2.0",
+    "pypi": "https://pypi.org/project/typing_extensions/4.16.0/",
+    "requires_python": ">=3.9",
+    "license_files": [
+      {
+        "path": "third_party/licenses/typing_extensions/LICENSE",
+        "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+      }
+    ]
+  },
+  {
+    "name": "uvicorn",
+    "version": "0.54.0",
+    "kind": "runtime",
+    "license_expression": "BSD-3-Clause",
+    "pypi": "https://pypi.org/project/uvicorn/0.54.0/",
+    "requires_python": ">=3.10",
+    "license_files": [
+      {
+        "path": "third_party/licenses/uvicorn/LICENSE.md",
+        "sha256": "efe1acf3e62fb99c288b0ec73e5a773b7268ef4320fe757ea994214e4b63c371"
+      }
+    ]
+  },
+  {
+    "name": "build",
+    "version": "1.3.0",
+    "kind": "build",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/build/1.3.0/",
+    "requires_python": ">= 3.9",
+    "license_files": [
+      {
+        "path": "third_party/licenses/build/LICENSE",
+        "sha256": "aaf9a29ca5907971ccf07de025375db34539a8d5eeebce20b46099805722106f"
+      }
+    ]
+  },
+  {
+    "name": "setuptools",
+    "version": "80.9.0",
+    "kind": "build",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/setuptools/80.9.0/",
+    "requires_python": ">=3.9",
+    "license_files": [
+      {
+        "path": "third_party/licenses/setuptools/LICENSE",
+        "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE",
+        "sha256": "ade78d04982d69972d444a8e14a94f87a2334dd3855cc80348ea8e240aa0df2d"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE",
+        "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/importlib_metadata-8.0.0.dist-info/LICENSE",
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/inflect-7.3.1.dist-info/LICENSE",
+        "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/jaraco.collections-5.1.0.dist-info/LICENSE",
+        "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/jaraco.context-5.3.0.dist-info/LICENSE",
+        "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/jaraco.functools-4.0.1.dist-info/LICENSE",
+        "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/jaraco.text-3.12.1.dist-info/LICENSE",
+        "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/more_itertools-10.3.0.dist-info/LICENSE",
+        "sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/packaging-24.2.dist-info/LICENSE",
+        "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/packaging-24.2.dist-info/LICENSE.APACHE",
+        "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/packaging-24.2.dist-info/LICENSE.BSD",
+        "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/platformdirs-4.2.2.dist-info/licenses/LICENSE",
+        "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/tomli-2.0.1.dist-info/LICENSE",
+        "sha256": "b80816b0d530b8accb4c2211783790984a6e3b61922c2b5ee92f3372ab2742fe"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/typeguard-4.3.0.dist-info/LICENSE",
+        "sha256": "6163f7987dfb38d6bc320ce2b70b2f02b862bc41126516d552ef1cd43247e758"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/typing_extensions-4.12.2.dist-info/LICENSE",
+        "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/wheel-0.45.1.dist-info/LICENSE.txt",
+        "sha256": "30c23618679108f3e8ea1d2a658c7ca417bdfc891c98ef1a89fa4ff0c9828654"
+      },
+      {
+        "path": "third_party/licenses/setuptools/vendored/setuptools/_vendor/zipp-3.19.2.dist-info/LICENSE",
+        "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+      }
+    ]
+  },
+  {
+    "name": "wheel",
+    "version": "0.45.1",
+    "kind": "build",
+    "license_expression": "MIT License",
+    "pypi": "https://pypi.org/project/wheel/0.45.1/",
+    "requires_python": ">=3.8",
+    "license_files": [
+      {
+        "path": "third_party/licenses/wheel/LICENSE.txt",
+        "sha256": "30c23618679108f3e8ea1d2a658c7ca417bdfc891c98ef1a89fa4ff0c9828654"
+      }
+    ]
+  },
+  {
+    "name": "packaging",
+    "version": "26.3",
+    "kind": "build",
+    "license_expression": "Apache-2.0 OR BSD-2-Clause",
+    "pypi": "https://pypi.org/project/packaging/26.3/",
+    "requires_python": ">=3.9",
+    "license_files": [
+      {
+        "path": "third_party/licenses/packaging/LICENSE",
+        "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+      },
+      {
+        "path": "third_party/licenses/packaging/LICENSE.APACHE",
+        "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+      },
+      {
+        "path": "third_party/licenses/packaging/LICENSE.BSD",
+        "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+      }
+    ]
+  },
+  {
+    "name": "pyproject_hooks",
+    "version": "1.3.3",
+    "kind": "build",
+    "license_expression": "MIT",
+    "pypi": "https://pypi.org/project/pyproject_hooks/1.3.3/",
+    "requires_python": ">=3.8",
+    "license_files": [
+      {
+        "path": "third_party/licenses/pyproject_hooks/LICENSE",
+        "sha256": "1b22b049b5267d6dfc23a67bf4a84d8ec04b9fdfb1a51d360e42b4342c8b4154"
+      }
+    ]
+  }
+]

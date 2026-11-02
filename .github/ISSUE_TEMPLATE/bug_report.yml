@@ -1,0 +1,79 @@
+name: Bug report
+description: Show a Retulo problem with a small, reproducible example.
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English, 简体中文, and 한국어 are welcome.
+        Use invented files and temporary folders. Include only the relevant, redacted
+        error lines; keep private workspaces, documents, chats, credentials, and installer
+        snapshots out of the report. For a possible vulnerability, read SECURITY.md first.
+  - type: input
+    id: version
+    attributes:
+      label: Retulo version or commit
+      description: Run `retulo --version`, or name the source commit you used.
+      placeholder: retulo 0.4.0rc1
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system and architecture
+      placeholder: macOS 15, Apple silicon
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: Python 3.11.15
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: Client and connection method
+      description: Name the client version and whether you used CLI, MCP, or the Codex integration.
+      placeholder: Codex desktop, version ..., MCP
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the smallest commands or requests that reproduce the problem with invented data.
+      placeholder: |
+        1. Create a temporary folder and a sample file.
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: What should happen after these steps?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: What happened instead? Say whether the original files and earlier outputs are still present.
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Relevant error code or log lines
+      description: Replace private paths and content. A full workspace or conversation export is not needed.
+      render: text
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Before submitting
+      options:
+        - label: I removed private data and used invented examples where needed.
+          required: true

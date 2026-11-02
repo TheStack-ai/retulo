@@ -1,0 +1,325 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:retulo:task:1",
+  "title": "Retulo task state v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "revision",
+    "title",
+    "goal",
+    "status",
+    "mode",
+    "completion_criteria",
+    "artifacts",
+    "sources",
+    "decisions",
+    "bindings",
+    "operations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "active",
+        "blocked",
+        "paused",
+        "completed",
+        "cancelled"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "light",
+        "expanded"
+      ]
+    },
+    "completion_criteria": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/criterion"
+      }
+    },
+    "sources": {
+      "type": "array"
+    },
+    "artifacts": {
+      "type": "array"
+    },
+    "decisions": {
+      "type": "array"
+    },
+    "bindings": {
+      "type": "array"
+    },
+    "operations": {
+      "type": "object"
+    },
+    "criteria_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/criterion_result"
+      }
+    },
+    "criteria_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "recorded_at",
+          "revision",
+          "result"
+        ],
+        "properties": {
+          "recorded_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "result": {
+            "$ref": "#/$defs/criterion_result"
+          },
+          "kind": {
+            "const": "legacy_snapshot"
+          },
+          "recorded_at_status": {
+            "const": "unknown"
+          },
+          "observed_at": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "kind"
+              ]
+            },
+            "then": {
+              "required": [
+                "observed_at",
+                "recorded_at_status"
+              ],
+              "properties": {
+                "recorded_at": {
+                  "type": "null"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "recorded_at": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "attention": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/attention"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "criterion": {
+      "type": "object",
+      "required": [
+        "id",
+        "text",
+        "requires_approval"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requires_approval": {
+          "type": "boolean"
+        },
+        "approval_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "human_review": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requires_independent_review": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "human_review"
+            ]
+          },
+          "then": {
+            "properties": {
+              "requires_approval": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "self",
+            "automated",
+            "independent"
+          ]
+        },
+        "reviewer_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "execution_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "independent"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reviewer_ref",
+              "execution_ref"
+            ]
+          }
+        }
+      ]
+    },
+    "criterion_result": {
+      "type": "object",
+      "required": [
+        "criterion",
+        "status"
+      ],
+      "properties": {
+        "criterion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed",
+            "unknown"
+          ]
+        },
+        "evidence_ref": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "claim_origin": {
+          "type": "string"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        }
+      }
+    },
+    "attention": {
+      "type": "object",
+      "required": [
+        "kind",
+        "owner",
+        "reason",
+        "requested_action"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "question",
+            "review",
+            "blocked"
+          ]
+        },
+        "owner": {
+          "enum": [
+            "user",
+            "agent",
+            "external"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requested_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

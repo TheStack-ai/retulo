@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "same_task_resumed": true,
+  "same_workspace": true,
+  "original_source_preserved": true,
+  "previous_output_preserved": true,
+  "fresh_checks_recorded": true,
+  "user_approval_claimed": false,
+  "cli_calls": 16,
+  "execution": "Separate actual CLI processes; synthetic content written by this demo's producer",
+  "real_client_adoption": "Not tested by this script",
+  "model_calls": 0,
+  "global_settings_changed": false,
+  "versions": [
+    {
+      "revision": 1,
+      "file": "visitor-guide-v001.md",
+      "sha256": "cb488b1c112f81c9eec12c7456d5b361bd3db62d186f327a2295ce2cfec44240"
+    },
+    {
+      "revision": 2,
+      "file": "visitor-guide-v002.md",
+      "sha256": "d3d75d9778be16aad28b19a3e934624fdfacf0bf7abc9e77ece8442fe9586c39"
+    }
+  ]
+}

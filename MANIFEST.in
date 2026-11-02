@@ -1,0 +1,18 @@
+include LICENSE README.md README.zh-CN.md README.ko.md CONTRIBUTING.md SECURITY.md CHANGELOG.md THIRD_PARTY_NOTICES.md
+include requirements.lock requirements-build.lock
+recursive-include src/retulo/schemas *.json
+recursive-include scripts *.py
+recursive-include adapters *.md
+recursive-include examples *.md *.json
+recursive-include docs *.md
+recursive-include tests *.py
+recursive-include third_party *
+prune .venv
+prune .git
+prune build
+prune dist
+global-exclude __pycache__ *.py[cod]
+include .gitignore AGENTS.md
+recursive-include .github *.yml *.yaml *.md
+recursive-include assets *.svg *.png *.gif *.mp4 *.json
+recursive-include site *.html *.css *.js *.json *.txt *.xml

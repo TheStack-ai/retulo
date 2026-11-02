@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "workspace_home": "/absolute/path/to/RetuloWorkspaces",
+  "allowed_source_roots": ["/absolute/path/to/explicitly-approved-source"],
+  "allowed_workspace_roots": []
+}

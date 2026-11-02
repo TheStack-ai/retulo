@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="88" viewBox="0 0 360 88" role="img" aria-labelledby="title desc">
+<title id="title">Retulo wordmark</title>
+<desc id="desc">Retulo&#x27;s symbol and lowercase wordmark for a light background.</desc>
+
+<g transform="translate(0 0) scale(1.25)"><path d="M10 8H34C47 8 54 14 54 25C54 36 47 42 34 42H23V56H10V8ZM23 20V30H34C39 30 41 28 41 25C41 22 39 20 34 20H23Z" fill="#000000" fill-rule="evenodd"/><path d="M33 46H47L57 56H42Z" fill="#1f4dff"/></g><text x="90.39999999999999" y="65.6" fill="#000000" font-family="Inter,Arial,Helvetica,sans-serif" font-size="68.8" font-weight="650" text-anchor="start" letter-spacing="-2.56">retulo</text>
+</svg>

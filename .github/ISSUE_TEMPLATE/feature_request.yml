@@ -1,0 +1,35 @@
+name: Feature request
+description: Describe the work you want to do and the result you need.
+title: '[Feature] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English, 简体中文, and 한국어 are welcome.
+        A concrete task helps us assess the proposal. Use invented examples rather than private project files or chats.
+  - type: textarea
+    id: need
+    attributes:
+      label: What task are you trying to complete?
+      description: Describe the user, input, and desired output. What gets in the way today?
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: How do you handle it now?
+      description: Explain your current workaround, including any tools involved.
+    validations:
+      required: true
+  - type: textarea
+    id: success
+    attributes:
+      label: What would a successful result look like?
+      description: Give a small example that someone could use to check the feature.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested approach
+      description: Optional. Describe a possible solution or alternatives you have considered.

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and community
+    url: https://github.com/TheStack-ai/retulo/discussions
+    about: Ask a usage question or share a workflow. English, 简体中文 and 한국어 are welcome.
+  - name: Report a security vulnerability privately
+    url: https://github.com/TheStack-ai/retulo/security/advisories/new
+    about: Keep potential vulnerability details out of public issues.

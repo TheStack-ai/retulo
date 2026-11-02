@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+<title id="title">Retulo dark-theme symbol</title>
+<desc id="desc">The Retulo R symbol in white and cobalt.</desc>
+
+<g transform="translate(0 0) scale(1.0)"><path d="M10 8H34C47 8 54 14 54 25C54 36 47 42 34 42H23V56H10V8ZM23 20V30H34C39 30 41 28 41 25C41 22 39 20 34 20H23Z" fill="#ffffff" fill-rule="evenodd"/><path d="M33 46H47L57 56H42Z" fill="#1f4dff"/></g>
+</svg>

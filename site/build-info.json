@@ -1,0 +1,16 @@
+{
+  "version": "0.4.0rc1",
+  "mode": "local-preview",
+  "base_url": null,
+  "repository_url": null,
+  "locales": [
+    "en",
+    "zh-CN",
+    "ko"
+  ],
+  "generated_pages": [
+    "index.html",
+    "zh-CN/index.html",
+    "ko/index.html"
+  ]
+}

@@ -1,0 +1,40 @@
+name: Documentation or usage question
+description: Ask how to use Retulo or point out missing or unclear documentation.
+title: '[Docs / question] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English, 简体中文, and 한국어 are welcome.
+        Start with README.md, docs/FAQ.md, and docs/COMMUNITY.md if you have not already.
+        Share only the small example needed to explain the question. Keep private files, chats, and credentials out of the report.
+  - type: dropdown
+    id: category
+    attributes:
+      label: What would you like help with?
+      options:
+        - Using or installing Retulo
+        - Missing or unclear documentation
+        - Incorrect command or example
+        - Requesting a private security reporting route (no details)
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: What are you trying to do?
+      description: Include your Retulo version and, if relevant, your operating system, Python, and client.
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question or documentation problem
+      description: Name the document and section. For a command, include the smallest invented example and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: Optional. A short example or a clearer sentence is useful.
