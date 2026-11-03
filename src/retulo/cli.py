@@ -221,6 +221,27 @@ def make_parser() -> argparse.ArgumentParser:
     for name in ("list", "capabilities"):
         command = sub.add_parser(name)
         command.add_argument("--json", action="store_true")
+    for name, help_text in (("setup", "Connect Retulo to an agent; preview changes before --apply"),
+                            ("doctor", "Check configuration and optionally test the local MCP connection"),
+                            ("disconnect", "Remove the agent connection while keeping Retulo workspaces")):
+        command = sub.add_parser(name, help=help_text,
+            epilog=f"Example: retulo {name} codex --project /path/to/project" +
+                   (" --connect" if name == "doctor" else " --apply"))
+        command.add_argument("agent", choices=("codex", "claude"), help="Agent client")
+        command.add_argument("--project", help="Project directory (default: current directory; home/root rejected)")
+        command.add_argument("--config", default=argparse.SUPPRESS,
+                             help="Retulo configuration path; also accepted before the command")
+        command.add_argument("--workspace-home", help="Workspace storage (default: existing configuration or ~/Documents/RetuloWorkspaces)")
+        command.add_argument("--codex-home", help="Codex settings directory (default: ~/.codex)")
+        command.add_argument("--skills-home", help="Codex skill directory (default: ~/.agents/skills)")
+        command.add_argument("--snapshot-home", help="Installation backup directory")
+        command.add_argument("--json", action="store_true", help="Emit the structured JSON result (default)")
+        if name == "doctor":
+            command.add_argument("--connect", action="store_true", help="Test Retulo MCP locally without calling a model")
+        else:
+            command.add_argument("--apply", action="store_true", help="Apply the previewed changes")
+        if name == "disconnect":
+            command.add_argument("--snapshot", help="Use a specific installation backup")
     sub.add_parser("mcp", help="Serve the official MCP SDK stdio endpoint")
     sub.add_parser("codex-hook", help="Emit bounded read-only context for supported Codex hook events")
     return parser
@@ -232,7 +253,17 @@ def main(argv: list[str] | None = None) -> int:
         from .harness import run_codex_hook
         return run_codex_hook(args.config)
     try:
-        if args.command == "init-config":
+        if args.command in ("setup", "doctor", "disconnect"):
+            from . import installation
+            options = {name: getattr(args, name) for name in
+                       ("project", "config", "workspace_home", "codex_home", "skills_home", "snapshot_home")}
+            if args.command == "doctor":
+                result = installation.doctor(args.agent, connect=args.connect, **options)
+            elif args.command == "disconnect":
+                result = installation.disconnect(args.agent, apply=args.apply, snapshot=args.snapshot, **options)
+            else:
+                result = installation.setup(args.agent, apply=args.apply, **options)
+        elif args.command == "init-config":
             result = init_config(args.config, workspace_home=args.workspace_home, state_home=args.state_home,
                                  allowed_source_roots=args.allow_source_root,
                                  allowed_workspace_roots=args.allow_workspace_root)

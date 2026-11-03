@@ -44,6 +44,7 @@ jobs:
           destination.mkdir()
           for name in ('site', 'assets'):
               shutil.copytree(name, destination / name)
+          shutil.copyfile('install.sh', destination / 'install.sh')
           (destination / 'index.html').write_text(
               '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
               '<meta name="viewport" content="width=device-width,initial-scale=1">'

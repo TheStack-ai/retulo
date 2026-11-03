@@ -11,8 +11,7 @@ import tomllib
 import unittest
 from unittest import mock
 
-spec=importlib.util.spec_from_file_location('installer',Path(__file__).resolve().parents[1]/'scripts/install_codex.py')
-installer=importlib.util.module_from_spec(spec);spec.loader.exec_module(installer)
+from retulo.integrations import codex as installer
 
 PROCESS_INSTALL = '''
 import importlib.util,json,sys,time
@@ -302,7 +301,7 @@ class InstallTests(unittest.TestCase):
         self.kw['engine_config']=self.root/'config with spaces `literal`.json'
         result=installer.install(**self.kw,apply=True)
         self.assertEqual(shlex.split(result['harness']['command']),[
-            str(other_repo/'.venv/bin/python'),'-m','retulo','--config',str(self.kw['engine_config']),'codex-hook'])
+            str(other_repo/'.venv/bin/python'),'-I','-m','retulo','--config',str(self.kw['engine_config']),'codex-hook'])
         for event,groups in json.loads((self.kw['codex_home']/'hooks.json').read_text())['hooks'].items():
             self.assertIn(event,installer.HOOK_EVENTS)
             self.assertEqual(groups[0]['hooks'][0]['command'],result['harness']['command'])

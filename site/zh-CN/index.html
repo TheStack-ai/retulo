@@ -19,7 +19,7 @@
   <link rel="alternate" hreflang="zh-CN" href="https://thestack-ai.github.io/retulo/site/zh-CN/">
   <link rel="alternate" hreflang="ko" href="https://thestack-ai.github.io/retulo/site/ko/">
   <link rel="alternate" hreflang="x-default" href="https://thestack-ai.github.io/retulo/site/">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Retulo", "description": "集中管理原始资料、文件版本、决策与进度。在新会话中继续同一任务，并更新或复用工作流。", "url": "https://thestack-ai.github.io/retulo/site/zh-CN/", "softwareVersion": "0.4.0rc2", "programmingLanguage": "Python", "runtimePlatform": "Python 3.11+", "operatingSystem": "macOS", "license": "https://opensource.org/license/mit", "inLanguage": "zh-CN", "codeRepository": "https://github.com/TheStack-ai/retulo"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Retulo", "description": "集中管理原始资料、文件版本、决策与进度。在新会话中继续同一任务，并更新或复用工作流。", "url": "https://thestack-ai.github.io/retulo/site/zh-CN/", "softwareVersion": "0.5.0rc1", "programmingLanguage": "Python", "runtimePlatform": "Python 3.11+", "operatingSystem": "macOS", "license": "https://opensource.org/license/mit", "inLanguage": "zh-CN", "codeRepository": "https://github.com/TheStack-ai/retulo"}</script>
   <link rel="icon" type="image/svg+xml" href="../../assets/brand/symbol.svg">
   <link rel="stylesheet" href="../styles.css?v=859941131af3">
   <script defer src="../app.js?v=313cf9c6bd0a"></script>
@@ -33,13 +33,13 @@
 </div></header>
 <main id="main" class="wrap">
   <section class="hero" id="overview" aria-labelledby="hero-title">
-    <div><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>预览版<span class="version-tag">0.4.0rc2</span></p>
+    <div><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>预览版<span class="version-tag">0.5.0rc1</span></p>
       <h1 id="hero-title">为 AI Agent<br>提供本地工作区。</h1><p class="hero-intro">Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中管理原始资料、输出版本、关键决策与检查记录。在新会话中指定同一任务，即可根据已记录的状态继续推进。</p>
       <div class="hero-actions"><a class="button primary" href="#quick-start">开始使用<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#how-it-works">查看工作流程<span class="arrow" aria-hidden="true">↓</span></a></div>
     </div>
     <aside class="workspace-ledger" aria-label="工作区保留的内容"><div class="ledger-top"><p>工作区保留的内容</p><h2>文件。<br>进度。<br>下一步。</h2></div><div class="ledger-lines"><div class="ledger-line"><span>01</span><span>原始资料</span></div><div class="ledger-line"><span>02</span><span>输出版本</span></div><div class="ledger-line"><span>03</span><span>决策与剩余工作</span></div><div class="ledger-line"><span>04</span><span>检查与审批记录</span></div></div></aside>
   </section>
-  <div class="facts" aria-label="Retulo 0.4.0rc2"><div class="fact"><strong>0.4.0rc2</strong><span>预览版本</span></div><div class="fact"><strong>macOS</strong><span>本地文件系统</span></div><div class="fact"><strong>3.11+</strong><span>Python 要求</span></div><div class="fact"><strong>MIT</strong><span>开源许可</span></div></div>
+  <div class="facts" aria-label="Retulo 0.5.0rc1"><div class="fact"><strong>0.5.0rc1</strong><span>预览版本</span></div><div class="fact"><strong>macOS</strong><span>已测本地环境</span></div><div class="fact"><strong>一条命令</strong><span>软件包安装</span></div><div class="fact"><strong>MIT</strong><span>开源许可</span></div></div>
   <section class="section" aria-labelledby="foundation-title">
     <p class="section-label">01 / 基础功能</p><div class="section-heading"><h2 id="foundation-title">将任务所需的信息放在一起。</h2><p>一项任务不只是最新生成的文件。Retulo 为已连接的 Agent 整理原始资料、历史版本、决策与检查记录。</p></div>
     <div class="features"><article class="feature"><span class="feature-number">01</span><div><h3>从日常请求开始</h3><p>完成配置与信任后，已连接的 Agent 可在处理日常请求时遵循同一文件工作流程。纯问答和规划不会创建工作区。</p></div></article><article class="feature"><span class="feature-number">02</span><div><h3>继续同一个任务</h3><p>稳定的任务 ID 与工作区将不同会话中的工作连接起来。继续时，请提供任务 ID、工作区路径或实际产物引用。</p></div></article><article class="feature"><span class="feature-number">03</span><div><h3>管理原始资料与历史版本</h3><p>预留输出位置、登记已保存的文件，并保留受管理的历史输出。现有代码仓库保持原有位置。</p></div></article><article class="feature"><span class="feature-number">04</span><div><h3>了解任务进展</h3><p>精炼的当前指引中包含决策、剩余工作、检查与审批记录。文件已保存、内容已检查与用户已批准分别记录。</p></div></article></div>
@@ -47,26 +47,25 @@
     <div class="demo-code"><h3>运行文件任务续接示例</h3><div class="code-frame">
       <button class="copy-button" type="button" data-copy="continuity-code" data-label="复制" data-copied="已复制" data-failed="请选择并复制下方命令。" hidden>复制</button>
       <pre><code id="continuity-code">.venv/bin/python scripts/demo_continuity.py --output-dir /tmp/retulo-continuity-demo</code></pre>
-    </div><p>请使用新的空输出目录。独立 CLI 进程创建指南，再检查同一任务，保存第二版本，并保留原始资料与第一版本。这用于检查任务续接，并不验证新 Codex 会话的集成行为。</p></div>
+    </div><p>可选的源码示例：先完成安装指南中的开发设置，使用新的空输出目录。独立 CLI 进程在同一任务中生成并修改指南，保留旧版本。它检查 CLI 续做，不检查新 Agent 会话是否采用流程。</p></div>
   </section>
   <section class="section" id="how-it-works" aria-labelledby="how-title">
     <p class="section-label">02 / 工作原理</p><h2 class="single-heading" id="how-title">Agent 运行工具。<br>Retulo 整理任务。</h2><div class="how-steps"><article class="how-step"><span>01</span><h3>描述工作</h3><p>当前 Agent 理解请求，并明确目标与完成标准。</p></article><article class="how-step"><span>02</span><h3>连接任务</h3><p>生成文件前，Agent 创建工作区或识别已有工作区。</p></article><article class="how-step"><span>03</span><h3>保存与检查</h3><p>Retulo 记录版本并检查文件完整性。Agent 或用户评估内容，并记录结果。</p></article><article class="how-step"><span>04</span><h3>带着当前状态继续</h3><p>先阅读简短的当前指引，需要时再获取详细记录。</p></article></div><p class="note">核心在本地运行，不启动模型或 Agent，不执行模板中的命令，不监视文件夹，也不发布结果。</p>
   </section>
   <section class="section" id="quick-start" aria-labelledby="quick-title">
-    <p class="section-label">03 / 快速开始</p><div class="section-heading"><h2 id="quick-title">从源代码目录开始。</h2><p>解压源代码包，并在项目目录中打开终端。当前预览版采用源代码安装。</p></div>
-    <div class="quickstart-grid"><div class="code-section"><h3>安装 CLI 与 MCP 核心</h3><div class="code-frame">
+    <p class="section-label">03 / 快速开始</p><div class="section-heading"><h2 id="quick-title">安装软件包，连接你的项目。</h2><p>在 macOS 或 Linux 终端中运行安装程序。它验证发布版 wheel 并安装持久运行环境，必要时获取 uv 和 Python。无需源码目录或手动创建虚拟环境。</p></div>
+    <div class="quickstart-grid"><div class="code-section"><h3>安装 Retulo</h3><div class="code-frame">
       <button class="copy-button" type="button" data-copy="install-code" data-label="复制" data-copied="已复制" data-failed="请选择并复制下方命令。" hidden>复制</button>
-      <pre><code id="install-code">python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.lock
-.venv/bin/python -m pip install --no-deps -e .
-.venv/bin/retulo --help</code></pre>
-    </div><p>最后一条命令应显示 Retulo 的可用命令。</p></div><div class="code-section"><h3>预览 Codex 集成变更</h3><div class="code-frame">
+      <pre><code id="install-code">curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
+retulo --version</code></pre>
+    </div><p>应显示 retulo 0.5.0rc1。若找不到命令，请运行安装程序显示的 PATH 命令（默认：export PATH=&quot;$HOME/.local/bin:$PATH&quot;）。不会修改 shell 配置文件。本预览版通过 GitHub Releases 分发。</p></div><div class="code-section"><h3>连接 Codex 或 Claude Code</h3><div class="code-frame">
       <button class="copy-button" type="button" data-copy="connect-code" data-label="复制" data-copied="已复制" data-failed="请选择并复制下方命令。" hidden>复制</button>
-      <pre><code id="connect-code">.venv/bin/python scripts/install_codex.py
-.venv/bin/python scripts/install_codex.py --apply</code></pre>
-    </div><p>第一条命令只预览变更。准备好后再应用，并在 Codex 中查看、信任具体的钩子定义。请保留该源代码目录。现有 MCP 连接不会自动重启。</p></div></div>
+      <pre><code id="connect-code">retulo setup codex --project /absolute/path/to/project
+retulo setup codex --project /absolute/path/to/project --apply
+retulo doctor codex --project /absolute/path/to/project --connect</code></pre>
+    </div><p>将项目路径替换为已有目录。第一条命令预览，--apply 才写入配置。Claude Code 将三条命令中的 codex 换成 claude。重启客户端，按提示信任项目或钩子并批准 MCP 服务。doctor --connect 检查本地 MCP，不调用模型。</p></div></div>
     <div class="request-examples"><div><h3>然后提出日常工作请求</h3><blockquote>请制作一份 Markdown 访客指南，并保留原始资料。</blockquote></div><div><h3>在新会话中，请同时提供现有工作区或文件引用</h3><blockquote>在同一工作区继续这份指南，添加联系方式，并保留上一版本。</blockquote></div></div>
-    <a class="text-link" href="https://github.com/TheStack-ai/retulo/blob/main/docs/RESTORE.md">阅读安装与恢复说明 <span aria-hidden="true">↗</span></a>
+    <a class="text-link" href="https://github.com/TheStack-ai/retulo/blob/main/docs/INSTALLATION.md">阅读安装、诊断与断开连接指南 <span aria-hidden="true">↗</span></a>
   </section>
   <section class="section" id="examples" aria-labelledby="workflow-title">
     <p class="section-label">04 / 更新与复用</p><div class="section-heading"><h2 id="workflow-title">输入发生变动，<br>有效成果依然保留。</h2><p>对于已声明的工作流，Retulo 连接输入、生成步骤与具体输出。输入变化后，Agent 可以判断哪些步骤需要重新处理。</p></div>
@@ -75,14 +74,14 @@
     <div class="demo-code"><h3>运行完整的本地示例</h3><div class="code-frame">
       <button class="copy-button" type="button" data-copy="demo-code" data-label="复制" data-copied="已复制" data-failed="请选择并复制下方命令。" hidden>复制</button>
       <pre><code id="demo-code">.venv/bin/python scripts/demo_incremental.py --output-dir /tmp/retulo-report-demo</code></pre>
-    </div><p>请选择一个新的空输出目录。示例根据当前代码目录的文件清单生成 HTML 报告、更新受影响步骤、保留旧报告、保存模板，再根据另一份清单创建新报告。它不调用模型，也不更改全局安装设置。</p></div>
+    </div><p>可选的源码示例：先完成安装指南中的开发设置，再从源码目录运行，并使用新的空输出目录。它生成 HTML 报告、更新受影响步骤、保留旧报告并创建新的模板任务。不调用模型或修改全局设置。</p></div>
   </section>
   <section class="section" id="documentation" aria-labelledby="docs-title">
     <p class="section-label">05 / 文档</p><h2 class="single-heading" id="docs-title">从第一个任务，<br>了解完整的工作约定。</h2>
-    <ul class="document-list"><li><a href="https://github.com/TheStack-ai/retulo/blob/main/README.zh-CN.md"><span><strong>README</strong><small>概览、源代码安装与日常使用。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/WORKFLOWS.md"><span><strong>工作流与模板</strong><small>声明步骤、输入输出与新任务复用。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/INTEGRATIONS.md"><span><strong>集成说明</strong><small>宿主 Agent、上下文钩子与任务协调。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/QUALIFICATION.md"><span><strong>验证范围</strong><small>已测试环境、实际方法与当前限制。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/RESTORE.md"><span><strong>恢复安装</strong><small>安装快照与带检查的恢复流程。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/FAQ.md"><span><strong>常见问题</strong><small>配置、跨会话继续与验证问题。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li></ul><div class="faq"><h3>先了解这几个区别。</h3><details><summary>Retulo 会记住所有对话吗？</summary><p>Retulo 记录受管理的任务、文件与进度。跨会话继续时，请指定同一任务或工作区。核心不会重建未接收的对话。</p></details><details><summary>Retulo 会编写或评估内容吗？</summary><p>当前 Agent 理解请求并运行工具。Retulo 管理工作区，记录文件完整性、检查与审批。检查记录本身不保证内容质量。</p></details><details><summary>目前支持哪些环境？</summary><p>验证目标为 macOS、本地文件系统与 Python 3.11 或更高版本。其他操作系统、网络存储、多主机与其他客户端需要单独验证。</p></details><details><summary>需要安装和连接哪些内容？</summary><p>安装 Python 3.11+ 与软件包依赖，并配置本地工作区和源文件根目录。通过 CLI 使用，或将 MCP 服务连接到现有 Agent。Codex 指引与钩子由单独的安装程序配置；Retulo 不添加 AI 运行时或后台服务。</p></details></div>
+    <ul class="document-list"><li><a href="https://github.com/TheStack-ai/retulo/blob/main/README.zh-CN.md"><span><strong>README</strong><small>简介、软件包安装与日常使用。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/INSTALLATION.md"><span><strong>安装与连接</strong><small>一条命令安装，以及 Agent 设置、诊断和断开连接。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/WORKFLOWS.md"><span><strong>工作流与模板</strong><small>声明步骤、输入输出与新任务复用。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/INTEGRATIONS.md"><span><strong>集成说明</strong><small>宿主 Agent、上下文钩子与任务协调。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/QUALIFICATION.md"><span><strong>验证范围</strong><small>已测试环境、实际方法与当前限制。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/RESTORE.md"><span><strong>恢复安装</strong><small>安装快照与带检查的恢复流程。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/FAQ.md"><span><strong>常见问题</strong><small>配置、跨会话继续与验证问题。</small></span><span class="arrow" aria-hidden="true">↗</span></a></li></ul><div class="faq"><h3>先了解这几个区别。</h3><details><summary>Retulo 会记住所有对话吗？</summary><p>Retulo 记录受管理的任务、文件与进度。跨会话继续时，请指定同一任务或工作区。核心不会重建未接收的对话。</p></details><details><summary>Retulo 会编写或评估内容吗？</summary><p>当前 Agent 理解请求并运行工具。Retulo 管理工作区，记录文件完整性、检查与审批。检查记录本身不保证内容质量。</p></details><details><summary>目前支持哪些环境？</summary><p>已测试的本地环境是 macOS 与本地文件系统。安装程序面向 macOS 和 Linux，并在需要时获取 Python 3.11+；Linux 安装将由 CI 验证。Windows 手动设置、网络存储、多主机和其他客户端需单独验证。</p></details><details><summary>需要安装和连接哪些内容？</summary><p>运行软件包安装程序，再针对已有项目使用 retulo setup codex 或 retulo setup claude。设置命令创建本地配置和受管客户端指令。请另外安装并登录 Codex 或 Claude Code；Retulo 不提供模型账户或后台服务。</p></details></div>
   </section>
   <section class="section" id="help" aria-labelledby="help-title">
-    <p class="section-label">06 / 帮助与贡献</p><div class="help-layout"><div><h2 class="single-heading" id="help-title">让下一项工作更顺利。</h2><p>先查看指南；报告问题时提供最小复现；提出功能建议时说明希望完成的具体工作。</p><p class="publication-note">当前为预览版。请按 GitHub 源码中的说明安装，并查看验证记录，了解已测试环境与当前限制。</p></div><nav class="help-links" aria-label="获取帮助"><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/COMMUNITY.md">社区指南<span aria-hidden="true">↗</span></a><a href="https://github.com/TheStack-ai/retulo/blob/main/CONTRIBUTING.md">参与贡献<span aria-hidden="true">↗</span></a><a href="https://github.com/TheStack-ai/retulo/blob/main/SECURITY.md">安全问题报告<span aria-hidden="true">↗</span></a></nav></div>
+    <p class="section-label">06 / 帮助与贡献</p><div class="help-layout"><div><h2 class="single-heading" id="help-title">让下一项工作更顺利。</h2><p>先查看指南；报告问题时提供最小复现；提出功能建议时说明希望完成的具体工作。</p><p class="publication-note">本预览版以 GitHub wheel 分发。macOS 已进行本地测试；Linux 安装将由 CI 验证。实际检查与当前限制见验证记录。</p></div><nav class="help-links" aria-label="获取帮助"><a href="https://github.com/TheStack-ai/retulo/blob/main/docs/COMMUNITY.md">社区指南<span aria-hidden="true">↗</span></a><a href="https://github.com/TheStack-ai/retulo/blob/main/CONTRIBUTING.md">参与贡献<span aria-hidden="true">↗</span></a><a href="https://github.com/TheStack-ai/retulo/blob/main/SECURITY.md">安全问题报告<span aria-hidden="true">↗</span></a></nav></div>
   </section>
 </main>
 <footer class="site-footer"><div class="footer-inner wrap"><div class="footer-brand"><img src="../../assets/brand/wordmark-dark.svg" alt="Retulo" width="96" height="30"><p>本地工作区。记录进度。继续未完成的工作。</p></div><div class="footer-links"><a href="https://github.com/TheStack-ai/retulo/blob/main/README.md">源代码概览</a><a href="https://github.com/TheStack-ai/retulo/blob/main/LICENSE">MIT 许可</a></div></div></footer>

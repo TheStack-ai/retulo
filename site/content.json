@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0rc2",
+  "version": "0.5.0rc1",
   "locales": {
     "en": {
       "name": "English",
@@ -28,16 +28,16 @@
       ],
       "facts": [
         [
-          "0.4.0rc2",
+          "0.5.0rc1",
           "Preview release"
         ],
         [
           "macOS",
-          "Local filesystem"
+          "Tested local filesystem"
         ],
         [
-          "3.11+",
-          "Python required"
+          "One command",
+          "Package installation"
         ],
         [
           "MIT",
@@ -89,12 +89,12 @@
       ],
       "how_note": "The core runs locally. It does not launch models or agents, execute recipe commands, watch folders, or publish results.",
       "quick_label": "03 / QUICK START",
-      "quick_title": "Start from the source checkout.",
-      "quick_intro": "Unpack the source archive and open a terminal in its project directory. This preview uses source installation.",
-      "install_title": "Install the CLI and MCP core",
-      "install_note": "The final command should display Retulo’s available commands.",
-      "connect_title": "Preview the Codex integration",
-      "connect_note": "The first command previews changes. Apply them when ready, then review and trust the exact hooks in Codex. Keep this source checkout in place. Existing MCP connections are not restarted automatically.",
+      "quick_title": "Install a package. Connect your project.",
+      "quick_intro": "Run the installer in a macOS or Linux terminal. It verifies the release wheel and installs a persistent runtime, obtaining uv and Python when needed. No source checkout or manual virtual environment is required.",
+      "install_title": "Install Retulo",
+      "install_note": "Expect retulo 0.5.0rc1. If the command is not found, run the PATH export printed by the installer (default: export PATH=\"$HOME/.local/bin:$PATH\"). Shell profiles are not edited. This preview is distributed on GitHub Releases.",
+      "connect_title": "Connect Codex or Claude Code",
+      "connect_note": "Replace the project path with an existing directory. The first command previews; --apply writes the connection. For Claude Code, replace codex with claude in all three commands. Restart the client, trust the project or hooks, and approve the MCP server as prompted. doctor --connect tests local MCP without a model call.",
       "copy": "Copy",
       "copied": "Copied",
       "copy_failed": "Select and copy the command below.",
@@ -102,7 +102,7 @@
       "request": "Create a visitor guide as a Markdown file. Preserve the source material.",
       "continue_request": "Continue this guide in the same workspace. Add a contact section and keep the previous version.",
       "continue_label": "In another conversation, include the existing workspace or file reference",
-      "source_guide": "Read the installation and restore guide",
+      "source_guide": "Read the installation, diagnosis, and disconnection guide",
       "workflow_label": "04 / UPDATE AND REPEAT",
       "workflow_title": "Change the input.\nKeep the useful work.",
       "workflow_intro": "For declared workflows, Retulo connects inputs, production steps, and exact outputs. The agent can see which steps need work after an input changes.",
@@ -119,14 +119,19 @@
       "workflow_alt": "Declared input changes affect linked workflow steps while an independent step can be reused and the previous final report remains preserved.",
       "workflow_caption": "Observed report example: five affected steps regenerated, one independent step reused. This is an example result, not a general saving guarantee.",
       "demo_title": "Run the complete local example",
-      "demo_note": "Choose a new, empty output directory. The example creates an HTML report from the checkout’s inventory, updates affected steps, preserves the earlier report, saves a recipe, and creates a new report from another inventory. It makes no model calls and changes no global installation settings.",
+      "demo_note": "Optional source-checkout example: complete the development setup in the installation guide, then run this from that checkout with a new, empty output directory. It creates an HTML report, updates affected steps, preserves earlier reports, and starts a fresh recipe task. No model calls or global setting changes.",
       "docs_label": "05 / DOCUMENTATION",
       "docs_title": "Go from the first task\nto the full contract.",
       "documents": [
         [
           "README",
-          "Overview, source installation, and everyday use.",
+          "Overview, package installation, and everyday use.",
           "README.md"
+        ],
+        [
+          "Installation and connection",
+          "One-command installation, agent setup, diagnosis, and removal.",
+          "docs/INSTALLATION.md"
         ],
         [
           "Workflows and recipes",
@@ -166,11 +171,11 @@
         ],
         [
           "What is supported today?",
-          "The qualified target is macOS with a local filesystem, using Python 3.11 or later. Other operating systems, network storage, multiple hosts, and other clients need separate validation."
+          "The tested local environment is macOS with a local filesystem. The bootstrap targets macOS and Linux and obtains Python 3.11+ when needed; Linux installation is intended for CI qualification. Windows manual setup, network storage, multiple hosts, and other clients need separate validation."
         ],
         [
           "What do I need to install and connect?",
-          "Install Python 3.11+ and the package dependencies, then configure local workspace and source roots. Use the CLI or connect the MCP server to your existing agent. Codex guidance and hooks have a separate installer; Retulo adds no AI runtime or background service."
+          "Run the package installer, then use retulo setup codex or retulo setup claude with your existing project. Setup creates the local configuration and managed client guidance. Install and sign in to Codex or Claude Code separately; Retulo supplies neither a model account nor a background service."
         ]
       ],
       "help_label": "06 / HELP AND CONTRIBUTIONS",
@@ -190,12 +195,12 @@
           "SECURITY.md"
         ]
       ],
-      "publication_note": "Preview release. Install from the GitHub source checkout, and read the qualification record for tested environments and current limits.",
+      "publication_note": "Preview release distributed as a GitHub wheel. macOS is locally tested; Linux installation is intended for CI qualification. Read the qualification record for actual checks and current limits.",
       "footer": "Local workspaces. Recorded progress. Work you can continue.",
       "source": "Source overview",
       "license": "MIT license",
       "continuity_demo_title": "Run the file-work continuity example",
-      "continuity_demo_note": "Use a new, empty output directory. Separate CLI processes create a guide, inspect the same task again, and save a second version while preserving the source and first result. This checks task continuity; it is not a test of a new Codex conversation."
+      "continuity_demo_note": "Optional source-checkout example: complete the installation guide’s development setup first. Use a new, empty output directory. Separate CLI processes create and revise a guide while preserving the same task and previous version. It tests CLI continuity, not adoption by a new agent chat."
     },
     "zh-CN": {
       "name": "简体中文",
@@ -224,16 +229,16 @@
       ],
       "facts": [
         [
-          "0.4.0rc2",
+          "0.5.0rc1",
           "预览版本"
         ],
         [
           "macOS",
-          "本地文件系统"
+          "已测本地环境"
         ],
         [
-          "3.11+",
-          "Python 要求"
+          "一条命令",
+          "软件包安装"
         ],
         [
           "MIT",
@@ -285,12 +290,12 @@
       ],
       "how_note": "核心在本地运行，不启动模型或 Agent，不执行模板中的命令，不监视文件夹，也不发布结果。",
       "quick_label": "03 / 快速开始",
-      "quick_title": "从源代码目录开始。",
-      "quick_intro": "解压源代码包，并在项目目录中打开终端。当前预览版采用源代码安装。",
-      "install_title": "安装 CLI 与 MCP 核心",
-      "install_note": "最后一条命令应显示 Retulo 的可用命令。",
-      "connect_title": "预览 Codex 集成变更",
-      "connect_note": "第一条命令只预览变更。准备好后再应用，并在 Codex 中查看、信任具体的钩子定义。请保留该源代码目录。现有 MCP 连接不会自动重启。",
+      "quick_title": "安装软件包，连接你的项目。",
+      "quick_intro": "在 macOS 或 Linux 终端中运行安装程序。它验证发布版 wheel 并安装持久运行环境，必要时获取 uv 和 Python。无需源码目录或手动创建虚拟环境。",
+      "install_title": "安装 Retulo",
+      "install_note": "应显示 retulo 0.5.0rc1。若找不到命令，请运行安装程序显示的 PATH 命令（默认：export PATH=\"$HOME/.local/bin:$PATH\"）。不会修改 shell 配置文件。本预览版通过 GitHub Releases 分发。",
+      "connect_title": "连接 Codex 或 Claude Code",
+      "connect_note": "将项目路径替换为已有目录。第一条命令预览，--apply 才写入配置。Claude Code 将三条命令中的 codex 换成 claude。重启客户端，按提示信任项目或钩子并批准 MCP 服务。doctor --connect 检查本地 MCP，不调用模型。",
       "copy": "复制",
       "copied": "已复制",
       "copy_failed": "请选择并复制下方命令。",
@@ -298,7 +303,7 @@
       "request": "请制作一份 Markdown 访客指南，并保留原始资料。",
       "continue_request": "在同一工作区继续这份指南，添加联系方式，并保留上一版本。",
       "continue_label": "在新会话中，请同时提供现有工作区或文件引用",
-      "source_guide": "阅读安装与恢复说明",
+      "source_guide": "阅读安装、诊断与断开连接指南",
       "workflow_label": "04 / 更新与复用",
       "workflow_title": "输入发生变动，\n有效成果依然保留。",
       "workflow_intro": "对于已声明的工作流，Retulo 连接输入、生成步骤与具体输出。输入变化后，Agent 可以判断哪些步骤需要重新处理。",
@@ -315,14 +320,19 @@
       "workflow_alt": "已声明的输入变化影响相连的工作步骤；独立步骤可以复用，之前的最终报告得到保留。",
       "workflow_caption": "实际报告示例中，5 个受影响步骤重新生成，1 个独立步骤复用。这是单个示例结果，并非普遍节省承诺。",
       "demo_title": "运行完整的本地示例",
-      "demo_note": "请选择一个新的空输出目录。示例根据当前代码目录的文件清单生成 HTML 报告、更新受影响步骤、保留旧报告、保存模板，再根据另一份清单创建新报告。它不调用模型，也不更改全局安装设置。",
+      "demo_note": "可选的源码示例：先完成安装指南中的开发设置，再从源码目录运行，并使用新的空输出目录。它生成 HTML 报告、更新受影响步骤、保留旧报告并创建新的模板任务。不调用模型或修改全局设置。",
       "docs_label": "05 / 文档",
       "docs_title": "从第一个任务，\n了解完整的工作约定。",
       "documents": [
         [
           "README",
-          "概览、源代码安装与日常使用。",
+          "简介、软件包安装与日常使用。",
           "README.zh-CN.md"
+        ],
+        [
+          "安装与连接",
+          "一条命令安装，以及 Agent 设置、诊断和断开连接。",
+          "docs/INSTALLATION.md"
         ],
         [
           "工作流与模板",
@@ -362,11 +372,11 @@
         ],
         [
           "目前支持哪些环境？",
-          "验证目标为 macOS、本地文件系统与 Python 3.11 或更高版本。其他操作系统、网络存储、多主机与其他客户端需要单独验证。"
+          "已测试的本地环境是 macOS 与本地文件系统。安装程序面向 macOS 和 Linux，并在需要时获取 Python 3.11+；Linux 安装将由 CI 验证。Windows 手动设置、网络存储、多主机和其他客户端需单独验证。"
         ],
         [
           "需要安装和连接哪些内容？",
-          "安装 Python 3.11+ 与软件包依赖，并配置本地工作区和源文件根目录。通过 CLI 使用，或将 MCP 服务连接到现有 Agent。Codex 指引与钩子由单独的安装程序配置；Retulo 不添加 AI 运行时或后台服务。"
+          "运行软件包安装程序，再针对已有项目使用 retulo setup codex 或 retulo setup claude。设置命令创建本地配置和受管客户端指令。请另外安装并登录 Codex 或 Claude Code；Retulo 不提供模型账户或后台服务。"
         ]
       ],
       "help_label": "06 / 帮助与贡献",
@@ -386,12 +396,12 @@
           "SECURITY.md"
         ]
       ],
-      "publication_note": "当前为预览版。请按 GitHub 源码中的说明安装，并查看验证记录，了解已测试环境与当前限制。",
+      "publication_note": "本预览版以 GitHub wheel 分发。macOS 已进行本地测试；Linux 安装将由 CI 验证。实际检查与当前限制见验证记录。",
       "footer": "本地工作区。记录进度。继续未完成的工作。",
       "source": "源代码概览",
       "license": "MIT 许可",
       "continuity_demo_title": "运行文件任务续接示例",
-      "continuity_demo_note": "请使用新的空输出目录。独立 CLI 进程创建指南，再检查同一任务，保存第二版本，并保留原始资料与第一版本。这用于检查任务续接，并不验证新 Codex 会话的集成行为。"
+      "continuity_demo_note": "可选的源码示例：先完成安装指南中的开发设置，使用新的空输出目录。独立 CLI 进程在同一任务中生成并修改指南，保留旧版本。它检查 CLI 续做，不检查新 Agent 会话是否采用流程。"
     },
     "ko": {
       "name": "한국어",
@@ -420,16 +430,16 @@
       ],
       "facts": [
         [
-          "0.4.0rc2",
-          "공개 준비 버전"
+          "0.5.0rc1",
+          "프리뷰 버전"
         ],
         [
           "macOS",
-          "로컬 파일 시스템"
+          "검증한 로컬 환경"
         ],
         [
-          "3.11+",
-          "필요한 Python 버전"
+          "명령 하나",
+          "패키지 설치"
         ],
         [
           "MIT",
@@ -481,12 +491,12 @@
       ],
       "how_note": "코어는 로컬에서 동작합니다. 모델이나 에이전트를 시작하거나 레시피 명령을 실행하지 않으며 폴더 감시와 결과 공개도 하지 않습니다.",
       "quick_label": "03 / 빠른 시작",
-      "quick_title": "소스 폴더에서 시작하세요.",
-      "quick_intro": "소스 압축 파일을 풀고 프로젝트 폴더에서 터미널을 엽니다. 현재 공개 준비본은 소스 설치를 사용합니다.",
-      "install_title": "CLI와 MCP 코어 설치",
-      "install_note": "마지막 명령을 실행하면 Retulo에서 사용할 수 있는 명령이 표시됩니다.",
-      "connect_title": "Codex 연동 변경 미리 보기",
-      "connect_note": "첫 명령은 변경 사항을 미리 보여줍니다. 준비되면 적용한 뒤 Codex에서 실제 훅 정의를 확인하고 신뢰하도록 설정합니다. 소스 폴더는 그대로 보관하세요. 기존 MCP 연결은 자동으로 다시 시작되지 않습니다.",
+      "quick_title": "패키지를 설치하고 프로젝트를 연결하세요.",
+      "quick_intro": "macOS 또는 Linux 터미널에서 설치기를 실행하세요. 릴리스 wheel을 검증하고 지속되는 실행 환경을 설치하며, 필요하면 uv와 Python도 준비합니다. 소스 폴더나 수동 가상환경은 필요하지 않습니다.",
+      "install_title": "Retulo 설치",
+      "install_note": "retulo 0.5.0rc1이 나오면 됩니다. 명령을 찾지 못하면 설치기가 표시한 PATH 명령을 실행하세요. 기본값은 export PATH=\"$HOME/.local/bin:$PATH\"이며 셸 프로필은 수정하지 않습니다. GitHub 릴리스로 배포합니다.",
+      "connect_title": "Codex 또는 Claude Code 연결",
+      "connect_note": "프로젝트 경로를 이미 있는 폴더로 바꾸세요. 첫 명령은 미리보기, --apply는 적용입니다. Claude Code는 세 명령의 codex를 claude로 바꾸세요. 클라이언트를 다시 열고 안내에 따라 프로젝트·훅을 신뢰하고 MCP를 승인하세요. doctor --connect는 모델 호출 없이 로컬 MCP를 검사합니다.",
       "copy": "복사",
       "copied": "복사됨",
       "copy_failed": "아래 명령을 선택해 복사하세요.",
@@ -494,7 +504,7 @@
       "request": "방문객 안내문을 Markdown 파일로 만들어줘. 원본 자료는 보존해줘.",
       "continue_request": "같은 작업공간에서 이 안내문을 이어서 수정해줘. 연락처를 추가하고 이전 버전도 남겨줘.",
       "continue_label": "새 대화에서는 기존 작업공간이나 파일 참조를 함께 제공",
-      "source_guide": "설치와 복구 안내 읽기",
+      "source_guide": "설치·진단·연결 해제 안내 읽기",
       "workflow_label": "04 / 갱신과 반복",
       "workflow_title": "자료가 바뀌어도,\n쓸 수 있는 작업은 그대로.",
       "workflow_intro": "단계가 명시된 작업에서는 Retulo가 입력 자료, 제작 단계, 정확한 결과물을 연결합니다. 입력이 바뀌면 에이전트가 어느 단계에 작업이 필요한지 확인합니다.",
@@ -511,14 +521,19 @@
       "workflow_alt": "명시된 입력 변경으로 연결된 작업 단계가 갱신되고 독립된 단계는 재사용되며 이전 보고서도 보존되는 흐름.",
       "workflow_caption": "실제 보고서 예제에서 관련 5단계를 다시 만들고 독립된 1단계를 재사용했습니다. 개별 예제의 결과이며 일반적인 절감률을 뜻하지 않습니다.",
       "demo_title": "완전한 로컬 예제 실행",
-      "demo_note": "새로 만든 빈 출력 폴더를 사용하세요. 현재 소스 폴더의 실제 파일 목록으로 HTML 보고서를 만들고, 관련 단계 갱신, 이전 보고서 보존, 레시피 저장과 다른 자료로 새 보고서 생성을 확인합니다. 모델을 호출하거나 전역 설치 설정을 변경하지 않습니다.",
+      "demo_note": "선택적인 소스 예제입니다. 상세 설치 안내의 개발 환경을 준비한 뒤 소스 폴더에서 새로운 빈 출력 폴더를 지정해 실행하세요. HTML 보고서 생성, 영향받은 단계 갱신, 이전 결과 보존과 새 레시피 작업을 확인합니다. 모델 호출이나 전역 설정 변경은 없습니다.",
       "docs_label": "05 / 문서",
       "docs_title": "첫 작업부터\n상세 사용 규칙까지.",
       "documents": [
         [
           "README",
-          "소개, 소스 설치와 일반적인 사용 방법.",
+          "소개, 패키지 설치와 일반적인 사용 방법.",
           "README.ko.md"
+        ],
+        [
+          "설치와 연결",
+          "간편 설치, 에이전트 연결·진단·해제.",
+          "docs/INSTALLATION.md"
         ],
         [
           "작업 흐름과 레시피",
@@ -558,11 +573,11 @@
         ],
         [
           "현재 확인된 환경은 무엇인가요?",
-          "macOS의 로컬 파일 시스템과 Python 3.11 이상이 검증 대상입니다. 다른 운영체제, 네트워크 저장소, 여러 호스트와 다른 클라이언트는 별도 검증이 필요합니다."
+          "로컬 검증 환경은 macOS와 로컬 파일 시스템입니다. 설치기는 macOS·Linux용이며 필요하면 Python 3.11 이상을 준비합니다. Linux 설치는 CI 검증 대상이고 Windows 수동 설치·네트워크 저장소·여러 호스트·다른 클라이언트는 별도 검증이 필요합니다."
         ],
         [
           "무엇을 설치하고 연결해야 하나요?",
-          "Python 3.11 이상과 패키지 의존성을 설치하고 로컬 작업공간과 자료 루트를 설정합니다. CLI로 사용하거나 기존 에이전트에 MCP 서버를 연결합니다. Codex 지침과 훅은 별도 설치기로 설정하며, Retulo가 AI 실행 환경이나 백그라운드 서비스를 추가하지는 않습니다."
+          "패키지 설치기를 실행한 뒤 기존 프로젝트를 지정해 retulo setup codex 또는 retulo setup claude를 사용하세요. 로컬 설정과 관리 지침을 함께 만듭니다. Codex 또는 Claude Code의 설치·로그인은 별도로 하며, Retulo가 모델 계정이나 백그라운드 서비스를 추가하지는 않습니다."
         ]
       ],
       "help_label": "06 / 도움과 기여",
@@ -582,12 +597,21 @@
           "SECURITY.md"
         ]
       ],
-      "publication_note": "프리뷰 버전입니다. GitHub 저장소의 소스 설치 안내를 따라 시작하세요. 확인한 환경과 현재 한계는 검증 기록에서 볼 수 있습니다.",
+      "publication_note": "GitHub wheel로 배포하는 프리뷰 버전입니다. macOS는 로컬에서 검증했고 Linux 설치는 CI 검증 대상입니다. 실제 검사와 현재 한계는 검증 기록에서 확인하세요.",
       "footer": "로컬 작업공간. 남겨진 진행 기록. 이어갈 수 있는 작업.",
       "source": "소스 소개",
       "license": "MIT 라이선스",
       "continuity_demo_title": "파일 작업 이어 하기 예제 실행",
-      "continuity_demo_note": "새로 만든 빈 출력 폴더를 사용하세요. 별도 CLI 프로세스가 안내문을 만들고 같은 작업을 다시 확인한 뒤 두 번째 버전을 저장합니다. 원본과 첫 결과는 보존합니다. 작업 이어 하기를 검사하며 실제 새 Codex 대화의 연동 동작을 확인하는 예제는 아닙니다."
+      "continuity_demo_note": "선택적인 소스 예제입니다. 상세 설치 안내의 개발 환경을 먼저 준비하고 새로운 빈 출력 폴더를 사용하세요. 별도 CLI 프로세스가 같은 작업으로 안내문을 만들고 수정하며 이전 버전을 보존합니다. 새 에이전트 대화의 연동 채택까지 검사하지는 않습니다."
     }
-  }
+  },
+  "installCommands": [
+    "curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh",
+    "retulo --version"
+  ],
+  "connectCommands": [
+    "retulo setup codex --project /absolute/path/to/project",
+    "retulo setup codex --project /absolute/path/to/project --apply",
+    "retulo doctor codex --project /absolute/path/to/project --connect"
+  ]
 }

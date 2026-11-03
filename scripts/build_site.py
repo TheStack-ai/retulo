@@ -26,16 +26,6 @@ SITE = ROOT / "site"
 LANGUAGES = ("en", "zh-CN", "ko")
 LOCALE_PATHS = {"en": "", "zh-CN": "zh-CN/", "ko": "ko/"}
 NAV_IDS = ("overview", "how-it-works", "quick-start", "documentation", "help")
-INSTALL = "\n".join((
-    "python3 -m venv .venv",
-    ".venv/bin/python -m pip install -r requirements.lock",
-    ".venv/bin/python -m pip install --no-deps -e .",
-    ".venv/bin/retulo --help",
-))
-CONNECT = "\n".join((
-    ".venv/bin/python scripts/install_codex.py",
-    ".venv/bin/python scripts/install_codex.py --apply",
-))
 CONTINUITY = ".venv/bin/python scripts/demo_continuity.py --output-dir /tmp/retulo-continuity-demo"
 DEMO = ".venv/bin/python scripts/demo_incremental.py --output-dir /tmp/retulo-report-demo"
 
@@ -106,7 +96,8 @@ def metadata(locale: str, c: dict, version: str, base_url: str | None,
     return "\n  ".join(parts)
 
 
-def render(locale: str, c: dict, content: dict, version: str, args: argparse.Namespace) -> str:
+def render(locale: str, c: dict, content: dict, version: str, args: argparse.Namespace,
+           install: str, connect: str) -> str:
     prefix = "../" if locale == "en" else "../../"
     site_prefix = "" if locale == "en" else "../"
     css_version = hashlib.sha256((SITE / "styles.css").read_bytes()).hexdigest()[:12]
@@ -163,9 +154,9 @@ def render(locale: str, c: dict, content: dict, version: str, args: argparse.Nam
   </section>
   <section class="section" id="quick-start" aria-labelledby="quick-title">
     <p class="section-label">{e(c['quick_label'])}</p><div class="section-heading"><h2 id="quick-title">{e(c['quick_title'])}</h2><p>{e(c['quick_intro'])}</p></div>
-    <div class="quickstart-grid"><div class="code-section"><h3>{e(c['install_title'])}</h3>{code_block('install-code', INSTALL, c)}<p>{e(c['install_note'])}</p></div><div class="code-section"><h3>{e(c['connect_title'])}</h3>{code_block('connect-code', CONNECT, c)}<p>{e(c['connect_note'])}</p></div></div>
+    <div class="quickstart-grid"><div class="code-section"><h3>{e(c['install_title'])}</h3>{code_block('install-code', install, c)}<p>{e(c['install_note'])}</p></div><div class="code-section"><h3>{e(c['connect_title'])}</h3>{code_block('connect-code', connect, c)}<p>{e(c['connect_note'])}</p></div></div>
     <div class="request-examples"><div><h3>{e(c['after_install'])}</h3><blockquote>{e(c['request'])}</blockquote></div><div><h3>{e(c['continue_label'])}</h3><blockquote>{e(c['continue_request'])}</blockquote></div></div>
-    <a class="text-link" href="{e(source('docs/RESTORE.md'))}">{e(c['source_guide'])} <span aria-hidden="true">↗</span></a>
+    <a class="text-link" href="{e(source('docs/INSTALLATION.md'))}">{e(c['source_guide'])} <span aria-hidden="true">↗</span></a>
   </section>
   <section class="section" id="examples" aria-labelledby="workflow-title">
     <p class="section-label">{e(c['workflow_label'])}</p><div class="section-heading"><h2 id="workflow-title">{lines(c['workflow_title'])}</h2><p>{e(c['workflow_intro'])}</p></div>
@@ -208,6 +199,8 @@ def main() -> int:
     document = json.loads((SITE / "content.json").read_text(encoding="utf-8"))
     content = document["locales"]
     version = document["version"]
+    install = "\n".join(document["installCommands"])
+    connect = "\n".join(document["connectCommands"])
     if tuple(content) != LANGUAGES:
         raise ValueError("content.json must contain the English, Simplified Chinese and Korean locales in that order")
     expected_keys = set(content["en"])
@@ -216,7 +209,7 @@ def main() -> int:
             raise ValueError(f"Locale {locale} does not have the same content fields as English")
         directory = SITE / LOCALE_PATHS[locale]
         directory.mkdir(parents=True, exist_ok=True)
-        (directory / "index.html").write_text(render(locale, content[locale], content, version, args), encoding="utf-8")
+        (directory / "index.html").write_text(render(locale, content[locale], content, version, args, install, connect), encoding="utf-8")
     if args.base_url:
         ET.register_namespace("", "http://www.sitemaps.org/schemas/sitemap/0.9")
         root = ET.Element("{http://www.sitemaps.org/schemas/sitemap/0.9}urlset")

@@ -9,9 +9,9 @@
 
 **Local workspaces for AI agents.**
 
-Retulo gives AI agents a dedicated local workspace for file-producing work. It keeps source material, previous output versions, decisions, remaining work, checks, and approvals together, helping the agent keep track of the work. Once the Codex integration is connected and trusted, your agent can apply this workspace procedure to everyday file requests without being asked to use Retulo each time. When resuming in another conversation, identify the task or workspace to continue from its recorded state.
+Retulo gives AI agents a dedicated local workspace for file-producing work. It keeps source material, previous output versions, decisions, remaining work, checks, and approvals together, helping the agent keep track of the work. Once the Codex or Claude Code integration is connected and trusted, your agent can apply this workspace procedure to everyday file requests without being asked to use Retulo each time. When resuming in another conversation, identify the task or workspace to continue from its recorded state.
 
-[![Preview 0.4.0rc2](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2)
+[![Preview 0.5.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1)
 [![Release checks](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 or later](assets/badges/python.svg)](#support)
 [![MIT license](assets/badges/license.svg)](LICENSE)
@@ -40,108 +40,79 @@ The agent interprets your request and runs its tools. Retulo manages the workspa
 <a id="quick-start"></a>
 ## Install Retulo
 
-**You need:** macOS and Python **3.11 or later**. Use Git for cloning or download the source archive instead. To connect an agent, have Codex or Claude Code installed with its usual account; CLI-only use does not need an agent account. Retulo stores task data locally; your connected agent runs the AI work. No additional agent orchestrator is needed.
-
-Choose one connection after installing: **[Codex](#codex)** · **[Claude Code](#claude-code)** · **[CLI only](#cli-only)**.
-
-### 1. Download and install
-
-Check `python3 --version` first. If it is older than 3.11, install a supported Python and use that executable to create the virtual environment.
+Run this in a terminal on **macOS or Linux**:
 
 ```sh
-git clone --branch v0.4.0rc2 --depth 1 https://github.com/TheStack-ai/retulo.git "$HOME/retulo"
-cd "$HOME/retulo"
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.lock
-.venv/bin/python -m pip install --no-deps -e .
-.venv/bin/retulo --version
+curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
+retulo --version
 ```
 
-Expect `retulo 0.4.0rc2`. Use a new installation folder if `~/retulo` already exists. Without Git, download `retulo-0.4.0rc2.tar.gz` from the [release](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2), extract it, and run the commands from `python3 -m venv .venv` inside the extracted folder. The source package includes the Codex installer; the wheel contains the CLI/MCP core. This preview's install route is the source package, rather than a PyPI package name.
+Expect `retulo 0.5.0rc1`. The installer downloads the release wheel, verifies it against the release's `SHA256SUMS`, and installs Retulo in a persistent uv tool environment. It uses an existing uv or installs a private copy, and downloads a suitable Python when needed. You do not need Git, a source checkout, or a virtual environment you maintain yourself. This preview is distributed through [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1), not PyPI or npm.
 
-Keep that folder and its `.venv` in place: your client will launch Retulo from its absolute path. In the same terminal, set the installation path and a small practice project:
+If the installer reports that the command directory is missing from `PATH`, run its printed command. With the default location:
 
 ```sh
-RETULO_ROOT="$(pwd -P)"
-RETULO_PROJECT="$HOME/Projects/retulo-demo"
-mkdir -p "$RETULO_PROJECT"
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
-To use an existing project instead, change `RETULO_PROJECT` to that folder's absolute path **before** configuring your client. New terminals need these two variables set again. Retulo manages existing code in its original repository.
+The installer does not edit your shell profile. macOS is the tested local environment; Linux installation is intended for CI qualification. See the [installation guide](docs/INSTALLATION.md) for script review, an existing-uv alternative, custom paths, and development setup.
+
+To connect an agent, first install and sign in to **Codex or Claude Code** as usual. Retulo does not install either client or supply a model account. Choose one connection below and replace `/absolute/path/to/project` with an **existing project directory**. Existing code stays in its original repository.
 
 <a id="codex"></a>
-### 2A. Connect Codex
+### Connect Codex
 
-Run the preview, review its paths and changes, then apply **the same options**:
+Preview the changes, then apply the same options:
 
 ```sh
-"$RETULO_ROOT/.venv/bin/python" "$RETULO_ROOT/scripts/install_codex.py" \
-  --source-root "$RETULO_PROJECT"
-"$RETULO_ROOT/.venv/bin/python" "$RETULO_ROOT/scripts/install_codex.py" \
-  --source-root "$RETULO_PROJECT" --apply
+retulo setup codex --project /absolute/path/to/project
+retulo setup codex --project /absolute/path/to/project --apply
+retulo doctor codex --project /absolute/path/to/project --connect
 ```
 
-The installer creates Retulo's configuration and adds the `retulo` MCP server, one skill, a managed instruction block and three Codex context hooks. It preserves unrelated settings and saves restoration snapshots. For several source folders, repeat `--source-root` in **both** commands. You do not need to run `init-config` first for this route.
+Setup creates or updates the Retulo configuration, adds the selected project to its source-root allowlist, and connects the packaged runtime through your user-level Codex MCP settings. It also installs one skill, a managed `AGENTS.md` block, and context hooks. Unrelated settings are preserved and restoration snapshots are saved. Run setup for each project you want to allow.
 
-Reconnect the MCP server or reopen Codex, review and trust the new hook definitions, and open `RETULO_PROJECT` as your project. In the Codex CLI, `codex mcp get retulo` shows the configured launcher and `/mcp` shows active servers. Ask the agent to call Retulo's `capabilities` and confirm the expected `workspace_home`. A configured server alone does not prove a client is using it; try the [first task](#first-task) next.
+Restart Codex and start a new chat in that project. Review and trust the installed hooks as requested by your client. In the Codex CLI, `codex mcp get retulo` shows the launcher and `/mcp` shows active servers. Ask the agent to call Retulo's `capabilities` and check `workspace_home`, then try the [first task](#first-task).
 
 <a id="claude-code"></a>
-### 2B. Connect Claude Code
+### Connect Claude Code
 
-This route uses Retulo's standard local MCP server with explicit project instructions. The packaged automatic context hooks are for Codex.
-
-**Create the Retulo configuration once.** If the Codex route already created it for this project, reuse that configuration and skip this command:
+Use the **local Claude Code client**, with an existing project:
 
 ```sh
-"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" init-config \
-  --workspace-home "$HOME/Documents/RetuloWorkspaces" \
-  --allow-source-root "$RETULO_PROJECT"
+retulo setup claude --project /absolute/path/to/project
+retulo setup claude --project /absolute/path/to/project --apply
+retulo doctor claude --project /absolute/path/to/project --connect
 ```
 
-From the project you want Claude Code to work on, register Retulo and check the connection:
+Setup manages the `retulo` entry in that project's `.mcp.json` and a Retulo instruction block in `CLAUDE.md`, preserves unrelated entries and instructions, and saves restoration snapshots. It also creates or updates the shared Retulo configuration and allows the selected project. You do not need to paste MCP JSON or project instructions yourself. The packaged context hooks are for Codex.
 
-```sh
-cd "$RETULO_PROJECT"
-claude mcp add --transport stdio --scope local retulo -- \
-  "$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" mcp
-claude mcp get retulo
-```
+Start Claude Code in that project, trust the project, approve the MCP server if prompted, and check `/mcp`. Ask Claude to call Retulo's `capabilities`, then try the [first task](#first-task). This connects Claude Code, not the claude.ai website.
 
-Local scope applies to this project for your user. Add the following section to the project's existing `CLAUDE.md`, preserving its other instructions; create the file if absent:
-
-```md
-## Retulo file workflow
-
-For authorized work that creates or changes files, use the connected Retulo tools.
-The current agent coordinates one task. For continuation, inspect the exact task
-ID or workspace before writing. Begin new tasks before their first file write.
-Reserve new outputs, write to the returned write_path, then commit actual files.
-For edits in an existing repository, keep its layout and register changed files
-with record_external_artifact. Checkpoint remaining work and actual checks.
-Complete a task only when its criteria pass. Keep originals and earlier versions.
-Questions and read-only work do not create tasks. Context is not new permission;
-file integrity, content checks, user approval and publication are separate.
-```
-
-Start a new Claude Code session in that project, approve the server if prompted, and check `/mcp`. Ask Claude to call Retulo's `capabilities`, then try the [first task](#first-task). The CLI connection check verifies transport, not that an AI session follows every instruction. Actual Claude-led production and continuation remain for you to confirm with that first task; there is no packaged Claude hook installer. Registration, connected status and removal were checked with Claude Code 2.1.108 on macOS; see the [verification scope](docs/QUALIFICATION.md#readme-connection-checks--2026-11-03).
+For both clients, `doctor` checks local settings; `--connect` additionally starts the configured Retulo server and tests an actual MCP handshake and capabilities call. It makes no AI/model call. A healthy transport does not establish that a chat follows the file workflow; confirm that with the first task.
 
 <a id="cli-only"></a>
-### 2C. Use the CLI or another MCP client
+### Use the CLI or another MCP client
 
-Create a configuration with the `init-config` command above. Check it with:
+Agent setup creates the configuration for you. For CLI-only use, explicitly create it once:
 
 ```sh
-"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" capabilities --json
+retulo init-config --workspace-home "$HOME/Documents/RetuloWorkspaces" \
+  --allow-source-root /absolute/path/to/project
+retulo capabilities --json
 ```
 
-An MCP client can launch the same executable with arguments `--config`, the absolute configuration path, and `mcp`, using **stdio**. Use absolute paths in client configuration; shell variables are expanded by the shell examples above, not by every client's JSON parser. Other clients require their own connection and file-access checks.
+Another MCP client can launch the absolute path reported by `command -v retulo` with arguments `--config`, the absolute configuration path, and `mcp`, using **stdio**. Other clients need their own connection and file-access checks.
 
 | Local item | Default location |
 |---|---|
+| Retulo executable | `~/.local/bin/retulo` |
 | Retulo configuration | `~/.config/retulo/config.json` |
 | Managed task workspaces | `~/Documents/RetuloWorkspaces` |
 | Codex skill | `~/.agents/skills/retulo/SKILL.md` |
-| Codex installation snapshots | `~/.local/state/retulo/install` |
+| Installation snapshots | `~/.local/state/retulo/install` (Claude: `claude/` below it) |
+
+Existing configurations keep their workspace location. Setup, doctor, and disconnect accept `--config`, `--workspace-home`, and `--snapshot-home`; Codex also uses `--codex-home` and `--skills-home`. See [custom paths](docs/INSTALLATION.md#custom-paths).
 
 <a id="first-task"></a>
 ## Run your first task and continue it
@@ -167,27 +138,28 @@ The task identity and workspace should stay the same while the output gains a ne
 
 | What you see | What to check |
 |---|---|
-| `python3` missing or below 3.11 | Install Python 3.11+; create `.venv` with that executable. Git is needed only for the clone route. |
-| Missing configuration | Run the Codex installer **or** the CLI `init-config` route; merely installing the package does not create configuration. |
-| `init-config` refuses an existing file | Reuse the existing configuration. Back it up before deliberately editing it; the command never replaces it. |
-| Source path outside configured roots | Allow the exact project/material folders. Installer flag: `--source-root`; CLI flag: `--allow-source-root`. For an existing configuration, back it up and edit its `allowed_source_roots` array with absolute paths. Reinstalling does not silently expand it. |
-| Installer reports a conflict | Compare the reported file and options. Use identical options for preview/apply. Preserve existing settings; see the [integration guide](docs/INTEGRATIONS.md). |
-| MCP is absent or disconnected | Check the absolute executable/config paths, keep the installation folder in place, then reconnect. In Claude Code, run the check from the project where you registered it. |
-| Tools exist but ordinary requests skip Retulo | Check Codex hook trust and the installed skill, or Claude's loaded `CLAUDE.md`. Ask for the first task explicitly and inspect real records. |
+| `retulo: command not found` | Run the `PATH` command printed by the installer; the default is `export PATH="$HOME/.local/bin:$PATH"`. |
+| Download or checksum failure | Retry the installer on a working connection. Do not bypass a checksum mismatch; report the release asset and error. |
+| Missing configuration | Run `retulo setup codex` or `retulo setup claude` with `--project` and `--apply`, or use `init-config` for CLI-only use. |
+| Project is not allowed | Preview and apply setup with that project's exact path. Existing source-root entries are preserved. |
+| Setup reports a conflict | Review the reported file and options. Keep identical paths for preview/apply; existing user edits are not silently replaced. |
+| MCP is absent or disconnected | Run `retulo doctor codex --project /absolute/path/to/project --connect` (or `claude`), restart the client, and check its server approval. |
+| Tools exist but ordinary requests skip Retulo | Check Codex hook trust and its installed skill, or Claude's loaded `CLAUDE.md`. Ask for the first task explicitly and inspect real records. |
 | Agent cannot write the returned workspace path | Review the client's file-access prompt for the intended workspace folder. Retulo's configured roots do not replace client permissions. |
-| Python upgrade moved/broke `.venv` | Recreate dependencies, then review and reconnect the launcher; use preview/apply for a changed Codex installation. |
+| Project path is rejected | Choose an existing, specific directory; setup rejects your whole home, filesystem root, and symlinked paths. |
 
-For Codex removal or rollback, use the snapshot returned by installation and the [preview-first restore guide](docs/RESTORE.md). To disconnect Claude Code from this project, run `claude mcp remove --scope local retulo` there and remove only the Retulo section you added to `CLAUDE.md`. These connection changes do not delete task workspaces.
+See [installation and diagnosis](docs/INSTALLATION.md), [integration details](docs/INTEGRATIONS.md), and the [preview-first restore guide](docs/RESTORE.md).
 
 Client references: [OpenAI Docs: Codex MCP](https://developers.openai.com/codex/mcp) · [Claude Code MCP](https://code.claude.com/docs/en/mcp) · [Claude project instructions](https://code.claude.com/docs/en/memory).
 
 <a id="demo"></a>
 ## See it work
 
+The optional source-checkout demos require the [development setup](docs/INSTALLATION.md#development-only-source-checkout); they are not needed to install or connect Retulo. Run these commands from that checkout.
+
 Start with a small file task. This example creates a visitor guide, then uses a fresh coordinator to find the same task by ID and add a section. It checks that the workspace stays the same, the source and first output remain intact, and the new output has fresh checks.
 
 ```sh
-cd "$RETULO_ROOT"
 .venv/bin/python scripts/demo_continuity.py --output-dir /tmp/retulo-continuity-demo
 ```
 
@@ -198,7 +170,6 @@ Then try an update across several production steps:
 The report example uses this checkout's real file inventory. It creates an HTML report, updates the affected steps, preserves the earlier report, saves a recipe, and starts a new report task with different inputs.
 
 ```sh
-cd "$RETULO_ROOT"
 .venv/bin/python scripts/demo_incremental.py --output-dir /tmp/retulo-report-demo
 ```
 
@@ -221,9 +192,9 @@ A recipe pins a workflow, typed parameters, and completion requirements. New inp
 ## CLI and MCP
 
 ```sh
-"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" call capabilities --arguments '{}'
-"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" get-context --task-id TASK_UUID --json
-"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" verify --task-id TASK_UUID --json
+retulo --config "$HOME/.config/retulo/config.json" call capabilities --arguments '{}'
+retulo --config "$HOME/.config/retulo/config.json" get-context --task-id TASK_UUID --json
+retulo --config "$HOME/.config/retulo/config.json" verify --task-id TASK_UUID --json
 ```
 
 `RETULO_CONFIG` can supply the configuration path. Configuration is created only by an explicit `init-config` or installer operation. JSON is the state contract; `WORKSPACE.md` is a readable view of current state. Request IDs make retries idempotent, and mutations check the last observed revision.
@@ -235,23 +206,33 @@ Retulo keeps task and file records locally. An existing agent or CLI client uses
 
 | Area | Current scope |
 |---|---|
-| Release | `0.4.0rc2`, preview |
-| Runtime | Python 3.11+; source and installed-wheel checks on Python 3.11 and 3.14 |
+| Release | `0.5.0rc1`, preview |
+| Runtime | Python 3.11+; the installer obtains Python when needed |
 | Qualified environment | macOS, local filesystem |
-| Interfaces | CLI and MCP; packaged Codex integration |
-| Other environments | Linux, Windows, NAS, multiple hosts, and other agent clients need separate validation |
+| Interfaces | CLI and MCP; packaged Codex and Claude Code setup, diagnosis, and disconnection |
+| Other environments | Linux installer targets CI qualification; Windows manual Python setup, NAS, multiple hosts, and other clients need separate validation |
 
 Retulo operates on the files and tasks registered through its workflow. It does not intercept all writes made by unrelated host tools. File integrity checks do not establish content quality or user approval. The core does not call models, launch agents, watch folders, or publish results.
 
 ## Update or remove
 
-Keep the installation snapshot returned by the installer. Updates advance unchanged managed defaults and preserve user-edited files. [Restore instructions](docs/RESTORE.md) explain how to reverse an installation step without deleting workspaces or their artifacts.
+Run the install command again to install this release. If the runtime or integration version changes, preview and apply setup again with the same project and custom-path options, then restart the client.
+
+To disconnect a client, preview and apply the removal:
+
+```sh
+retulo disconnect codex --project /absolute/path/to/project
+retulo disconnect codex --project /absolute/path/to/project --apply
+```
+
+Use `claude` instead of `codex` for that project's Claude Code connection. Disconnect preserves task workspaces, artifacts, and the core Retulo configuration. Keep the returned installation snapshots for guarded rollback; see [installation](docs/INSTALLATION.md#disconnect-and-update) and [restore](docs/RESTORE.md).
 
 The public name, paths, and MCP key differ from the earlier development prototype. Prototype installations are not migrated automatically. Review overlapping automatic file-work instructions before installing both in the same environment.
 
 <a id="documentation"></a>
 ## Documentation
 
+- [Installation, connection, and diagnosis](docs/INSTALLATION.md)
 - [Local documentation site](docs/SITE.md)
 - [Frequently asked questions](docs/FAQ.md)
 - [한국어 사용 안내](docs/USER_GUIDE.ko.md)
@@ -268,10 +249,9 @@ Use the repository's **Issues** tab to report a reproducible bug, propose a feat
 
 For sensitive findings, follow [Security reporting](SECURITY.md). For development setup, focused checks, and contribution expectations, see [Contributing](CONTRIBUTING.md).
 
-To verify a source checkout:
+To verify an optional source checkout prepared with the [development setup](docs/INSTALLATION.md#development-only-source-checkout):
 
 ```sh
-cd "$RETULO_ROOT"
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python scripts/check_release.py
 ```

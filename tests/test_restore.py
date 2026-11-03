@@ -10,10 +10,7 @@ import unittest
 from unittest import mock
 
 
-spec = importlib.util.spec_from_file_location(
-    "restorer", Path(__file__).resolve().parents[1] / "scripts/restore_codex.py")
-restorer = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(restorer)
+from retulo.integrations import codex_restore as restorer
 installer = restorer.installer
 
 
@@ -220,7 +217,7 @@ class RestoreTests(unittest.TestCase):
                          self.original[str(self.kw["codex_home"] / "config.toml")][0])
 
     def test_cli_requires_all_explicit_paths(self):
-        result = subprocess.run([sys.executable, str(Path(restorer.__file__))], capture_output=True, text=True)
+        result = subprocess.run([sys.executable, str(Path(__file__).resolve().parents[1] / "scripts/restore_codex.py")], capture_output=True, text=True)
         self.assertEqual(result.returncode, 2)
         for option in ("--snapshot", "--codex-home", "--engine-config", "--skills-home", "--snapshot-home"):
             self.assertIn(option, result.stderr)

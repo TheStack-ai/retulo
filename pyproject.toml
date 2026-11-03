@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "retulo"
-version = "0.4.0rc2"
+version = "0.5.0rc1"
 description = "Local workspaces for AI agents"
 readme = "README.md"
 license = "MIT"
@@ -25,4 +25,4 @@ retulo = "retulo.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-retulo = ["schemas/*.json"]
+retulo = ["schemas/*.json", "resources/codex/*.md", "resources/claude/*.md"]

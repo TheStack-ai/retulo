@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.0rc1 — 2026-11-03
+
+- Add a checksum-verified macOS/Linux bootstrap and persistent isolated tool install, without a source checkout or manual virtual environment.
+- Ship Codex and Claude Code setup, templates and guarded disconnection inside the wheel.
+- Add `retulo setup`, `retulo doctor` and `retulo disconnect`, with preview by default and explicit project roots.
+- Preserve other client settings, shared core configuration and existing workspaces when disconnecting a client.
+- Verify configured MCP connections without launching an AI model; keep client trust and adoption separate from protocol checks.
+- Refresh English, Chinese and Korean installation guides and site, and exercise the installed wheel in CI.
+
 ## 0.4.0rc2 — 2026-11-02
 
 - Remove the private memory-system bridge, its five tools, configuration and installer option from the public package.
