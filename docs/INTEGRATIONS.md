@@ -29,6 +29,21 @@ Subagent hooks use the parent's session ID. The `SubagentStart` context and glob
 
 Codex requires native trust review for each new non-managed hook definition. The installer reports this requirement and never manufactures trusted hashes or disables hook trust. Verify the actual host's hook inventory and execution after reviewing the exact installed definitions. Source: [official Codex hooks documentation](https://learn.chatgpt.com/docs/hooks).
 
+## Claude Code manual connection
+
+Follow the [README Claude Code steps](../README.md#claude-code): create or reuse
+Retulo's configuration, register its stdio command from the intended project,
+and add the file-work procedure to the project's existing `CLAUDE.md`.
+The current Claude agent coordinates the task. The Codex installer and its
+context hook definitions are specific to Codex and are not a Claude installer.
+
+Claude Code 2.1.108 registration, connected status and removal were checked on
+macOS with isolated client configuration. The same server launch commands passed
+actual MCP file-task and new-connection checks. See the
+[qualification record](QUALIFICATION.md#readme-connection-checks--2026-11-03).
+Actual model-led behavior and trust review remain separate first-task checks;
+no Claude model run was used to imply automatic adoption.
+
 ## Another provider
 
 First run the synthetic contract tests; then validate the actual provider's file access, MCP/CLI calls, output paths, failure reporting and cross-session continuation. No other vendor's actual compatibility is currently certified.

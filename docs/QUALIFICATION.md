@@ -1,5 +1,39 @@
 # Qualification — Retulo
 
+## README connection checks — 2026-11-03
+
+The three README files now share the same executable installation and connection
+blocks, with separate Codex, Claude Code and CLI paths. The published
+`v0.4.0rc2` source was cloned into a fresh folder, installed in a new virtual
+environment using the documented commands, and returned `retulo 0.4.0rc2`.
+
+- The Codex installer preview created no engine configuration; apply populated
+  isolated configuration, skill and hook paths with the same project-root options.
+- Claude Code **2.1.108** registered the actual Retulo stdio command in local scope,
+  `claude mcp get retulo` reported **Connected**, and removal succeeded.
+- Retulo `init-config` and `capabilities` used explicit configuration paths. A
+  second initialization refused the existing file without changing its bytes.
+- Actual MCP calls using each documented launcher listed 24 tools, read
+  capabilities, created a synthetic file task, reserved/wrote/committed and
+  verified its artifact, completed the task, and read it from a new connection.
+  These SDK calls establish the server contract, not an AI client's tool choices.
+- Shell blocks in English, Korean and Chinese match and pass `bash -n`; local
+  document links and explicit README anchors were checked. Post-Claude examples
+  return to the install folder or use absolute executable paths.
+
+All configuration writes were directed to isolated test folders; protected real
+client settings stayed byte-identical. No model calls were made. The Claude test
+used its documented `CLAUDE_CONFIG_DIR` override only for isolation. Existing
+Codex settings and the running client were not reconfigured.
+
+This is command/transport qualification. It does not certify an actual Claude
+AI session's production behavior, automatic hook adoption or cross-chat judgment.
+Claude uses the README's explicit project instructions and standard MCP route;
+Retulo currently ships native context hooks for Codex. Follow the README's first
+real task and continuation checks in your chosen client. Other environments and
+clients require their own validation.
+
+
 ## 0.4.0rc2 — 2026-11-02
 
 | Check | Observed result |

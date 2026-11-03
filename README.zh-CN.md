@@ -18,7 +18,7 @@ Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中
 
 **macOS 本地预览版** · CLI 与 MCP · English、简体中文、한국어
 
-[文档站点](https://thestack-ai.github.io/retulo/site/) · [快速开始](#quick-start) · [运行示例](#demo) · [文档](#documentation) · [获取帮助](#get-help)
+[文档站点](https://thestack-ai.github.io/retulo/site/) · [安装](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [运行示例](#demo) · [文档](#documentation) · [获取帮助](#get-help)
 
 ![同一任务在不同会话间继续，保留原始资料、输出版本和已记录的进度。](assets/demo/continuity.svg)
 
@@ -38,52 +38,147 @@ Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中
 Agent 负责理解请求并调用工具，Retulo 负责管理工作区与记录。单纯提问或制定计划不会创建工作区。
 
 <a id="quick-start"></a>
-## 快速开始
+## 安装 Retulo
 
-在 macOS 上使用 **Python 3.11 或更高版本**。解压源码包或打开源码仓库，然后在项目目录中执行：
+**准备条件：** macOS 与 **Python 3.11 或更高版本**。可用 Git 克隆仓库，也可下载源码压缩包。连接 Agent 时需要安装并登录 Codex 或 Claude Code；仅使用 CLI 不需要 Agent 账户。Retulo 在本地保存任务记录，AI 工作由连接的 Agent 执行，无需额外安装 Agent 编排器。
+
+完成公共安装步骤后，选择一种连接方式：**[Codex](#codex)** · **[Claude Code](#claude-code)** · **[仅用 CLI](#cli-only)**。
+
+### 1. 下载并安装
+
+先运行 `python3 --version`。若低于 3.11，请安装受支持的 Python，并使用对应的可执行文件创建虚拟环境。
 
 ```sh
+git clone --branch v0.4.0rc2 --depth 1 https://github.com/TheStack-ai/retulo.git "$HOME/retulo"
+cd "$HOME/retulo"
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.lock
 .venv/bin/python -m pip install --no-deps -e .
-.venv/bin/retulo --help
+.venv/bin/retulo --version
 ```
 
-最后一条命令应显示 Retulo 的命令帮助。本预览版采用源码安装；wheel 包含核心 CLI/MCP，Codex 安装脚本位于源码目录中。
+应显示 `retulo 0.4.0rc2`。若 `~/retulo` 已存在，请选择新的安装目录。不使用 Git 时，可从[发布页](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2)下载 `retulo-0.4.0rc2.tar.gz`，解压后在该目录中从 `python3 -m venv .venv` 开始执行。源码包包含 Codex 安装脚本，wheel 包含核心 CLI/MCP。本预览版使用源码安装，而不是通过 PyPI 包名安装。
 
-先预览 Codex 集成的变更，核对列出的内容，再执行安装：
+请保留安装目录及其中的 `.venv`，客户端将通过绝对路径启动 Retulo。在**同一个终端**中设置安装位置和练习项目：
 
 ```sh
-.venv/bin/python scripts/install_codex.py
-.venv/bin/python scripts/install_codex.py --apply
+RETULO_ROOT="$(pwd -P)"
+RETULO_PROJECT="$HOME/Projects/retulo-demo"
+mkdir -p "$RETULO_PROJECT"
 ```
 
-安装脚本会添加 `retulo` MCP 服务、一个 skill、受管理的指令区块与三个上下文钩子。它会保留无关配置，并报告与用户修改冲突的内容。请在 Codex 中审阅并信任这些钩子的确切定义，再连接集成。安装脚本不会重启已有 MCP 连接；安装成功也不代表客户端已经采用新集成。
+要使用已有项目，请在连接 Agent **之前**将 `RETULO_PROJECT` 改为该目录的绝对路径。打开新终端后需重新设置这两个变量。已有代码仍在原仓库中管理。
 
-| 项目 | 默认位置 |
+<a id="codex"></a>
+### 2A. 连接 Codex
+
+先预览路径与变更，再使用**相同选项**应用：
+
+```sh
+"$RETULO_ROOT/.venv/bin/python" "$RETULO_ROOT/scripts/install_codex.py" \
+  --source-root "$RETULO_PROJECT"
+"$RETULO_ROOT/.venv/bin/python" "$RETULO_ROOT/scripts/install_codex.py" \
+  --source-root "$RETULO_PROJECT" --apply
+```
+
+安装脚本会创建 Retulo 配置，并添加 `retulo` MCP 服务、一个 skill、受管理的指令区块和三个 Codex 上下文钩子。无关设置会保留，并生成恢复快照。需要多个资料目录时，在**两条命令中**重复传入 `--source-root`。此方式不需要事先运行 `init-config`。
+
+重新连接 MCP 服务或重启 Codex，审阅并信任新钩子，然后打开 `RETULO_PROJECT` 项目。在 Codex CLI 中用 `codex mcp get retulo` 查看启动配置，在会话中用 `/mcp` 查看活动服务。让 Agent 调用 Retulo 的 `capabilities`，确认 `workspace_home` 路径。服务已注册并不代表会话正在使用它；继续完成[第一个任务](#first-task)。
+
+<a id="claude-code"></a>
+### 2B. 连接 Claude Code
+
+此方式使用标准本地 MCP 服务和明确的项目指令。随包提供的自动上下文钩子适用于 Codex。
+
+**Retulo 配置只需创建一次。** 若已通过 Codex 为同一项目创建配置，请复用并跳过此命令：
+
+```sh
+"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" init-config \
+  --workspace-home "$HOME/Documents/RetuloWorkspaces" \
+  --allow-source-root "$RETULO_PROJECT"
+```
+
+进入 Claude Code 要处理的项目，注册并检查连接：
+
+```sh
+cd "$RETULO_PROJECT"
+claude mcp add --transport stdio --scope local retulo -- \
+  "$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" mcp
+claude mcp get retulo
+```
+
+`local` 范围仅对当前用户的这个项目生效。在保留已有指令的前提下，将下列章节加入项目的 `CLAUDE.md`；文件不存在时再新建：
+
+```md
+## Retulo 文件工作流程
+
+对已授权的文件创建或修改任务，使用已连接的 Retulo 工具。
+由当前 Agent 协调一个任务。继续工作前先读取准确的任务 ID 或工作区；
+新任务应在第一次写文件之前开始。新输出先预留路径，写入返回的
+write_path，再提交实际文件。修改已有仓库时保留结构，并通过
+record_external_artifact 登记变更文件。记录待办事项和实际检查结果，
+仅在完成条件满足后结束任务。保留原始资料和历史版本。
+提问与只读工作不创建任务。上下文不构成新授权；文件完整性、
+内容检查、用户批准和公开发布应分别记录。
+```
+
+在此项目启动新的 Claude Code 会话，若提示批准服务，请审阅后确认，再通过 `/mcp` 检查。让 Claude 调用 Retulo 的 `capabilities`，然后尝试[第一个任务](#first-task)。CLI 连接检查只验证传输，并不证明 AI 会话遵循所有指令。请通过第一个任务确认 Claude 实际生产与续做行为；当前未提供专用的 Claude 钩子安装器。已在 macOS 的 Claude Code 2.1.108 上检查注册、连接状态和移除，详见[验证范围](docs/QUALIFICATION.md#readme-connection-checks--2026-11-03)。
+
+<a id="cli-only"></a>
+### 2C. 使用 CLI 或其他 MCP 客户端
+
+先用上面的 `init-config` 命令创建配置，再检查：
+
+```sh
+"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" capabilities --json
+```
+
+其他 MCP 客户端可通过 **stdio** 启动同一可执行文件，参数依次为 `--config`、配置文件的绝对路径和 `mcp`。客户端配置应使用绝对路径；上面示例中的变量由 shell 展开，并非所有客户端的 JSON 配置都会展开变量。其他客户端仍需分别验证连接与文件访问。
+
+| 本地项目 | 默认位置 |
 |---|---|
-| 配置 | `~/.config/retulo/config.json` |
-| 工作区 | `~/Documents/RetuloWorkspaces` |
-| Skill | `~/.agents/skills/retulo/SKILL.md` |
-| 安装快照 | `~/.local/state/retulo/install` |
+| Retulo 配置 | `~/.config/retulo/config.json` |
+| 受管理的任务工作区 | `~/Documents/RetuloWorkspaces` |
+| Codex skill | `~/.agents/skills/retulo/SKILL.md` |
+| Codex 安装快照 | `~/.local/state/retulo/install` |
 
-使用集成期间，请保留源码目录。需要其他存储位置时，使用安装脚本的路径参数。要处理已有代码仓库，可用 `--source-root PATH` 添加那个具体目录；该参数可重复使用。代码仍保留在原仓库中。
+<a id="first-task"></a>
+## 创建第一个任务并继续处理
 
-## 开始、修改与继续
+在已连接的 Agent 中提出：
 
-连接并信任集成后，像平常一样提出请求：
+> 使用 Retulo 为这个项目生成 Markdown 欢迎指南。写文件前先开始任务并预留输出路径。登记实际文件，检查内容与完整性，并报告任务 ID、工作区路径和输出路径。
 
-> 请把访客指南写成 Markdown 文件，并保留原始资料。
+应获得实际文件、任务 ID 与工作区路径、已登记的输出版本和检查结果。登记文件的字节一致时，Retulo 的 `verify` 返回 `ok: true` 且没有不匹配项。请同时自行检查内容。
 
-> 请修复这个项目的合计计算错误，并运行现有测试。
+接着请求修订：
 
-Agent 会在写入前识别或创建任务，使用预留的输出路径，登记已保存文件，并记录相关检查。
+> 给指南添加联系方式，保留上一版本并记录新的检查结果。
 
-要在另一个会话中继续，请提供任务 ID、工作区路径或之前的产物：
+打开另一个**使用相同 Retulo 配置并具有文件访问权限**的会话，提供实际任务 ID 或工作区路径：
 
-> 请在这个工作区继续修改指南，添加联系方式，并保留上一版。
+> 继续 WORKSPACE_PATH 中的 Retulo 任务 TASK_UUID。先读取记录状态，再添加开放时间章节，并保留先前版本。
 
-Retulo 提供简短的当前状态与待办摘要，详细记录仍可按需查阅。它不会猜测你指的是哪个无关会话，也不会自行重启已停止的任务。
+任务 ID 与工作区应保持不变，输出应增加新版本。确认流程有效后，Codex 安装的指令或 Claude 项目指令可用于日常文件请求，无需每次提到 Retulo。Retulo 保存任务记录，不会猜测你指的是哪段无关会话。
+
+<a id="troubleshooting"></a>
+## 安装问题排查
+
+| 现象 | 检查方法 |
+|---|---|
+| 缺少 `python3` 或低于 3.11 | 安装 Python 3.11+ 并用对应可执行文件创建 `.venv`。只有克隆仓库时需要 Git。 |
+| 缺少配置 | 运行 Codex 安装脚本或 CLI `init-config`；仅安装软件包不会创建配置。 |
+| `init-config` 拒绝已有文件 | 复用已有配置；有意编辑前先备份，此命令不会覆盖它。 |
+| 源路径不在允许范围内 | 仅允许所需项目或资料目录。安装脚本用 `--source-root`，CLI 用 `--allow-source-root`。已有配置需备份后编辑 `allowed_source_roots` 数组，使用绝对路径；重新安装不会静默扩大范围。 |
+| 安装脚本报告冲突 | 比较提示的文件和选项，预览与应用使用相同选项并保留现有设置。参见[集成说明](docs/INTEGRATIONS.md)。 |
+| MCP 缺失或未连接 | 检查可执行文件和配置的绝对路径，保留安装目录，再重新连接。在 Claude 中应从注册服务的项目进行检查。 |
+| 有工具却未用于普通请求 | 检查 Codex 钩子信任与 skill，或 Claude 实际加载的 `CLAUDE.md`。明确请求第一个任务并检查实际记录。 |
+| Agent 无法写入返回的工作区路径 | 在客户端的文件访问提示中确认目标工作区目录。Retulo 的允许路径不替代客户端权限。 |
+| Python 更新导致 `.venv` 失效 | 重建依赖，检查启动路径后重新连接；Codex 安装变更使用预览与应用流程。 |
+
+移除或回滚 Codex 集成时，使用安装结果中的快照并按[先预览的恢复说明](docs/RESTORE.md)操作。在 Claude Code 中，从该项目运行 `claude mcp remove --scope local retulo`，并仅删除加入 `CLAUDE.md` 的 Retulo 章节。这些连接变更不会删除任务工作区。
+
+客户端参考：[OpenAI Docs：Codex MCP](https://developers.openai.com/codex/mcp) · [Claude Code MCP](https://code.claude.com/docs/en/mcp) · [Claude 项目指令](https://code.claude.com/docs/en/memory)。
 
 <a id="demo"></a>
 ## 运行示例
@@ -91,6 +186,7 @@ Retulo 提供简短的当前状态与待办摘要，详细记录仍可按需查�
 先从一个小型文件任务开始。这个示例创建访客指南，再通过任务 ID 重新找到同一任务并添加章节。它会检查工作区是否相同、原始资料与第一版输出是否完好保留，以及新版是否记录了新的检查。
 
 ```sh
+cd "$RETULO_ROOT"
 .venv/bin/python scripts/demo_continuity.py --output-dir /tmp/retulo-continuity-demo
 ```
 
@@ -101,6 +197,7 @@ Retulo 提供简短的当前状态与待办摘要，详细记录仍可按需查�
 报告示例使用当前源码的真实文件清单，依次生成 HTML 报告、更新受影响的步骤、保留旧报告、保存工作流模板，再用不同输入创建新的报告任务。
 
 ```sh
+cd "$RETULO_ROOT"
 .venv/bin/python scripts/demo_incremental.py --output-dir /tmp/retulo-report-demo
 ```
 
@@ -123,9 +220,9 @@ Retulo 提供简短的当前状态与待办摘要，详细记录仍可按需查�
 ## CLI 与 MCP
 
 ```sh
-.venv/bin/retulo --config CONFIG_PATH call capabilities --arguments '{}'
-.venv/bin/retulo --config CONFIG_PATH get-context --task-id TASK_UUID --json
-.venv/bin/retulo --config CONFIG_PATH verify --task-id TASK_UUID --json
+"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" call capabilities --arguments '{}'
+"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" get-context --task-id TASK_UUID --json
+"$RETULO_ROOT/.venv/bin/retulo" --config "$HOME/.config/retulo/config.json" verify --task-id TASK_UUID --json
 ```
 
 也可用 `RETULO_CONFIG` 指定配置路径。只有显式运行 `init-config` 或安装操作才会创建配置。JSON 是状态依据，`WORKSPACE.md` 是当前状态的可读视图。请求 ID 让重试保持幂等，修改操作还会检查上次读取的版本号。
@@ -173,6 +270,7 @@ Retulo 管理通过其流程登记的文件与任务，不会拦截其他宿主�
 检查源码仓库：
 
 ```sh
+cd "$RETULO_ROOT"
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python scripts/check_release.py
 ```
