@@ -25,7 +25,7 @@ Retulo 是一款开源本地工具，用来整理与 AI Agent 一起完成的文
 <a id="demo"></a>
 ## 60 秒看懂如何继续同一任务
 
-[![Retulo 60 秒演示：创建初稿，在新的 Codex 会话中继续，并保留两个版本。](assets/demo/retulo-60s-poster.jpg)](https://thestack-ai.github.io/retulo/site/zh-CN/#demo)
+https://github.com/user-attachments/assets/a183b497-ceab-4ceb-a00b-9c9406b3d376
 
 先创建初稿，再在新的 Codex 会话中继续同一任务。保存修改后的文件，同时保留旧版本。[在文档站点观看带字幕的版本](https://thestack-ai.github.io/retulo/site/zh-CN/#demo)。
 
