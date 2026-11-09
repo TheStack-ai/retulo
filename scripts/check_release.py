@@ -27,6 +27,7 @@ REQUIRED = (
     "src/retulo/integrations/codex_restore.py", "src/retulo/integrations/claude.py",
     "src/retulo/resources/codex/SKILL.md", "src/retulo/resources/codex/AGENTS.md",
     "src/retulo/resources/claude/CLAUDE.md",
+    "src/retulo/git_backend.py", "src/retulo/git_workspaces.py", "src/retulo/git_snapshot.py",
 )
 SOURCE_ARCHIVE_REQUIRED = (
     "README.md", "LICENSE", "pyproject.toml", "THIRD_PARTY_NOTICES.md",
@@ -40,12 +41,14 @@ SOURCE_ARCHIVE_REQUIRED = (
     "src/retulo/integrations/codex_restore.py", "src/retulo/integrations/claude.py",
     "src/retulo/resources/codex/SKILL.md", "src/retulo/resources/codex/AGENTS.md",
     "src/retulo/resources/claude/CLAUDE.md",
+    "src/retulo/git_backend.py", "src/retulo/git_workspaces.py", "src/retulo/git_snapshot.py",
 )
 WHEEL_REQUIRED = (
     "retulo/installation.py", "retulo/integrations/codex.py",
     "retulo/integrations/codex_restore.py", "retulo/integrations/claude.py",
     "retulo/resources/codex/SKILL.md", "retulo/resources/codex/AGENTS.md",
     "retulo/resources/claude/CLAUDE.md",
+    "retulo/git_backend.py", "retulo/git_workspaces.py", "retulo/git_snapshot.py",
     "retulo/__init__.py", "retulo/schemas/task.schema.json",
     "retulo/workflow.py", "retulo/planner.py", "retulo/recipes.py", "retulo/workflow_engine.py",
     "retulo/schemas/task-v2.schema.json", "retulo/schemas/workflow.schema.json", "retulo/schemas/recipe.schema.json",

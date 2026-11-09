@@ -1,4 +1,4 @@
-# Git workspaces (unreleased)
+# Git workspaces — 0.6.0rc1
 
 Retulo can connect a task to a local Git worktree, observe changes, create a
 separate worktree on explicit request, preserve selected files, and prepare an
@@ -76,9 +76,9 @@ covers the selected bytes and cannot restore ignored files or live processes.
 
 ## Installation and migration
 
-This is an unreleased source change, not a published package update. Qualify the
-new runtime using temporary configurations/workspaces and the official MCP stdio
-handshake before changing a live client. Existing installations with different
+This preview includes the optional Git extension. Qualify a new runtime using
+temporary configurations/workspaces and the official MCP stdio handshake before
+changing a live client. Existing installations with different
 package names, MCP keys or integration hooks are not automatically migrated.
 
 Before replacing a runtime, inventory the exact launcher, configuration, task

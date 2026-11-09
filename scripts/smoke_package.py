@@ -36,6 +36,9 @@ import sys
 import jsonschema
 import mcp
 import retulo
+import retulo.git_backend
+import retulo.git_workspaces
+import retulo.git_snapshot
 
 runtime = Path(sys.prefix).resolve()
 module = Path(retulo.__file__).resolve()
@@ -93,6 +96,9 @@ async def main():
                         result = json.loads(next(item.text for item in verified.content
                                                  if getattr(item, "type", None) == "text"))
                     assert result["ok"], result
+                    git_state = await client.call_tool("git_status", {"task_id": payload["task_id"]})
+                    assert not git_state.is_error, git_state
+                    assert git_state.structured_content["status"] == "unbound", git_state
                     results[agent] = {"server_name": initialized.server_info.name,
                                       "tool_count": len(listed.tools), "verify_ok": True}
     print(json.dumps(results))

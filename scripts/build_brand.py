@@ -83,8 +83,8 @@ def social():
     body += text(64, 480, "Files. Versions. Progress. Ready to continue.", 32)
     body += line(64, 548, 1216, 548)
     body += text(64, 598, "RETULO", 24, weight=600, tracking=2)
-    body += text(1216, 598, "0.5.0rc1 / macOS local preview", 24, anchor="end")
-    return svg(1280, 640, "Retulo — Local workspaces for AI agents", "Retulo keeps files, versions, and progress together so identified tasks can continue across conversations. Release candidate 0.5.0rc1, qualified on a macOS local filesystem.", body, WHITE)
+    body += text(1216, 598, "0.6.0rc1 / macOS local preview", 24, anchor="end")
+    return svg(1280, 640, "Retulo — Local workspaces for AI agents", "Retulo keeps files, versions, and progress together so identified tasks can continue across conversations. Release candidate 0.6.0rc1, qualified on a macOS local filesystem.", body, WHITE)
 
 
 def node(x, y, width, height, name, detail=None, color=BLACK):
@@ -178,7 +178,7 @@ def main():
         "assets/brand/identity-board.svg": board(),
         "assets/demo/continuity.svg": continuity(),
         "assets/demo/workflow.svg": workflow(),
-        "assets/badges/preview.svg": badge("preview","0.5.0rc1",56,70),
+        "assets/badges/preview.svg": badge("preview","0.6.0rc1",56,70),
         "assets/badges/checks.svg": badge("checks","local only",52,72),
         "assets/badges/python.svg": badge("python",">=3.11",54,58),
         "assets/badges/license.svg": badge("license","MIT",54,38),

@@ -11,7 +11,7 @@
 
 Retulo gives AI agents a dedicated local workspace for file-producing work. It keeps source material, previous output versions, decisions, remaining work, checks, and approvals together, helping the agent keep track of the work. Once the Codex or Claude Code integration is connected and trusted, your agent can apply this workspace procedure to everyday file requests without being asked to use Retulo each time. When resuming in another conversation, identify the task or workspace to continue from its recorded state.
 
-[![Preview 0.5.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1)
+[![Preview 0.6.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)
 [![Release checks](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 or later](assets/badges/python.svg)](#support)
 [![MIT license](assets/badges/license.svg)](LICENSE)
@@ -34,6 +34,7 @@ Retulo gives AI agents a dedicated local workspace for file-producing work. It k
 | Check what is finished | Separate records for saved files, content checks, user approval, and external delivery |
 | Update a staged workflow | Which steps are affected by changes to declared inputs |
 | Repeat a process with new material | Versioned workflow recipes that start new tasks with fresh checks |
+| Work on code in parallel | Explicit Git worktree connections, selected-file snapshots, and guarded fast-forward integration |
 
 The agent interprets your request and runs its tools. Retulo manages the workspace and records. Questions and planning alone do not create a workspace.
 
@@ -47,7 +48,7 @@ curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
 retulo --version
 ```
 
-Expect `retulo 0.5.0rc1`. The installer downloads the release wheel, verifies it against the release's `SHA256SUMS`, and installs Retulo in a persistent uv tool environment. It uses an existing uv or installs a private copy, and downloads a suitable Python when needed. You do not need Git, a source checkout, or a virtual environment you maintain yourself. This preview is distributed through [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1), not PyPI or npm.
+Expect `retulo 0.6.0rc1`. The installer downloads the release wheel, verifies it against the release's `SHA256SUMS`, and installs Retulo in a persistent uv tool environment. It uses an existing uv or installs a private copy, and downloads a suitable Python when needed. You do not need Git, a source checkout, or a virtual environment you maintain yourself. This preview is distributed through [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1), not PyPI or npm.
 
 If the installer reports that the command directory is missing from `PATH`, run its printed command. With the default location:
 
@@ -206,7 +207,7 @@ Retulo keeps task and file records locally. An existing agent or CLI client uses
 
 | Area | Current scope |
 |---|---|
-| Release | `0.5.0rc1`, preview |
+| Release | `0.6.0rc1`, preview |
 | Runtime | Python 3.11+; the installer obtains Python when needed |
 | Qualified environment | macOS, local filesystem |
 | Interfaces | CLI and MCP; packaged Codex and Claude Code setup, diagnosis, and disconnection |
@@ -262,4 +263,4 @@ Tests use temporary synthetic fixtures and require no model account. Local check
 
 Retulo is [MIT licensed](LICENSE). See [dependency notices](THIRD_PARTY_NOTICES.md) for third-party software and included license files.
 
-For the unreleased optional Git worktree integration, see [Git workspaces](docs/GIT_WORKSPACES.md). This is not yet included in the published preview.
+Optional code workflows require local Git and an explicitly configured worktree parent directory. See [Git workspaces](docs/GIT_WORKSPACES.md) for setup, recovery, and supported repository limits.

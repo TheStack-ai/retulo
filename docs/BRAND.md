@@ -115,7 +115,7 @@ These original assets are distributed with the repository under its MIT license.
 
 `assets/brand/social-preview.png` is the inspected 1280 × 640 PNG export of the
 SVG source. It is below GitHub's 1 MB social-preview limit. The export was
-rendered by the local browser at 2× and downsampled with Lanczos; the SVG remains
+rendered from the SVG using macOS sips for 0.6.0rc1; the SVG remains
 the editable source. Regenerating the SVG does not automatically refresh this
 PNG. Export and inspect it again after changing the artwork or copy.
 

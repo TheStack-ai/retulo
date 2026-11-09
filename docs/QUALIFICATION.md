@@ -1,5 +1,32 @@
 # Qualification — Retulo
 
+## Git workspaces implementation — 2026-11-09
+
+The Git-workspace implementation at source commit `c419d743753984cc388e907f3a51f5dfcff753ed`
+passed the following local checks before the 0.6.0rc1 version/package refresh.
+These results do not claim that a later release commit has already passed hosted CI.
+
+| Check | Observed result |
+|---|---|
+| Python 3.14.4 macOS source suite | 484 tests passed |
+| Real temporary Git repositories | Creation, restart, snapshots, fast-forward integration, guarded removal and failure paths exercised |
+| CLI / official SDK stdio | 33 tools; lifecycle, reconnect and result parity checked |
+| Isolated source install and restore | Same task completed at two versions; original synthetic settings and artifacts preserved |
+| Built wheel in a fresh temporary runtime | Imports came from the installed package, not the checkout; Codex/Claude stdio launchers healthy |
+| Distribution inspection | Wheel and 27 package source/resource files matched; no bounded-inspector findings |
+| Independent review | Three reproduced issues corrected and rechecked: failed-create pending state, completion with pending Git work, and conditional config filter execution |
+
+All installer tests used temporary configurations. No model calls or operating
+client settings changes were required. The filter-execution reproduction was
+retested after correction: the include setting was rejected, the command did
+not run, and the new worktree was not created. Shared Git state and concurrent
+external writers remain explicit limits; see [Git workspaces](GIT_WORKSPACES.md).
+
+The release workflow reruns the source suite, installed-wheel tests and bootstrap
+checks for the release revision. Consult that revision's GitHub Actions result
+for hosted evidence. Protocol and installation checks do not certify an AI
+client's tool choices, trust decisions or automatic adoption.
+
 ## README connection checks — 2026-11-03
 
 The three README files now share the same executable installation and connection

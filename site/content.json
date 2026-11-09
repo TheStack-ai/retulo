@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0rc1",
+  "version": "0.6.0rc1",
   "locales": {
     "en": {
       "name": "English",
@@ -28,7 +28,7 @@
       ],
       "facts": [
         [
-          "0.5.0rc1",
+          "0.6.0rc1",
           "Preview release"
         ],
         [
@@ -92,7 +92,7 @@
       "quick_title": "Install a package. Connect your project.",
       "quick_intro": "Run the installer in a macOS or Linux terminal. It verifies the release wheel and installs a persistent runtime, obtaining uv and Python when needed. No source checkout or manual virtual environment is required.",
       "install_title": "Install Retulo",
-      "install_note": "Expect retulo 0.5.0rc1. If the command is not found, run the PATH export printed by the installer (default: export PATH=\"$HOME/.local/bin:$PATH\"). Shell profiles are not edited. This preview is distributed on GitHub Releases.",
+      "install_note": "Expect retulo 0.6.0rc1. If the command is not found, run the PATH export printed by the installer (default: export PATH=\"$HOME/.local/bin:$PATH\"). Shell profiles are not edited. This preview is distributed on GitHub Releases.",
       "connect_title": "Connect Codex or Claude Code",
       "connect_note": "Replace the project path with an existing directory. The first command previews; --apply writes the connection. For Claude Code, replace codex with claude in all three commands. Restart the client, trust the project or hooks, and approve the MCP server as prompted. doctor --connect tests local MCP without a model call.",
       "copy": "Copy",
@@ -137,6 +137,11 @@
           "Workflows and recipes",
           "Declared steps, exact inputs and outputs, and new-task reuse.",
           "docs/WORKFLOWS.md"
+        ],
+        [
+          "Git workspaces",
+          "Explicit task connections, selected-file snapshots and guarded fast-forward integration.",
+          "docs/GIT_WORKSPACES.md"
         ],
         [
           "Integration",
@@ -229,7 +234,7 @@
       ],
       "facts": [
         [
-          "0.5.0rc1",
+          "0.6.0rc1",
           "预览版本"
         ],
         [
@@ -293,7 +298,7 @@
       "quick_title": "安装软件包，连接你的项目。",
       "quick_intro": "在 macOS 或 Linux 终端中运行安装程序。它验证发布版 wheel 并安装持久运行环境，必要时获取 uv 和 Python。无需源码目录或手动创建虚拟环境。",
       "install_title": "安装 Retulo",
-      "install_note": "应显示 retulo 0.5.0rc1。若找不到命令，请运行安装程序显示的 PATH 命令（默认：export PATH=\"$HOME/.local/bin:$PATH\"）。不会修改 shell 配置文件。本预览版通过 GitHub Releases 分发。",
+      "install_note": "应显示 retulo 0.6.0rc1。若找不到命令，请运行安装程序显示的 PATH 命令（默认：export PATH=\"$HOME/.local/bin:$PATH\"）。不会修改 shell 配置文件。本预览版通过 GitHub Releases 分发。",
       "connect_title": "连接 Codex 或 Claude Code",
       "connect_note": "将项目路径替换为已有目录。第一条命令预览，--apply 才写入配置。Claude Code 将三条命令中的 codex 换成 claude。重启客户端，按提示信任项目或钩子并批准 MCP 服务。doctor --connect 检查本地 MCP，不调用模型。",
       "copy": "复制",
@@ -338,6 +343,11 @@
           "工作流与模板",
           "声明步骤、输入输出与新任务复用。",
           "docs/WORKFLOWS.md"
+        ],
+        [
+          "Git 工作区",
+          "显式连接任务、保存所选文件快照，并在检查后进行 fast-forward 整合。",
+          "docs/GIT_WORKSPACES.md"
         ],
         [
           "集成说明",
@@ -430,7 +440,7 @@
       ],
       "facts": [
         [
-          "0.5.0rc1",
+          "0.6.0rc1",
           "프리뷰 버전"
         ],
         [
@@ -494,7 +504,7 @@
       "quick_title": "패키지를 설치하고 프로젝트를 연결하세요.",
       "quick_intro": "macOS 또는 Linux 터미널에서 설치기를 실행하세요. 릴리스 wheel을 검증하고 지속되는 실행 환경을 설치하며, 필요하면 uv와 Python도 준비합니다. 소스 폴더나 수동 가상환경은 필요하지 않습니다.",
       "install_title": "Retulo 설치",
-      "install_note": "retulo 0.5.0rc1이 나오면 됩니다. 명령을 찾지 못하면 설치기가 표시한 PATH 명령을 실행하세요. 기본값은 export PATH=\"$HOME/.local/bin:$PATH\"이며 셸 프로필은 수정하지 않습니다. GitHub 릴리스로 배포합니다.",
+      "install_note": "retulo 0.6.0rc1이 나오면 됩니다. 명령을 찾지 못하면 설치기가 표시한 PATH 명령을 실행하세요. 기본값은 export PATH=\"$HOME/.local/bin:$PATH\"이며 셸 프로필은 수정하지 않습니다. GitHub 릴리스로 배포합니다.",
       "connect_title": "Codex 또는 Claude Code 연결",
       "connect_note": "프로젝트 경로를 이미 있는 폴더로 바꾸세요. 첫 명령은 미리보기, --apply는 적용입니다. Claude Code는 세 명령의 codex를 claude로 바꾸세요. 클라이언트를 다시 열고 안내에 따라 프로젝트·훅을 신뢰하고 MCP를 승인하세요. doctor --connect는 모델 호출 없이 로컬 MCP를 검사합니다.",
       "copy": "복사",
@@ -539,6 +549,11 @@
           "작업 흐름과 레시피",
           "명시된 단계, 입력과 출력, 새 작업 재사용.",
           "docs/WORKFLOWS.md"
+        ],
+        [
+          "Git 작업공간",
+          "작업별 연결, 선택 파일 스냅샷, 검사 후 fast-forward 통합.",
+          "docs/GIT_WORKSPACES.md"
         ],
         [
           "연동 안내",

@@ -1,6 +1,6 @@
 # Installation and agent connection
 
-This guide covers the `0.5.0rc1` preview. The normal installation uses a GitHub release wheel and a persistent uv tool environment. You do not need to keep a source checkout or maintain a virtual environment.
+This guide covers the `0.6.0rc1` preview. The normal installation uses a GitHub release wheel and a persistent uv tool environment. You do not need to keep a source checkout or maintain a virtual environment.
 
 ## Install on macOS or Linux
 
@@ -9,7 +9,7 @@ curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
 retulo --version
 ```
 
-Expect `retulo 0.5.0rc1`. The bootstrap downloads this release's wheel and `SHA256SUMS`, verifies the wheel's SHA-256 digest, and installs it with uv. It uses an existing uv if available, otherwise installs a private copy; uv obtains a suitable Python when needed. The wheel includes the CLI, MCP server, agent setup and restoration code, and managed instruction templates.
+Expect `retulo 0.6.0rc1`. The bootstrap downloads this release's wheel and `SHA256SUMS`, verifies the wheel's SHA-256 digest, and installs it with uv. It uses an existing uv if available, otherwise installs a private copy; uv obtains a suitable Python when needed. The wheel includes the CLI, MCP server, agent setup and restoration code, and managed instruction templates.
 
 The default command directory is `~/.local/bin`. If it is missing from your `PATH`, the installer prints the command to run in your current terminal:
 
@@ -21,7 +21,7 @@ The installer does not edit shell profiles. To make the command available in fut
 
 macOS with a local filesystem is the tested environment. The bootstrap targets macOS and Linux; Linux installation is intended for CI qualification. Windows requires manual Python setup and separate validation; the shell bootstrap is not a Windows installer. See [qualification](QUALIFICATION.md) for recorded results.
 
-Retulo is distributed here through [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1). This preview is not published to PyPI or npm. Installing an unqualified package name from another registry is not this installation route.
+Retulo is distributed here through [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1). This preview is not published to PyPI or npm. Installing an unqualified package name from another registry is not this installation route.
 
 ### Review the installer or customize its execution
 
@@ -42,7 +42,7 @@ The script supports `--bin-dir DIR` for the command directory, `--uv PATH` for a
 If you already manage uv and Python, install the same release wheel directly:
 
 ```sh
-uv tool install --python 3.11 https://github.com/TheStack-ai/retulo/releases/download/v0.5.0rc1/retulo-0.5.0rc1-py3-none-any.whl
+uv tool install --python 3.11 https://github.com/TheStack-ai/retulo/releases/download/v0.6.0rc1/retulo-0.6.0rc1-py3-none-any.whl
 retulo --version
 ```
 
@@ -160,7 +160,7 @@ This section is for contributors and the repository's example scripts. It is opt
 Use Python 3.11 or later and a new development directory:
 
 ```sh
-git clone --branch v0.5.0rc1 --depth 1 https://github.com/TheStack-ai/retulo.git "$HOME/retulo-dev"
+git clone --branch v0.6.0rc1 --depth 1 https://github.com/TheStack-ai/retulo.git "$HOME/retulo-dev"
 cd "$HOME/retulo-dev"
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.lock

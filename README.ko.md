@@ -11,7 +11,7 @@
 
 Retulo는 AI 에이전트의 파일 작업에 독립된 로컬 작업공간을 제공합니다. 원본 자료와 이전 결과 버전, 결정 사항, 남은 작업, 검증·승인 기록을 한곳에 보관해 에이전트가 진행 상황을 파악하도록 돕습니다. Codex 또는 Claude Code 연동을 설정하고 신뢰하면, 매번 Retulo를 지정하지 않아도 에이전트가 일반 파일 요청에 이 절차를 적용할 수 있습니다. 다른 대화에서 이어갈 때는 같은 작업이나 작업공간을 지정해 기록된 상태에서 계속 진행합니다.
 
-[![미리보기 버전 0.5.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1)
+[![미리보기 버전 0.6.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)
 [![릴리스 검사](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 이상](assets/badges/python.svg)](#support)
 [![MIT 라이선스](assets/badges/license.svg)](LICENSE)
@@ -34,6 +34,7 @@ Retulo는 AI 에이전트의 파일 작업에 독립된 로컬 작업공간을 �
 | 어디까지 끝났는지 확인하기 | 파일 저장·내용 검사·사용자 승인·외부 전달을 구분한 기록 |
 | 여러 단계의 작업 갱신하기 | 명시한 입력이 바뀌었을 때 다시 작업할 단계 식별 |
 | 다른 자료로 같은 절차 반복하기 | 새 작업과 새로운 검사로 시작하는 버전별 작업 레시피 |
+| 코드 작업을 나누어 진행하기 | 명시적인 Git worktree 연결, 선택 파일 스냅샷, 검사 후 fast-forward 통합 |
 
 요청을 해석하고 도구를 실행하는 주체는 에이전트입니다. Retulo는 작업공간과 기록을 관리합니다. 질문이나 계획만 요청하면 작업공간을 만들지 않습니다.
 
@@ -47,7 +48,7 @@ curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
 retulo --version
 ```
 
-`retulo 0.5.0rc1`이 나오면 됩니다. 설치기는 릴리스 wheel을 내려받아 `SHA256SUMS`로 검증한 뒤, 계속 사용할 수 있는 uv 도구 환경에 설치합니다. 기존 uv를 사용하거나 전용 uv를 설치하고, 필요하면 Python도 내려받습니다. Git이나 소스 폴더, 직접 관리하는 가상환경을 준비할 필요가 없습니다. 이 프리뷰는 PyPI·npm이 아닌 [GitHub 릴리스](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1)로 배포합니다.
+`retulo 0.6.0rc1`이 나오면 됩니다. 설치기는 릴리스 wheel을 내려받아 `SHA256SUMS`로 검증한 뒤, 계속 사용할 수 있는 uv 도구 환경에 설치합니다. 기존 uv를 사용하거나 전용 uv를 설치하고, 필요하면 Python도 내려받습니다. Git이나 소스 폴더, 직접 관리하는 가상환경을 준비할 필요가 없습니다. 이 프리뷰는 PyPI·npm이 아닌 [GitHub 릴리스](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)로 배포합니다.
 
 명령 폴더가 `PATH`에 없다는 안내가 나오면 설치기가 표시한 명령을 실행하세요. 기본 위치라면 다음과 같습니다.
 
@@ -206,7 +207,7 @@ Retulo는 작업과 파일 기록을 로컬에 보관합니다. 기존 에이전
 
 | 항목 | 현재 범위 |
 |---|---|
-| 버전 | `0.5.0rc1` 미리보기 |
+| 버전 | `0.6.0rc1` 미리보기 |
 | 실행 환경 | Python 3.11 이상; 설치기가 필요할 때 Python을 준비 |
 | 검증 환경 | macOS, 로컬 파일시스템 |
 | 인터페이스 | CLI·MCP, 패키지에 포함된 Codex·Claude Code 연결·진단·해제 |
@@ -262,4 +263,4 @@ Claude Code는 `codex` 대신 `claude`를 사용하세요. 연결 해제는 작�
 
 Retulo는 [MIT 라이선스](LICENSE)를 사용합니다. 제3자 소프트웨어와 포함된 라이선스 파일은 [의존성 고지](THIRD_PARTY_NOTICES.md)에 정리되어 있습니다.
 
-개발 중인 Git 작업공간 연결 기능은 [Git 작업공간 안내](docs/GIT_WORKSPACES.md)를 참조하세요. 기존 공개 배포판에는 아직 포함되지 않았습니다.
+코드 작업 기능은 로컬 Git과 명시적으로 설정한 worktree 상위 경로가 필요합니다. 설정·복구·지원 범위는 [Git 작업공간 안내](docs/GIT_WORKSPACES.md)를 참조하세요.
