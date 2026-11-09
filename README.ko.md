@@ -25,9 +25,9 @@ Retulo는 AI와 진행하는 문서·파일·코드 작업을 정리하는 오�
 <a id="demo"></a>
 ## 60초로 보는 실제 작업 이어가기
 
-[![60초 Retulo 데모: 초안 생성, 새 Codex 대화에서 재개, 이전 버전 보존.](assets/demo/retulo-60s-poster.jpg)](https://thestack-ai.github.io/retulo/site/ko/#demo)
+https://github.com/user-attachments/assets/a183b497-ceab-4ceb-a00b-9c9406b3d376
 
-첫 초안을 만든 뒤 새 Codex 대화에서 같은 작업을 이어 수정합니다. 새 파일을 저장해도 이전 버전은 그대로 남습니다. [자막과 함께 영상 보기](https://thestack-ai.github.io/retulo/site/ko/#demo).
+첫 초안을 만든 뒤 새 Codex 대화에서 같은 작업을 이어 수정합니다. 새 파일을 저장해도 이전 버전은 그대로 남습니다. [홈페이지에서 자막과 함께 보기](https://thestack-ai.github.io/retulo/site/ko/#demo).
 
 *두 번의 실제 Codex 대화에서 같은 제안서를 이어서 수정한 과정을 60초로 편집했습니다. 가상 데모 작업에서 Retulo 명령을 다시 실행한 터미널 화면을 담았습니다. 실행 기록과 두 버전의 파일도 확인할 수 있습니다. [실행 기록과 파일 보기](examples/real-session/README.md).*
 
