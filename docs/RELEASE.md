@@ -1,42 +1,56 @@
-# Retulo 0.4.0rc2
+# Retulo 0.6.0rc1
 
-Local workspaces for AI agents, with incremental workflows and reusable recipes.
+Local workspaces for AI agents, now with explicit Git worktree workflows.
+This is a preview release. Ordinary document tasks still work without Git.
 
-This candidate removes a private memory-system bridge from the public package.
-Retulo provides 24 task, file, workflow and recipe tools through its CLI and MCP.
-It remains independent of an additional orchestration runtime. Existing local
-configuration files must contain only the documented core settings; unsupported
-keys fail with a configuration error and are not executed.
+## New in this preview
 
-## Security correction
+- Connect an existing worktree or explicitly create a managed worktree for a task.
+- Inspect local Git state and continue from the same task association.
+- Preserve selected files and their Git identity/hash manifest in immutable ZIP artifacts.
+- Prepare and apply fast-forward integration, then separately prepare and remove an integrated managed worktree. The branch is retained.
+- Reconcile interrupted operations using durable intents and receipts. Completion is blocked while a Git operation remains pending.
+- Use the same nine Git operations through the CLI and typed MCP interface, alongside the existing 24 task/file/workflow tools.
 
-The development release inspector previously parsed every TAR/ZIP metadata
-record before applying its 10,000-member limit. A deliberately supplied hostile
-archive could therefore waste developer-process memory and CPU. ZIP and ZIP64
-central records are now counted before `ZipFile` construction; TAR physical
-headers, extension bodies, nesting, total bytes and effective PAX metadata are
-bounded as they are parsed. Sparse TAR forms are rejected by the inspector.
-The inspector never extracts archives. This issue concerns manually invoked
-release checks; it does not introduce a runtime network endpoint.
+Existing task UUIDs, source roots and v1/v2 artifact meanings are preserved.
+Git state uses a separate revision; a clean status does not mean tests passed,
+content was reviewed or a user approved the result.
 
-## Preserved functionality
+## Install
 
-- Stable task UUIDs and explicit continuation across conversations.
-- Reserved paths, immutable output versions, integrity and revision checks.
-- v1 tasks, opt-in v2 workflows, scoped regeneration and execution history.
-- Typed, version-pinned recipes that create new tasks with fresh checks.
-- Preview-first Codex installation and guarded snapshot restoration.
-- English, Chinese and Korean documentation with the existing visual design.
+```sh
+curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
+retulo --version
+```
 
-See [qualification](QUALIFICATION.md) for the exact checks and their scope.
-Download the [candidate release](https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2)
-or browse the [documentation site](https://thestack-ai.github.io/retulo/site/).
+Expect `retulo 0.6.0rc1`. The installer checks the wheel against the release's
+`SHA256SUMS` before installing it in a persistent isolated tool environment.
+The wheel includes the CLI, MCP server, Codex/Claude setup and managed instructions.
+No PyPI or npm release is implied.
 
-## Scope
+Git creation is disabled until a narrowly scoped `allowed_git_worktree_roots`
+configuration is supplied. Repositories must already be allowed source roots.
+See [Git workspaces](https://github.com/TheStack-ai/retulo/blob/v0.6.0rc1/docs/GIT_WORKSPACES.md) and [installation](https://github.com/TheStack-ai/retulo/blob/v0.6.0rc1/docs/INSTALLATION.md) for
+configuration, continuation, checks and client setup.
 
-The qualified target is macOS with a local filesystem and Python 3.11 or later.
-A wheel contains the CLI/MCP core; install the Codex integration from the source
-package. Review and trust the exact hook definitions in the client. Tests do not
-establish user approval or automatic adoption by an already-connected client.
-The core does not launch models, execute recipe commands, watch folders or publish
-results. Other operating systems, NAS and multi-host operation are not qualified.
+## Safety and support scope
+
+The Git extension does not stage or commit changes, squash or rebase history,
+execute custom hooks, fetch from remotes, launch an agent, or force-delete a
+worktree. Executable filters and Git config includes (including inactive
+`includeIf`) are rejected before worktree creation. Submodule contents are not
+inspected; mutations involving submodules are unsupported.
+
+Worktrees share Git objects, refs and some configuration. They do not isolate
+processes, ports, databases or credentials. Cooperative locks do not stop external
+editors or Git commands. Unknown or partial outcomes remain pending; there is no
+filesystem-wide transaction or automatic rollback. Deletion is permanent, so
+preserve needed bytes first. Snapshots cover only the explicitly selected files.
+
+The local qualification target is macOS with a local filesystem and Python 3.11
+or later. Hosted CI runs separately on macOS and Ubuntu with Python 3.11/3.14;
+check the exact release revision's workflow result. Windows, NAS, multi-host
+concurrency and hostile simultaneous filesystem mutation are not qualified.
+Actual client adoption is separate from the MCP protocol tests.
+
+See [qualification](https://github.com/TheStack-ai/retulo/blob/v0.6.0rc1/docs/QUALIFICATION.md) for observed local checks and limits.

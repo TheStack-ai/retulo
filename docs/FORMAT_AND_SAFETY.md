@@ -20,7 +20,7 @@ Core approval and decision provenance is honestly labeled caller-supplied. The e
 - Reserve outputs before generation. Write only to the unique returned staging path, then commit.
 - Commit validates bytes and publishes to an exclusive versioned destination. It does not replace an existing user's file.
 - Approval binds artifact ID, revision, hash, evidence and approval scope. New work never inherits approval.
-- Existing code repositories use explicit source-root bindings. The engine records selected file hashes and verification claims; it does not roll back the repository, alter its layout, run Git commands or change its AGENTS.md.
+- Existing code repositories use explicit source-root bindings. The engine records selected file hashes and verification claims; ordinary artifact registration does not roll back the repository, alter its layout, run Git commands or change its AGENTS.md. The optional [Git extension](GIT_WORKSPACES.md) performs only explicit local operations under its separate path and lifecycle contract.
 - Content quality/test claims and file integrity are distinct. Passed criteria have a specific artifact reference and caller-reported provenance; file presence alone cannot prove semantic correctness.
 - In a workflow, file latest is not an active step result or a coherent final
   result set. Step output sets are selected only after their contract is met;

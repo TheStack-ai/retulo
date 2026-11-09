@@ -44,7 +44,7 @@ jobs:
       - name: Inspect distribution contents
         run: .venv/bin/python scripts/check_release.py --artifacts-dir dist
       - name: Exercise installed wheel without checkout dependencies
-        run: .venv/bin/python scripts/smoke_package.py --wheel dist/retulo-0.5.0rc1-py3-none-any.whl
+        run: .venv/bin/python scripts/smoke_package.py --wheel dist/retulo-0.6.0rc1-py3-none-any.whl
       - name: Exercise persistent bootstrap and reinstall
         if: matrix.python-version == '3.11'
         env:
@@ -57,7 +57,7 @@ jobs:
           .venv/bin/python - <<'PY'
           from pathlib import Path
           import hashlib
-          wheel = Path('dist/retulo-0.5.0rc1-py3-none-any.whl')
+          wheel = Path('dist/retulo-0.6.0rc1-py3-none-any.whl')
           Path('dist/SHA256SUMS').write_text(hashlib.sha256(wheel.read_bytes()).hexdigest() + '  ' + wheel.name + '\n')
           PY
           sh install.sh --asset-dir "$PWD/dist"

@@ -2,7 +2,7 @@
 # Install the official release into a persistent, isolated uv tool environment.
 set -eu
 
-version=0.5.0rc1
+version=0.6.0rc1
 wheel_name="retulo-${version}-py3-none-any.whl"
 release_url="https://github.com/TheStack-ai/retulo/releases/download/v${version}"
 asset_dir=

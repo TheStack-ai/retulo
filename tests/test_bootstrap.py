@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 SCRIPT = Path(__file__).resolve().parents[1] / "install.sh"
-WHEEL = "retulo-0.5.0rc1-py3-none-any.whl"
+WHEEL = "retulo-0.6.0rc1-py3-none-any.whl"
 
 
 class BootstrapTests(unittest.TestCase):

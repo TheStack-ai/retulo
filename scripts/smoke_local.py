@@ -12,6 +12,7 @@ import tomllib
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
+from retulo.cli import METHODS
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -40,7 +41,7 @@ async def wire(server, task_id):
                 initialized = await client.initialize()
                 assert initialized.server_info.name == "retulo"
                 listed = await client.list_tools()
-                assert len(listed.tools) == 24
+                assert {tool.name for tool in listed.tools} == METHODS
                 checked = await client.call_tool("verify", {"task_id": task_id})
                 assert not checked.is_error and checked.structured_content["ok"]
     return len(listed.tools)

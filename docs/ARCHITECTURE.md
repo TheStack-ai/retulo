@@ -10,7 +10,7 @@ See [WORKFLOWS.md](WORKFLOWS.md) for the incremental execution contract.
 
 `from retulo.engine import Engine, EngineError`
 
-`Engine(workspace_home, state_home=None, allowed_source_roots=None, allowed_workspace_roots=None)` takes Paths or strings. State defaults to a private `.retulo` directory inside workspace_home, not the code repository. File authority is restricted to configured roots; callers cannot widen configuration through a tool argument.
+`Engine(workspace_home, state_home=None, allowed_source_roots=None, allowed_workspace_roots=None, allowed_git_worktree_roots=None)` takes Paths or strings. State defaults to a private `.retulo` directory inside workspace_home, not the code repository. File authority is restricted to configured roots; callers cannot widen configuration through a tool argument.
 
 All methods return JSON-serializable objects. EngineError exposes `code`, `message`, optional `details`; transports return `{ok:false,error:{code,message,details}}` without leaking traceback. Mutations return `{task_id,workspace_path,revision,...}`. Replays return the original operation result, plus `replayed:true`, without changing revision. Invalid stale revisions return `revision_conflict`.
 
@@ -62,3 +62,9 @@ MCP should expose explicit typed tools using the same API, accurate readOnly/des
 - Core worker: engine.py, fs.py, models.py if needed, packaged schemas, core tests.
 - Transport worker: cli.py, mcp.py, __main__.py, adapters/codex/SKILL.md, transport tests. May call declared core interface; coordinate adjustments instead of editing core.
 - Coordinator: config installation, docs, integration qualification, dependency setup, final review.
+
+## Optional Git workspaces
+
+See [Git workspaces](GIT_WORKSPACES.md) for the separate versioned connection state,
+Git revision, explicit lifecycle and snapshot APIs. Existing task source roots and
+v1/v2 artifact meanings remain unchanged. Git snapshots use core immutable artifacts.

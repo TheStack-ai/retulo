@@ -1,6 +1,6 @@
 # Prepare the GitHub publication
 
-This is the maintainer's publication checklist for **Retulo 0.4.0rc2**. The source
+This is the maintainer's publication checklist for **Retulo 0.6.0rc1**. The source
 package and local checks are prepared separately from GitHub publication. The public repository is [TheStack-ai/retulo](https://github.com/TheStack-ai/retulo).
 Discussions and private vulnerability reporting are enabled. The first [hosted validation](https://github.com/TheStack-ai/retulo/actions/runs/41441041094)
 and [documentation deployment](https://github.com/TheStack-ai/retulo/actions/runs/41441041053)
@@ -28,7 +28,7 @@ Repository destinations:
 
 ```text
 Repository: https://github.com/TheStack-ai/retulo
-RC release: https://github.com/TheStack-ai/retulo/releases/tag/v0.4.0rc2
+RC release: https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1
 CI workflow: https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml
 Discussions: https://github.com/TheStack-ai/retulo/discussions
 Private reporting: https://github.com/TheStack-ai/retulo/security/advisories/new
@@ -75,7 +75,7 @@ advertising an inactive Discord server, email address, or support deadline.
 Keep the initial badge row small: **preview version**, **checks**, **Python**, and
 **MIT**. Each badge must say what its evidence supports.
 
-- The version badge can identify the prepared `0.4.0rc2` candidate before upload, linking to the local release notes. Switch its link to the exact published RC afterward.
+- The version badge can identify the prepared `0.6.0rc1` candidate before upload, linking to the local release notes. Switch its link to the exact published RC afterward.
 - Before a hosted run exists, label checks as local-only or pending publication. Never display a GitHub CI success based on a local run.
 - After the hosted run, use GitHub's status badge for `ci.yml`, with the intended branch and event explicit.
 - Python `≥3.11` expresses the requirement; link the verified environment table rather than suggesting every Python/OS combination was tested.
@@ -84,20 +84,20 @@ Keep the initial badge row small: **preview version**, **checks**, **Python**, a
 For a dynamic release badge, include prereleases and use date sorting for this PEP
 440 RC tag. Shields supports `include_prereleases` and `sort=date`; verify that the
 rendered badge displays the intended tag. Link downloads directly to
-`/releases/tag/v0.4.0rc2`. A GitHub prerelease cannot be marked as the latest stable
+`/releases/tag/v0.6.0rc1`. A GitHub prerelease cannot be marked as the latest stable
 release, so `/releases/latest` is not the first RC download destination.
 
 ## Publish the candidate
 
 - [ ] Confirm the remote CI result belongs to the release source revision.
-- [ ] Create the `v0.4.0rc2` tag for that exact revision and publish it as a prerelease.
+- [ ] Create the `v0.6.0rc1` tag for that exact revision and publish it as a prerelease.
 - [ ] Attach the inspected source and wheel packages and their checksums.
 - [ ] Include installation instructions, the actual demo, support scope, and known limits in the release notes.
-- [ ] Test the exact download links and installation from the downloaded source package.
+- [ ] Test the exact download links and installation from the downloaded release wheel.
 - [ ] Confirm the preview wording and badge targets match the published state.
 
-The wheel contains the CLI/MCP core. The documented Codex integration is installed
-from the source checkout. Do not advertise `pip install retulo` before the intended
+The wheel contains the CLI/MCP core, Codex/Claude setup, and managed integration
+instructions. Do not advertise `pip install retulo` before the intended
 package has actually been published and checked on PyPI.
 
 ## First four weeks

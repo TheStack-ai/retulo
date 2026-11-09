@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.0rc1 — 2026-11-09
+
+- Connect tasks to local Git worktrees without changing their existing source-root or v1/v2 artifact meanings.
+- Add nine explicit Git CLI/MCP operations: status, binding, managed creation, selected-file snapshots, integration and removal plans/actions, and unapplied-intent reconciliation. The public MCP surface now has 33 tools.
+- Require an opt-in managed-worktree root and independent Git revisions; preserve durable intent/receipt records across interrupted operations.
+- Preserve explicitly selected file bytes and a Git identity/hash manifest as immutable ZIP artifacts.
+- Support fast-forward integration only. Cleanup is separate, retains the branch, and refuses non-managed, dirty, ignored, locked or non-integrated worktrees.
+- Reject executable Git filters and config includes, including inactive conditional includes; reject unsupported submodule mutations. Do not execute hooks, launch models, or contact remotes through the Git extension.
+- Block task completion while a Git intent is pending, and retain existing task and artifact behavior.
+- Document external-process races, shared Git state, permanent deletion and unsupported environments instead of claiming full isolation or transactional rollback.
+
 ## 0.5.0rc1 — 2026-11-03
 
 - Add a checksum-verified macOS/Linux bootstrap and persistent isolated tool install, without a source checkout or manual virtual environment.

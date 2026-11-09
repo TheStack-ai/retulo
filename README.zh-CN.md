@@ -11,7 +11,7 @@
 
 Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中管理原始资料、历史输出版本、关键决策、剩余工作、检查与审批记录，方便 Agent 追踪进度。配置并信任 Codex 或 Claude Code 集成后，Agent 可在处理日常文件请求时应用这一流程，无需每次指定使用 Retulo。切换到新会话时，指定同一任务或工作区，即可根据已记录的状态继续推进。
 
-[![预览版 0.5.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1)
+[![预览版 0.6.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)
 [![发布检查](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
 [![Python 3.11 及以上](assets/badges/python.svg)](#support)
 [![MIT 许可证](assets/badges/license.svg)](LICENSE)
@@ -34,6 +34,7 @@ Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中
 | 确认工作进度 | 分开记录文件保存、内容检查、用户批准与对外交付状态 |
 | 更新分阶段工作流 | 依据已声明的输入变化，识别受影响并需重新执行的步骤 |
 | 用新资料重复一套流程 | 通过带版本的工作流模板创建新任务，并重新进行检查 |
+| 并行处理代码任务 | 显式连接 Git worktree、保存所选文件快照，并在检查后进行 fast-forward 整合 |
 
 Agent 负责理解请求并调用工具，Retulo 负责管理工作区与记录。单纯提问或制定计划不会创建工作区。
 
@@ -47,7 +48,7 @@ curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
 retulo --version
 ```
 
-应显示 `retulo 0.5.0rc1`。安装程序下载发布版 wheel，使用发布资产中的 `SHA256SUMS` 验证后，将 Retulo 安装到持久的 uv 工具环境。它会使用已有的 uv，或安装专用副本，并在需要时下载合适的 Python。无需 Git、源码目录或自行维护的虚拟环境。本预览版通过 [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.5.0rc1) 分发，不通过 PyPI 或 npm。
+应显示 `retulo 0.6.0rc1`。安装程序下载发布版 wheel，使用发布资产中的 `SHA256SUMS` 验证后，将 Retulo 安装到持久的 uv 工具环境。它会使用已有的 uv，或安装专用副本，并在需要时下载合适的 Python。无需 Git、源码目录或自行维护的虚拟环境。本预览版通过 [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1) 分发，不通过 PyPI 或 npm。
 
 如果提示命令目录不在 `PATH` 中，请运行安装程序显示的命令。默认位置使用：
 
@@ -206,7 +207,7 @@ Retulo 将任务与文件记录保存在本地。通过现有 Agent 或 CLI 客�
 
 | 方面 | 当前范围 |
 |---|---|
-| 版本 | `0.5.0rc1` 预览版 |
+| 版本 | `0.6.0rc1` 预览版 |
 | 运行环境 | Python 3.11+；安装程序在需要时获取 Python |
 | 已验证环境 | macOS、本地文件系统 |
 | 接口 | CLI、MCP，以及软件包内的 Codex 和 Claude Code 设置、诊断与断开连接 |
@@ -261,3 +262,5 @@ Claude Code 连接将 `codex` 替换为 `claude`。断开连接会保留任务�
 ## 许可证
 
 Retulo 使用 [MIT 许可证](LICENSE)。第三方软件及随附许可文件详见[依赖声明](THIRD_PARTY_NOTICES.md)。
+
+可选的代码工作流需要本地 Git 和明确配置的 worktree 父目录。设置、恢复及支持范围请参阅 [Git 工作区](docs/GIT_WORKSPACES.md)。

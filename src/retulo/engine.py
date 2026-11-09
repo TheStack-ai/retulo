@@ -75,11 +75,14 @@ def binding_value(binding):
 
 
 class Engine(WorkflowEngine):
-    def __init__(self, workspace_home, state_home=None, allowed_source_roots=None, allowed_workspace_roots=None):
+    def __init__(self, workspace_home, state_home=None, allowed_source_roots=None, allowed_workspace_roots=None,
+                 allowed_git_worktree_roots=None):
         self.workspace_home = Path(workspace_home).expanduser().resolve(strict=False)
         self.state_home = Path(state_home).expanduser().resolve(strict=False) if state_home else self.workspace_home / ".retulo"
         self.allowed_source_roots = [Path(p).expanduser().resolve(strict=False) for p in (allowed_source_roots or [])]
         self.allowed_workspace_roots = [self.workspace_home, *[Path(p).expanduser().resolve(strict=False) for p in (allowed_workspace_roots or [])]]
+        # A separate opt-in boundary; it never changes existing source bindings.
+        self.allowed_git_worktree_roots = [Path(p).expanduser().absolute() for p in (allowed_git_worktree_roots or [])]
         self._schema = json.loads((Path(__file__).parent / "schemas" / "task.schema.json").read_text())
         self._schema_v2 = json.loads((Path(__file__).parent / "schemas" / "task-v2.schema.json").read_text())
 
@@ -87,17 +90,57 @@ class Engine(WorkflowEngine):
         return {
             "protocol_version": 1, "schema_version": 1, "supported_schema_versions": [1, 2],
             "operations": ["begin_task", "attach_workspace", "get_context", "read_records", "list_tasks", "add_source", "reserve_output", "commit_artifact", "abandon_output", "checkpoint", "record_approval", "resume_task", "verify", "complete_task", "record_external_artifact",
-                           "define_workflow", "bind_input", "plan_rebuild", "begin_step_run", "finish_step_run", "check_recipe", "begin_from_recipe"],
+                           "define_workflow", "bind_input", "plan_rebuild", "begin_step_run", "finish_step_run", "check_recipe", "begin_from_recipe",
+                           "git_status", "git_bind", "git_create_worktree", "git_prepare_integration", "git_integrate", "git_prepare_remove", "git_remove_worktree", "git_record_snapshot", "git_abandon_pending"],
             "workspace_home": str(self.workspace_home),
             "features": {"stable_task_id": True, "source_preservation": True, "optimistic_revisions": True,
                          "process_locking": os.name == "posix", "background_watch": False,
                          "model_dependency": False, "network_required": False, "chat_creation": False,
                          "external_publication": False, "cross_machine_concurrency": "unverified",
                          "bounded_context": True, "criteria_history": True, "structured_attention": True,
-                         "incremental_workflows": True, "work_recipes": True},
+                         "incremental_workflows": True, "work_recipes": True,
+                         "git_workspaces": True, "git_worktree_creation_enabled": bool(self.allowed_git_worktree_roots),
+                         "git_sidecar_schema_version": 1, "git_revision_independent": True,
+                         "git_integration_mode": "explicit_fast_forward_only"},
             "platform_scope": "Local macOS/Linux filesystem; shared/network filesystems unverified",
             "approval_provenance": "caller_supplied_reference; not independently authenticated by core",
         }
+
+    def git_status(self, task_id):
+        from .git_workspaces import GitWorkspaces
+        return GitWorkspaces(self).status(task_id)
+
+    def git_bind(self, task_id, operation_id, expected_git_revision, path):
+        from .git_workspaces import GitWorkspaces
+        return GitWorkspaces(self).bind(task_id, operation_id, expected_git_revision, path)
+
+    def git_create_worktree(self, task_id, operation_id, expected_git_revision, repo_path, path, branch, base="HEAD"):
+        from .git_workspaces import GitWorkspaces
+        return GitWorkspaces(self).create_worktree(task_id, operation_id, expected_git_revision, repo_path, path, branch, base)
+
+    def git_prepare_integration(self, task_id, target_path):
+        from .git_workspaces import GitWorkspaces
+        return GitWorkspaces(self).prepare_integration(task_id, target_path)
+
+    def git_integrate(self, task_id, operation_id, expected_git_revision, plan):
+        from .git_workspaces import GitWorkspaces
+        return GitWorkspaces(self).integrate(task_id, operation_id, expected_git_revision, plan)
+
+    def git_prepare_remove(self, task_id, target_path):
+        from .git_workspaces import GitWorkspaces
+        return GitWorkspaces(self).prepare_remove(task_id, target_path)
+
+    def git_remove_worktree(self, task_id, operation_id, expected_git_revision, plan):
+        from .git_workspaces import GitWorkspaces
+        return GitWorkspaces(self).remove_worktree(task_id, operation_id, expected_git_revision, plan)
+
+    def git_record_snapshot(self, task_id, operation_id, expected_revision, paths):
+        from .git_snapshot import record_git_snapshot
+        return record_git_snapshot(self, task_id, operation_id, expected_revision, paths)
+
+    def git_abandon_pending(self, task_id, operation_id, expected_git_revision, pending_operation_id):
+        from .git_workspaces import GitWorkspaces
+        return GitWorkspaces(self).abandon_pending(task_id, operation_id, expected_git_revision, pending_operation_id)
 
     def _root_guard(self):
         for root in (self.workspace_home, self.state_home):
@@ -1014,6 +1057,8 @@ class Engine(WorkflowEngine):
     def complete_task(self, task_id, operation_id, expected_revision):
         payload = {"method": "complete_task"}
         def change(root, state):
+            from .git_workspaces import GitWorkspaces
+            GitWorkspaces(self).assert_completable(task_id)
             if state["status"] != "active":
                 raise EngineError("task_not_active", "Only an active task can be completed")
             if state.get("attention") is not None:
