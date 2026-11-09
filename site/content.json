@@ -226,7 +226,16 @@
           "Connect each task to a Git worktree. Preserve selected files, review integration, and clean up a managed worktree as a separate action."
         ]
       ],
-      "cases_note": "Retulo manages the task record. Your connected agent performs the work. Git worktree creation requires a configured allowed directory."
+      "cases_note": "Retulo manages the task record. Your connected agent performs the work. Git worktree creation requires a configured allowed directory.",
+      "watch_demo": "Watch the 60-second demo",
+      "video_label": "60-SECOND DEMO",
+      "video_title": "One task. A new chat. Both versions kept.",
+      "video_intro": "Create a first draft, then open a new Codex conversation to revise it. Follow the same task ID and see the earlier version stay intact.",
+      "video_caption": "A proposal revision across two real Codex conversations, edited into 60 seconds. The video includes a recorded Retulo command replay on the same fictional demo task. The run record and both file versions are available to inspect.",
+      "video_evidence": "Read the run record",
+      "video_download": "Download the 60-second video",
+      "video_fallback": "Your browser cannot play this video.",
+      "video_subtitles": "English video with English, Korean and Simplified Chinese subtitles."
     },
     "zh-CN": {
       "name": "简体中文",
@@ -453,7 +462,16 @@
           "把每个任务连接到 Git worktree，保留选定文件，检查整合计划，再分别执行合并和受管理工作目录的清理。"
         ]
       ],
-      "cases_note": "连接的 Agent 执行工作，Retulo 管理任务记录。创建 Git 工作目录前，需要先配置允许的路径。"
+      "cases_note": "连接的 Agent 执行工作，Retulo 管理任务记录。创建 Git 工作目录前，需要先配置允许的路径。",
+      "watch_demo": "观看 60 秒演示",
+      "video_label": "60 秒演示",
+      "video_title": "新会话，同一任务，保留两个版本。",
+      "video_intro": "先创建初稿，再在新的 Codex 会话中修改。沿用同一任务 ID，看看修改后的文件和旧版本如何一起保留。",
+      "video_caption": "将两次真实 Codex 会话中继续修订同一提案的过程剪辑为 60 秒，并加入在同一虚构演示任务上重新执行 Retulo 命令的终端录像。运行记录和两个文件版本均可查阅。",
+      "video_evidence": "查看运行记录",
+      "video_download": "下载 60 秒视频",
+      "video_fallback": "你的浏览器无法播放此视频。",
+      "video_subtitles": "英语视频，提供英语、韩语和简体中文字幕。"
     },
     "ko": {
       "name": "한국어",
@@ -680,7 +698,16 @@
           "작업별로 Git worktree를 연결합니다. 선택한 파일을 보존하고 변경사항을 검토한 뒤, 병합과 작업 폴더 정리를 각각 진행합니다."
         ]
       ],
-      "cases_note": "작업은 연결된 에이전트가 수행하고 Retulo는 작업 기록을 관리합니다. Git 작업 폴더를 새로 만들려면 허용 경로를 먼저 설정해야 합니다."
+      "cases_note": "작업은 연결된 에이전트가 수행하고 Retulo는 작업 기록을 관리합니다. Git 작업 폴더를 새로 만들려면 허용 경로를 먼저 설정해야 합니다.",
+      "watch_demo": "60초 데모 보기",
+      "video_label": "60초 데모",
+      "video_title": "새 대화에서도 같은 작업, 이전 버전까지.",
+      "video_intro": "첫 초안을 만든 뒤 새 Codex 대화에서 수정합니다. 같은 작업 ID로 이어가고, 이전 버전이 그대로 남는 과정을 확인하세요.",
+      "video_caption": "두 번의 실제 Codex 대화에서 같은 제안서를 이어서 수정한 과정을 60초로 편집했습니다. 가상 데모 작업에서 Retulo 명령을 다시 실행한 터미널 화면을 담았습니다. 실행 기록과 두 버전의 파일도 확인할 수 있습니다.",
+      "video_evidence": "실행 기록 보기",
+      "video_download": "60초 영상 내려받기",
+      "video_fallback": "이 브라우저에서는 영상을 재생할 수 없습니다.",
+      "video_subtitles": "영어 영상이며 영어·한국어·중국어 간체 자막을 제공합니다."
     }
   },
   "installCommands": [

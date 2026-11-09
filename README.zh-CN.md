@@ -22,6 +22,15 @@ Retulo 是一款开源本地工具，用来整理与 AI Agent 一起完成的文
 
 [文档站点](https://thestack-ai.github.io/retulo/site/zh-CN/) · [适用场景](#when-to-use) · [安装](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [运行示例](#demo) · [文档](#documentation) · [获取帮助](#get-help)
 
+<a id="demo"></a>
+## 60 秒看懂如何继续同一任务
+
+[![Retulo 60 秒演示：创建初稿，在新的 Codex 会话中继续，并保留两个版本。](assets/demo/retulo-60s-poster.jpg)](https://thestack-ai.github.io/retulo/site/zh-CN/#demo)
+
+先创建初稿，再在新的 Codex 会话中继续同一任务。保存修改后的文件，同时保留旧版本。[观看带字幕的视频](https://thestack-ai.github.io/retulo/site/zh-CN/#demo)。
+
+*将两次真实 Codex 会话中继续修订同一提案的过程剪辑为 60 秒，并加入在同一虚构演示任务上重新执行 Retulo 命令的终端录像。运行记录和两个文件版本均可查阅。[查看运行记录与文件](examples/real-session/README.md)。*
+
 <a id="when-to-use"></a>
 ## 这些时候可以使用 Retulo
 
@@ -164,7 +173,7 @@ retulo capabilities --json
 
 客户端参考：[OpenAI Docs：Codex MCP](https://developers.openai.com/codex/mcp) · [Claude Code MCP](https://code.claude.com/docs/en/mcp) · [Claude 项目指令](https://code.claude.com/docs/en/memory)。
 
-<a id="demo"></a>
+<a id="cli-examples"></a>
 ## 运行示例
 
 以下示例需先完成可选的[开发用源码设置](docs/INSTALLATION.md#development-only-source-checkout)，再从源码目录运行。正常安装或连接 Agent 不需要源码目录。

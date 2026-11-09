@@ -117,6 +117,10 @@ def render(locale: str, c: dict, content: dict, version: str, args: argparse.Nam
     documents = "".join(f'<li><a href="{e(source(path))}"><span><strong>{e(title)}</strong><small>{e(body)}</small></span><span class="arrow" aria-hidden="true">↗</span></a></li>' for title, body, path in c["documents"])
     faqs = "".join(f'<details><summary>{e(question)}</summary><p>{e(answer)}</p></details>' for question, answer in c["faqs"])
     help_links = "".join(f'<a href="{e(source(path))}">{e(label)}<span aria-hidden="true">↗</span></a>' for label, path in c["help_links"])
+    subtitle_labels = {"en": "English", "ko": "한국어", "zh-CN": "简体中文"}
+    subtitle_tracks = "".join(
+        f'<track kind="subtitles" src="{e(source("assets/demo/retulo-60s." + lang + ".vtt"))}" srclang="{lang}" label="{subtitle_labels[lang]}"' + (' default' if lang == locale else '') + '>'
+        for lang in ("en", "ko", "zh-CN"))
     return f'''<!doctype html>
 <html lang="{locale}">
 <head>
@@ -139,11 +143,24 @@ def render(locale: str, c: dict, content: dict, version: str, args: argparse.Nam
   <section class="hero" id="overview" aria-labelledby="hero-title">
     <div><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>{e(preview)}<span class="version-tag">{e(version)}</span></p>
       <h1 id="hero-title">{lines(c['headline'])}</h1><p class="hero-intro">{e(c['intro'])}</p>
-      <div class="hero-actions"><a class="button primary" href="#quick-start">{e(c['start'])}<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#use-cases">{e(c['see'])}<span class="arrow" aria-hidden="true">↓</span></a></div>
+      <div class="hero-actions"><a class="button primary" href="#quick-start">{e(c['start'])}<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#demo">{e(c['watch_demo'])}<span class="arrow" aria-hidden="true">↓</span></a></div>
     </div>
     <aside class="workspace-ledger" aria-label="{e(c['ledger_label'])}"><div class="ledger-top"><p>{e(c['ledger_label'])}</p><h2>{lines(c['ledger_title'])}</h2></div><div class="ledger-lines">{ledger}</div></aside>
   </section>
   <div class="facts" aria-label="Retulo {e(version)}">{facts}</div>
+  <section class="section video-demo" id="demo" aria-labelledby="video-title">
+    <p class="section-label">{e(c['video_label'])}</p><div class="section-heading"><h2 id="video-title">{e(c['video_title'])}</h2><p>{e(c['video_intro'])}</p></div>
+    <figure class="demo-player">
+      <video controls playsinline preload="metadata" width="1280" height="720" poster="{e(source('assets/demo/retulo-60s-poster.jpg'))}" aria-labelledby="video-title" aria-describedby="video-caption video-subtitles">
+        <source src="{e(source('assets/demo/retulo-60s.mp4'))}" type="video/mp4">
+        {subtitle_tracks}
+        <p>{e(c['video_fallback'])} <a href="{e(source('assets/demo/retulo-60s.mp4'))}">{e(c['video_download'])}</a></p>
+      </video>
+      <figcaption id="video-caption">{e(c['video_caption'])}</figcaption>
+    </figure>
+    <p class="video-subtitles" id="video-subtitles">{e(c['video_subtitles'])}</p>
+    <div class="video-links"><a href="{e(source('examples/real-session/README.md'))}">{e(c['video_evidence'])} <span aria-hidden="true">↗</span></a><a href="{e(source('assets/demo/retulo-60s.mp4'))}" download>{e(c['video_download'])} <span aria-hidden="true">↓</span></a></div>
+  </section>
   <section class="section" id="use-cases" aria-labelledby="cases-title">
     <p class="section-label">{e(c['cases_label'])}</p><div class="section-heading"><h2 id="cases-title">{e(c['cases_title'])}</h2><p>{e(c['cases_intro'])}</p></div>
     <div class="use-cases">{cases}</div><p class="note">{e(c['cases_note'])}</p>

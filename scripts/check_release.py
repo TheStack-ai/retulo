@@ -62,6 +62,9 @@ PRIVATE_DIRS = {".workspace", ".codex", ".agents", "runtime", "sessions", "hook-
 PRIVATE_NAMES = {"auth.json", "credentials.json", "credentials.yaml", "credentials.yml",
                  ".env", ".DS_Store"}
 MAX_FILE_BYTES = 2 * 1024 * 1024
+PUBLIC_DEMO_VIDEO = "assets/demo/retulo-60s.mp4"
+PUBLIC_DEMO_VIDEO_BYTES = 5_801_953
+PUBLIC_DEMO_VIDEO_SHA256 = "b125b5ef163e7660b6033818544837abb31814be71b128d713296eb88c364ef2"
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
 MAX_ARCHIVE_MEMBERS = 10000
 MAX_TAR_EXTENSION_DEPTH = 32
@@ -88,6 +91,10 @@ def private_name(path):
 
 def inspect_bytes(path, raw):
     """Report categories and locations, never echo possible credentials."""
+    if str(path) == PUBLIC_DEMO_VIDEO:
+        if len(raw) != PUBLIC_DEMO_VIDEO_BYTES or hashlib.sha256(raw).hexdigest() != PUBLIC_DEMO_VIDEO_SHA256:
+            return [finding(path, "demo_media_mismatch", "Video does not match the reviewed public demo")]
+        return []
     results = []
     if len(raw) > MAX_FILE_BYTES:
         return [finding(path, "oversized_file", "File exceeds the bounded text inspection limit")]
@@ -179,10 +186,12 @@ def check_source(root):
             if name.endswith((".pyc", ".pyo")):
                 results.append(finding(relative, "compiled_cache", "Compiled caches are not release source"))
                 continue
-            if path.stat().st_size > MAX_FILE_BYTES:
-                results.append(finding(relative, "oversized_file", "File exceeds the bounded text inspection limit"))
+            limit = PUBLIC_DEMO_VIDEO_BYTES if relative.as_posix() == PUBLIC_DEMO_VIDEO else MAX_FILE_BYTES
+            if path.stat().st_size > limit:
+                results.append(finding(relative, "oversized_file", "File exceeds the bounded inspection limit"))
                 continue
-            raw = path.read_bytes()
+            with path.open("rb") as stream:
+                raw = stream.read(limit + 1)
             results.extend(inspect_bytes(relative, raw))
             if relative.as_posix() == "third_party/inventory.json" or relative.parts[:2] == ("third_party", "licenses"):
                 inventory_files[relative.as_posix()] = raw
@@ -268,6 +277,13 @@ class _BoundedTarInfo(tarfile.TarInfo):
     _proc_gnusparse_10 = _proc_sparse
 
 
+def _archive_member_limit(path, name):
+    # Source distributions may wrap the repository tree in one directory.
+    if path.suffix != ".whl" and PUBLIC_DEMO_VIDEO in (name, name.partition("/")[2]):
+        return PUBLIC_DEMO_VIDEO_BYTES
+    return MAX_FILE_BYTES
+
+
 def _archive_entries(path):
     """Validate member metadata before reading any payload; never extract."""
     # Compression-container metadata (for example gzip optional name/comment
@@ -283,8 +299,9 @@ def _archive_entries(path):
                     raise ValueError("Archive exceeds inspection limits")
                 for member in members:
                     mode = (member.external_attr >> 16) & 0o170000
+                    limit = _archive_member_limit(path, member.filename)
                     yield member.filename, member.is_dir(), mode == 0o120000, member.file_size, (
-                        b"" if member.is_dir() or mode == 0o120000 or member.file_size > MAX_FILE_BYTES
+                        b"" if member.is_dir() or mode == 0o120000 or member.file_size > limit
                         else archive.read(member))
     else:
         with tarfile.open(path, "r:*", tarinfo=_BoundedTarInfo) as archive:
@@ -300,11 +317,12 @@ def _archive_entries(path):
                 archive.members.clear()
                 special = not (member.isdir() or member.isfile())
                 raw = b""
-                if member.isfile() and member.size <= MAX_FILE_BYTES:
+                limit = _archive_member_limit(path, member.name)
+                if member.isfile() and member.size <= limit:
                     stream = archive.extractfile(member)
                     if stream is not None:
                         with stream:
-                            raw = stream.read(MAX_FILE_BYTES + 1)
+                            raw = stream.read(limit + 1)
                 yield member.name, member.isdir(), special, member.size, raw
 
 
@@ -325,7 +343,7 @@ def check_archive(path):
             if name in entries:
                 results.append(finding(name, "duplicate_member", "Duplicate archive member"))
             entries[name] = raw
-            if size > MAX_FILE_BYTES:
+            if size > _archive_member_limit(path, name):
                 results.append(finding(name, "oversized_file", "Archive member exceeds inspection limit"))
     except (OSError, ValueError, EOFError, UnicodeError, struct.error,
             tarfile.TarError, zipfile.BadZipFile) as exc:

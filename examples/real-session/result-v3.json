@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "observed_date": "2026-11-09",
+  "retulo_version": "0.6.0rc1",
+  "engine_commit": "4bcd393",
+  "task_id": "51c9c1f8-a1e8-4c80-8a3f-05d26fd313fb",
+  "artifact_id": "7ffb910a-fb09-4401-a651-3f2696b87107",
+  "status": "completed",
+  "task_revision": 11,
+  "source": {
+    "path": "notes.md",
+    "sha256_before": "fa3bace62be4ab0bbae231eefb636a272b031099da02e5923e961db4140eb21e",
+    "sha256_after": "fa3bace62be4ab0bbae231eefb636a272b031099da02e5923e961db4140eb21e"
+  },
+  "versions": [
+    {
+      "path": "proposal-v001.md",
+      "revision": 1,
+      "sha256_before": "0020f9fcc39e8980632edf6afcdf21ca3ceac952d75267a031ad020e1f0700e5",
+      "sha256_after": "0020f9fcc39e8980632edf6afcdf21ca3ceac952d75267a031ad020e1f0700e5"
+    },
+    {
+      "path": "proposal-v002.md",
+      "revision": 2,
+      "sha256": "b0c9b5be7ee2c0275f2c2e182fc8aefa6c512a0db147c95e507ef248d58d505c"
+    }
+  ],
+  "checks": {
+    "same_task": true,
+    "same_workspace": true,
+    "previous_version_preserved": true,
+    "source_preserved": true,
+    "only_schedule_changed": true,
+    "both_versions_registered": true,
+    "retulo_integrity_ok": true,
+    "fresh_codex_chat_observed": true,
+    "new_chat_read_parent_history": false
+  },
+  "sessions": {
+    "first_session_id_sha256": "b544b666360d6d3bf7d2b32641c680ea3d81cae744bfe2b3c5d4582e736ae2d8",
+    "second_session_id_sha256": "62318b9f18140d940c2e4739a8e2d3eca2ed835dccd95d72f1722866a1a10fa4",
+    "second_turn_status": "completed",
+    "second_turn_duration_ms": 216316,
+    "evidence": "Codex app create_thread, wait_threads completion, recorded host session binding and 16 observed shell executions; no parent-chat read tool in the new chat."
+  },
+  "first_session_methods": [
+    "begin_task",
+    "add_source",
+    "reserve_output",
+    "commit_artifact",
+    "checkpoint",
+    "complete_task"
+  ],
+  "second_session_methods": [
+    "get_context",
+    "resume_task",
+    "resume_task",
+    "reserve_output",
+    "commit_artifact",
+    "verify",
+    "checkpoint",
+    "complete_task",
+    "get_context"
+  ],
+  "execution": "First coordinator authored a synthetic draft and executed start.py. A separate real Codex chat read the saved task and independently authored the schedule revision through the public Retulo CLI.",
+  "video": "60-second v3 walkthrough using the actual documents and shortened requests from the two Codex conversations. The terminal insert records a later read-only Retulo replay on the same isolated task and shows filtered output.",
+  "scope": "This run verifies one CLI-assisted continuation in Codex, not MCP installation, automatic task discovery, Claude Code adoption, or external-user usability.",
+  "private_data": "Local paths, reservation tokens and full conversation logs omitted. No personal runtime or settings migration performed.",
+  "video_file": {
+    "path": "../../assets/demo/retulo-60s.mp4",
+    "revision": 3,
+    "duration_seconds": 60,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "subtitle_languages": [
+      "kor",
+      "eng",
+      "zho"
+    ],
+    "bytes": 5801953,
+    "sha256": "b125b5ef163e7660b6033818544837abb31814be71b128d713296eb88c364ef2"
+  }
+}

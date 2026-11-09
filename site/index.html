@@ -21,7 +21,7 @@
   <link rel="alternate" hreflang="x-default" href="https://thestack-ai.github.io/retulo/site/">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Retulo", "description": "Keep source files, output versions, decisions and next steps together. Continue document and code tasks with Codex or Claude Code using the same local workspace.", "url": "https://thestack-ai.github.io/retulo/site/", "softwareVersion": "0.6.0rc1", "programmingLanguage": "Python", "runtimePlatform": "Python 3.11+", "operatingSystem": "macOS", "license": "https://opensource.org/license/mit", "inLanguage": "en", "codeRepository": "https://github.com/TheStack-ai/retulo"}</script>
   <link rel="icon" type="image/svg+xml" href="../assets/brand/symbol.svg">
-  <link rel="stylesheet" href="styles.css?v=31d3d98bb553">
+  <link rel="stylesheet" href="styles.css?v=32afe0b9965f">
   <script defer src="app.js?v=313cf9c6bd0a"></script>
 </head>
 <body>
@@ -35,11 +35,24 @@
   <section class="hero" id="overview" aria-labelledby="hero-title">
     <div><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>PREVIEW RELEASE<span class="version-tag">0.6.0rc1</span></p>
       <h1 id="hero-title">Keep AI work<br>ready to continue.</h1><p class="hero-intro">Retulo is an open-source local tool for Codex and Claude Code. It keeps source files, output versions, decisions and next steps together. Give your agent the task ID or workspace path to pick up the work in another chat.</p>
-      <div class="hero-actions"><a class="button primary" href="#quick-start">Install Retulo<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#use-cases">See when to use it<span class="arrow" aria-hidden="true">↓</span></a></div>
+      <div class="hero-actions"><a class="button primary" href="#quick-start">Install Retulo<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#demo">Watch the 60-second demo<span class="arrow" aria-hidden="true">↓</span></a></div>
     </div>
     <aside class="workspace-ledger" aria-label="WHAT A WORKSPACE KEEPS"><div class="ledger-top"><p>WHAT A WORKSPACE KEEPS</p><h2>The files.<br>The progress.<br>The next step.</h2></div><div class="ledger-lines"><div class="ledger-line"><span>01</span><span>Source material</span></div><div class="ledger-line"><span>02</span><span>Output versions</span></div><div class="ledger-line"><span>03</span><span>Decisions and remaining work</span></div><div class="ledger-line"><span>04</span><span>Checks and approvals</span></div></div></aside>
   </section>
   <div class="facts" aria-label="Retulo 0.6.0rc1"><div class="fact"><strong>Documents + code</strong><span>Tasks with files to keep</span></div><div class="fact"><strong>On your machine</strong><span>Local workspace storage</span></div><div class="fact"><strong>Codex · Claude</strong><span>Use through your agent</span></div><div class="fact"><strong>MIT</strong><span>Open source</span></div></div>
+  <section class="section video-demo" id="demo" aria-labelledby="video-title">
+    <p class="section-label">60-SECOND DEMO</p><div class="section-heading"><h2 id="video-title">One task. A new chat. Both versions kept.</h2><p>Create a first draft, then open a new Codex conversation to revise it. Follow the same task ID and see the earlier version stay intact.</p></div>
+    <figure class="demo-player">
+      <video controls playsinline preload="metadata" width="1280" height="720" poster="../assets/demo/retulo-60s-poster.jpg" aria-labelledby="video-title" aria-describedby="video-caption video-subtitles">
+        <source src="../assets/demo/retulo-60s.mp4" type="video/mp4">
+        <track kind="subtitles" src="../assets/demo/retulo-60s.en.vtt" srclang="en" label="English" default><track kind="subtitles" src="../assets/demo/retulo-60s.ko.vtt" srclang="ko" label="한국어"><track kind="subtitles" src="../assets/demo/retulo-60s.zh-CN.vtt" srclang="zh-CN" label="简体中文">
+        <p>Your browser cannot play this video. <a href="../assets/demo/retulo-60s.mp4">Download the 60-second video</a></p>
+      </video>
+      <figcaption id="video-caption">A proposal revision across two real Codex conversations, edited into 60 seconds. The video includes a recorded Retulo command replay on the same fictional demo task. The run record and both file versions are available to inspect.</figcaption>
+    </figure>
+    <p class="video-subtitles" id="video-subtitles">English video with English, Korean and Simplified Chinese subtitles.</p>
+    <div class="video-links"><a href="https://github.com/TheStack-ai/retulo/blob/main/examples/real-session/README.md">Read the run record <span aria-hidden="true">↗</span></a><a href="../assets/demo/retulo-60s.mp4" download>Download the 60-second video <span aria-hidden="true">↓</span></a></div>
+  </section>
   <section class="section" id="use-cases" aria-labelledby="cases-title">
     <p class="section-label">01 / WHEN TO USE RETULO</p><div class="section-heading"><h2 id="cases-title">Work that takes more than one chat.</h2><p>Use Retulo when the next revision needs the files, choices and progress from the last one.</p></div>
     <div class="use-cases"><article class="use-case"><h3>Revise a proposal</h3><p class="case-situation">You have a draft, source notes and another round of feedback.</p><p>Keep managed output versions and decisions together, then identify the same task to revise it in another chat.</p></article><article class="use-case"><h3>Update a recurring report</h3><p class="case-situation">New figures arrive after you have finished the report.</p><p>For a workflow with declared steps, see what needs rebuilding. Reuse a saved recipe to start the next report with fresh checks.</p></article><article class="use-case"><h3>Work on code in parallel</h3><p class="case-situation">Two features need separate working folders in one repository.</p><p>Connect each task to a Git worktree. Preserve selected files, review integration, and clean up a managed worktree as a separate action.</p></article></div><p class="note">Retulo manages the task record. Your connected agent performs the work. Git worktree creation requires a configured allowed directory.</p>

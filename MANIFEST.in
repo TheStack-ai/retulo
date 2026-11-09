@@ -5,6 +5,7 @@ recursive-include src/retulo/resources *.md
 recursive-include scripts *.py
 recursive-include adapters *.md
 recursive-include examples *.md *.json
+include examples/real-session/start.py examples/real-session/verify.py
 recursive-include docs *.md
 recursive-include tests *.py
 recursive-include third_party *
@@ -16,4 +17,5 @@ global-exclude __pycache__ *.py[cod]
 include .gitignore AGENTS.md
 recursive-include .github *.yml *.yaml *.md
 recursive-include assets *.svg *.png *.gif *.mp4 *.json
+include assets/demo/retulo-60s-poster.jpg assets/demo/retulo-60s.*.vtt
 recursive-include site *.html *.css *.js *.json *.txt *.xml
