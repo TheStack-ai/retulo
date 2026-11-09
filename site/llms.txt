@@ -2,8 +2,8 @@
 
 Local workspaces for AI agents. Official documentation pages at the explicitly configured site URL.
 
-- [English](https://thestack-ai.github.io/retulo/site/): Keep source material, file versions, decisions and progress together. Continue the same AI agent task across conversations, then update or reuse its workflow.
-- [简体中文](https://thestack-ai.github.io/retulo/site/zh-CN/): 集中管理原始资料、文件版本、决策与进度。在新会话中继续同一任务，并更新或复用工作流。
-- [한국어](https://thestack-ai.github.io/retulo/site/ko/): 원본 자료와 파일 버전, 결정 사항, 진행 기록을 함께 관리합니다. 새 대화에서 같은 작업을 이어가고 작업 절차를 갱신하거나 재사용합니다.
+- [English](https://thestack-ai.github.io/retulo/site/): Keep source files, output versions, decisions and next steps together. Continue document and code tasks with Codex or Claude Code using the same local workspace.
+- [简体中文](https://thestack-ai.github.io/retulo/site/zh-CN/): 把原始资料、文件版本、决策和下一步集中到同一任务。通过 Codex 或 Claude Code，在同一本地工作区继续文档与代码工作。
+- [한국어](https://thestack-ai.github.io/retulo/site/ko/): 자료, 파일 버전, 결정과 남은 일을 작업별로 정리합니다. Codex·Claude Code에서 문서와 코드 작업을 같은 로컬 작업공간으로 이어가세요.
 
 This index helps agents find documentation. It does not establish search ranking or approval of generated content.

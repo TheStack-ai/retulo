@@ -7,9 +7,11 @@
 
 # Retulo
 
-**Local workspaces for AI agents.**
+**Keep AI work ready to continue.**
 
-Retulo gives AI agents a dedicated local workspace for file-producing work. It keeps source material, previous output versions, decisions, remaining work, checks, and approvals together, helping the agent keep track of the work. Once the Codex or Claude Code integration is connected and trusted, your agent can apply this workspace procedure to everyday file requests without being asked to use Retulo each time. When resuming in another conversation, identify the task or workspace to continue from its recorded state.
+Retulo is an open-source local tool for document, file and code work with AI agents. It keeps source material, output versions, decisions and remaining work together, so you can see what changed and pick up the task in another conversation.
+
+Use it through **Codex, Claude Code or the CLI**. When continuing, give the agent the **task ID or workspace path**; it can read the saved state and files before working. Retulo stores task records on your computer and connects to agents through MCP.
 
 [![Preview 0.6.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)
 [![Release checks](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
@@ -18,25 +20,34 @@ Retulo gives AI agents a dedicated local workspace for file-producing work. It k
 
 **macOS local preview** · CLI and MCP · English, 简体中文, 한국어
 
-[Documentation site](https://thestack-ai.github.io/retulo/site/) · [Install](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [Demo](#demo) · [Docs](#documentation) · [Get help](#get-help)
+[Documentation site](https://thestack-ai.github.io/retulo/site/) · [When to use it](#when-to-use) · [Install](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [Demo](#demo) · [Docs](#documentation) · [Get help](#get-help)
 
-![One task continues across conversations, keeping its sources, versions, and recorded progress.](assets/demo/continuity.svg)
+<a id="when-to-use"></a>
+## When Retulo helps
 
-*The diagram explains the workflow: the agent identifies the existing task before continuing it. Retulo does not automatically remember every conversation.*
+### Keep earlier drafts while revising a proposal
 
-## What you can do
+> Update the pricing section and keep the previous version.
 
-| Your work | What Retulo provides |
-|---|---|
-| Ask for a file in the usual way | Workspace tools and guidance for the connected agent, without naming Retulo in every request |
-| Continue in another conversation | The same task identity, workspace, current state, and detailed history |
-| Revise an existing result | Reserved output paths, numbered output versions, and change detection |
-| Check what is finished | Separate records for saved files, content checks, user approval, and external delivery |
-| Update a staged workflow | Which steps are affected by changes to declared inputs |
-| Repeat a process with new material | Versioned workflow recipes that start new tasks with fresh checks |
-| Work on code in parallel | Explicit Git worktree connections, selected-file snapshots, and guarded fast-forward integration |
+Retulo keeps registered output versions alongside the source material and decisions. You can review an earlier draft and use the same task ID to continue the revision in another conversation.
 
-The agent interprets your request and runs its tools. Retulo manages the workspace and records. Questions and planning alone do not create a workspace.
+### Refresh a recurring report when inputs change
+
+> Use this month's data to update the report.
+
+For a workflow with declared inputs and steps, Retulo identifies which steps are affected by the changed data. The agent can use that plan to redo the affected work. Save a reusable recipe when you want to start the same process with new inputs and fresh checks. [See workflows and recipes](docs/WORKFLOWS.md).
+
+### Work on code changes in separate folders
+
+> Work on this feature in its own Git worktree, then show what changed.
+
+Connect a task to a worktree or explicitly create one, inspect its Git state, and preserve selected files as a snapshot. Prepare fast-forward integration and cleanup as separate actions. Managed creation requires an explicitly allowed worktree directory; worktrees do not isolate running processes or databases. [See Git workspaces](docs/GIT_WORKSPACES.md).
+
+![A task connects source material, output versions and recorded progress across conversations.](assets/demo/continuity.svg)
+
+*Continue with the task ID or workspace path, using the same Retulo configuration and file access. Retulo reads recorded task state; it does not automatically remember every conversation.*
+
+The connected agent interprets your request and creates or edits the content. **Retulo organizes the workspace and records what happened:** saved files, checks, approvals and remaining work. Those are separate records—a saved file is not automatically a reviewed or approved result. Questions and planning alone do not create a workspace.
 
 <a id="quick-start"></a>
 ## Install Retulo
@@ -48,7 +59,7 @@ curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
 retulo --version
 ```
 
-Expect `retulo 0.6.0rc1`. The installer downloads the release wheel, verifies it against the release's `SHA256SUMS`, and installs Retulo in a persistent uv tool environment. It uses an existing uv or installs a private copy, and downloads a suitable Python when needed. You do not need Git, a source checkout, or a virtual environment you maintain yourself. This preview is distributed through [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1), not PyPI or npm.
+Expect `retulo 0.6.0rc1`. The installer downloads the release wheel, verifies it against the release's `SHA256SUMS`, and installs Retulo in a persistent uv tool environment. It uses an existing uv or installs a private copy, and downloads a suitable Python when needed. No source checkout or self-managed virtual environment is needed. Document tasks do not require Git; optional worktree features do. This preview is distributed through [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1), not PyPI or npm.
 
 If the installer reports that the command directory is missing from `PATH`, run its printed command. With the default location:
 
@@ -56,7 +67,7 @@ If the installer reports that the command directory is missing from `PATH`, run 
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-The installer does not edit your shell profile. macOS is the tested local environment; Linux installation is intended for CI qualification. See the [installation guide](docs/INSTALLATION.md) for script review, an existing-uv alternative, custom paths, and development setup.
+The installer does not edit your shell profile. Local testing uses macOS with a local filesystem. For 0.6.0rc1, [GitHub CI passed on macOS and Ubuntu with Python 3.11 and 3.14](https://github.com/TheStack-ai/retulo/actions/runs/42574237876). See the [installation guide](docs/INSTALLATION.md) for script review, an existing-uv alternative, custom paths, and development setup.
 
 To connect an agent, first install and sign in to **Codex or Claude Code** as usual. Retulo does not install either client or supply a model account. Choose one connection below and replace `/absolute/path/to/project` with an **existing project directory**. Existing code stays in its original repository.
 
@@ -120,7 +131,7 @@ Existing configurations keep their workspace location. Setup, doctor, and discon
 
 In your connected agent, request:
 
-> Use Retulo to create a Markdown welcome guide for this project. Before writing, start the task and reserve the output. Register the actual file, check its contents and integrity, and report the task ID, workspace path and output path.
+> Use Retulo to create a Markdown welcome guide for this project. Keep the source material and result together, check the result, and give me the file plus its task ID or workspace path so I can continue later.
 
 You should get a real file, a task ID and workspace path, a recorded artifact version and actual check results. Retulo's `verify` should return `ok: true` with no mismatches for registered bytes. Review the content yourself as well.
 
@@ -209,9 +220,10 @@ Retulo keeps task and file records locally. An existing agent or CLI client uses
 |---|---|
 | Release | `0.6.0rc1`, preview |
 | Runtime | Python 3.11+; the installer obtains Python when needed |
-| Qualified environment | macOS, local filesystem |
+| Local verification | macOS, local filesystem |
+| Release CI | macOS and Ubuntu × Python 3.11 and 3.14 passed for 0.6.0rc1 |
 | Interfaces | CLI and MCP; packaged Codex and Claude Code setup, diagnosis, and disconnection |
-| Other environments | Linux installer targets CI qualification; Windows manual Python setup, NAS, multiple hosts, and other clients need separate validation |
+| Other environments | Windows manual Python setup, NAS, multiple hosts, and other clients need separate validation |
 
 Retulo operates on the files and tasks registered through its workflow. It does not intercept all writes made by unrelated host tools. File integrity checks do not establish content quality or user approval. The core does not call models, launch agents, watch folders, or publish results.
 
@@ -238,6 +250,7 @@ The public name, paths, and MCP key differ from the earlier development prototyp
 - [Frequently asked questions](docs/FAQ.md)
 - [한국어 사용 안내](docs/USER_GUIDE.ko.md)
 - [Workflows and recipes](docs/WORKFLOWS.md)
+- [Git workspaces, snapshots and integration](docs/GIT_WORKSPACES.md)
 - [Agent integration](docs/INTEGRATIONS.md)
 - [Task history and managed upgrades](docs/SUSTAINABILITY.md)
 - [Format and safety contract](docs/FORMAT_AND_SAFETY.md) · [Architecture](docs/ARCHITECTURE.md)
@@ -262,5 +275,3 @@ Tests use temporary synthetic fixtures and require no model account. Local check
 ## License
 
 Retulo is [MIT licensed](LICENSE). See [dependency notices](THIRD_PARTY_NOTICES.md) for third-party software and included license files.
-
-Optional code workflows require local Git and an explicitly configured worktree parent directory. See [Git workspaces](docs/GIT_WORKSPACES.md) for setup, recovery, and supported repository limits.
