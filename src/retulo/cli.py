@@ -21,6 +21,9 @@ METHODS = frozenset({
     "abandon_output", "read_records", "harness_context",
     "define_workflow", "bind_input", "plan_rebuild", "begin_step_run", "finish_step_run",
     "check_recipe", "begin_from_recipe",
+    "git_status", "git_bind", "git_create_worktree", "git_prepare_integration",
+    "git_integrate", "git_prepare_remove", "git_remove_worktree",
+    "git_record_snapshot", "git_abandon_pending",
 })
 
 
@@ -64,7 +67,7 @@ def validate_config(data: Any) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise ConfigError("Configuration must be a JSON object")
     allowed = {"schema_version", "workspace_home", "state_home", "allowed_source_roots",
-               "allowed_workspace_roots"}
+               "allowed_workspace_roots", "allowed_git_worktree_roots"}
     unsupported = set(data) - allowed
     if unsupported:
         raise ConfigError("Configuration contains unsupported keys: " + ", ".join(sorted(unsupported)))
@@ -75,7 +78,7 @@ def validate_config(data: Any) -> dict[str, Any]:
     normalized["workspace_home"] = _absolute_path(data.get("workspace_home"), "workspace_home")
     if data.get("state_home") is not None:
         normalized["state_home"] = _absolute_path(data["state_home"], "state_home")
-    for field in ("allowed_source_roots", "allowed_workspace_roots"):
+    for field in ("allowed_source_roots", "allowed_workspace_roots", "allowed_git_worktree_roots"):
         values = data.get(field, [])
         if not isinstance(values, list) or len(values) > 128:
             raise ConfigError(f"{field} must be a bounded array of paths")
@@ -98,7 +101,8 @@ def load_config(path: str | Path | None = None) -> dict[str, Any]:
 
 def init_config(path: str | Path | None = None, *, workspace_home: str | None = None,
                 state_home: str | None = None, allowed_source_roots: list[str] | None = None,
-                allowed_workspace_roots: list[str] | None = None) -> dict[str, Any]:
+                allowed_workspace_roots: list[str] | None = None,
+                allowed_git_worktree_roots: list[str] | None = None) -> dict[str, Any]:
     """Create configuration only, exclusively; never replace user configuration."""
     location = (Path(path).expanduser() if path else default_config_path()).absolute()
     _no_symlink(location)
@@ -107,6 +111,7 @@ def init_config(path: str | Path | None = None, *, workspace_home: str | None = 
         "workspace_home": workspace_home or str(default_workspace_home()),
         "allowed_source_roots": allowed_source_roots or [],
         "allowed_workspace_roots": allowed_workspace_roots or [],
+        "allowed_git_worktree_roots": allowed_git_worktree_roots or [],
     }
     if state_home is not None:
         config["state_home"] = state_home
@@ -133,7 +138,7 @@ def init_config(path: str | Path | None = None, *, workspace_home: str | None = 
 def build_engine(config: dict[str, Any]):
     from .engine import Engine
     return Engine(**{key: config[key] for key in ("workspace_home", "state_home", "allowed_source_roots",
-                                                 "allowed_workspace_roots") if key in config})
+                                                 "allowed_workspace_roots", "allowed_git_worktree_roots") if key in config})
 
 
 def dispatch(engine: Any, name: str, arguments: dict[str, Any]) -> Any:
@@ -195,6 +200,8 @@ def make_parser() -> argparse.ArgumentParser:
     init.add_argument("--state-home")
     init.add_argument("--allow-source-root", action="append", default=[])
     init.add_argument("--allow-workspace-root", action="append", default=[])
+    init.add_argument("--allow-git-worktree-root", action="append", default=[],
+                      help="Explicit parent directory for Retulo-managed Git worktrees (disabled by default)")
     init.add_argument("--json", action="store_true")
 
     call = sub.add_parser("call", help="Call one engine method with structured JSON arguments")
@@ -266,7 +273,8 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "init-config":
             result = init_config(args.config, workspace_home=args.workspace_home, state_home=args.state_home,
                                  allowed_source_roots=args.allow_source_root,
-                                 allowed_workspace_roots=args.allow_workspace_root)
+                                 allowed_workspace_roots=args.allow_workspace_root,
+                                 allowed_git_worktree_roots=args.allow_git_worktree_root)
         else:
             config = load_config(args.config)
             engine = build_engine(config)

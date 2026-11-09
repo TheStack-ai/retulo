@@ -261,3 +261,5 @@ Claude Code는 `codex` 대신 `claude`를 사용하세요. 연결 해제는 작�
 ## 라이선스
 
 Retulo는 [MIT 라이선스](LICENSE)를 사용합니다. 제3자 소프트웨어와 포함된 라이선스 파일은 [의존성 고지](THIRD_PARTY_NOTICES.md)에 정리되어 있습니다.
+
+개발 중인 Git 작업공간 연결 기능은 [Git 작업공간 안내](docs/GIT_WORKSPACES.md)를 참조하세요. 기존 공개 배포판에는 아직 포함되지 않았습니다.

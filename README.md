@@ -261,3 +261,5 @@ Tests use temporary synthetic fixtures and require no model account. Local check
 ## License
 
 Retulo is [MIT licensed](LICENSE). See [dependency notices](THIRD_PARTY_NOTICES.md) for third-party software and included license files.
+
+For the unreleased optional Git worktree integration, see [Git workspaces](docs/GIT_WORKSPACES.md). This is not yet included in the published preview.

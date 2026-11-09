@@ -23,6 +23,8 @@ import tempfile
 import tomllib
 import venv
 
+from retulo.cli import METHODS
+
 
 PACKAGE_PROBE = r'''
 import importlib.metadata
@@ -73,7 +75,7 @@ from retulo.cli import METHODS
 async def main():
     payload = json.load(sys.stdin)
     results = {}
-    assert len(METHODS) == 24, sorted(METHODS)
+    assert {"git_status", "git_create_worktree", "git_record_snapshot", "git_integrate", "git_remove_worktree"} <= METHODS
     for agent, server in payload["servers"].items():
         params = StdioServerParameters(command=server["command"], args=server["args"],
                                       cwd=payload["project"], env={"PYTHONPATH": payload["poison_path"]})
@@ -255,7 +257,7 @@ def exercise(wheel: Path) -> dict:
                                    cwd=project, environment={"PYTHONPATH": str(poison_path)})
             transport = diagnosed["transport"]
             require(diagnosed["ok"] and diagnosed["configured"] and transport["status"] == "healthy"
-                    and transport["tool_count"] == 24 and transport["server_name"] == "retulo",
+                    and transport["tool_count"] == len(METHODS) and transport["server_name"] == "retulo",
                     f"{agent} installed MCP doctor failed: {diagnosed}")
             require(diagnosed["host_adoption"] == "untested", f"{agent} doctor claimed client adoption")
             doctors[agent] = {"status": transport["status"], "tool_count": transport["tool_count"],
