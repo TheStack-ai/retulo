@@ -7,9 +7,11 @@
 
 # Retulo
 
-**AI 에이전트를 위한 로컬 작업공간.**
+**AI와 하던 일을, 이어서 완성하세요.**
 
-Retulo는 AI 에이전트의 파일 작업에 독립된 로컬 작업공간을 제공합니다. 원본 자료와 이전 결과 버전, 결정 사항, 남은 작업, 검증·승인 기록을 한곳에 보관해 에이전트가 진행 상황을 파악하도록 돕습니다. Codex 또는 Claude Code 연동을 설정하고 신뢰하면, 매번 Retulo를 지정하지 않아도 에이전트가 일반 파일 요청에 이 절차를 적용할 수 있습니다. 다른 대화에서 이어갈 때는 같은 작업이나 작업공간을 지정해 기록된 상태에서 계속 진행합니다.
+Retulo는 AI와 진행하는 문서·파일·코드 작업을 정리하는 오픈소스 로컬 도구입니다. 원본 자료와 결과물 버전, 결정 사항, 남은 일을 작업별로 보관해 무엇이 바뀌었는지 확인하고 다음 대화에서도 이어갈 수 있게 돕습니다.
+
+**Codex·Claude Code 또는 CLI에서 사용합니다.** 이어갈 때 **작업 ID나 작업공간 경로**를 알려주면 에이전트가 저장된 상태와 파일을 읽고 작업할 수 있습니다. Retulo는 작업 기록을 내 컴퓨터에 저장하며, MCP로 에이전트와 연결됩니다.
 
 [![미리보기 버전 0.6.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)
 [![릴리스 검사](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
@@ -18,25 +20,34 @@ Retulo는 AI 에이전트의 파일 작업에 독립된 로컬 작업공간을 �
 
 **macOS 로컬 미리보기** · CLI·MCP · English, 简体中文, 한국어
 
-[문서 사이트](https://thestack-ai.github.io/retulo/site/) · [설치](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [실행 예제](#demo) · [문서](#documentation) · [도움받기](#get-help)
+[문서 사이트](https://thestack-ai.github.io/retulo/site/ko/) · [이럴 때 사용하세요](#when-to-use) · [설치](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [실행 예제](#demo) · [문서](#documentation) · [도움받기](#get-help)
 
-![원본 자료와 결과 버전, 기록된 진행 상황을 보존하며 같은 작업을 다른 대화에서 이어가는 흐름.](assets/demo/continuity.svg)
+<a id="when-to-use"></a>
+## 이럴 때 사용하세요
 
-*이 그림은 작업 흐름을 설명합니다. 에이전트가 기존 작업을 확인한 뒤 이어가며, Retulo가 모든 대화를 자동으로 기억한다는 뜻은 아닙니다.*
+### 제안서를 수정하면서 이전 초안도 남기고 싶을 때
 
-## 이렇게 쓸 수 있습니다
+> 가격 설명을 수정하고, 이전 버전은 남겨줘.
 
-| 하려는 일 | Retulo가 제공하는 것 |
-|---|---|
-| 평소처럼 파일 작업 요청하기 | 매번 Retulo를 부르지 않아도 연결된 에이전트가 사용할 작업공간 도구와 지침 |
-| 다른 대화에서 이어 하기 | 같은 작업 ID와 작업공간, 현재 상태와 상세 기록 |
-| 기존 결과 수정하기 | 미리 정한 저장 경로, 번호가 붙은 결과 버전, 파일 변경 감지 |
-| 어디까지 끝났는지 확인하기 | 파일 저장·내용 검사·사용자 승인·외부 전달을 구분한 기록 |
-| 여러 단계의 작업 갱신하기 | 명시한 입력이 바뀌었을 때 다시 작업할 단계 식별 |
-| 다른 자료로 같은 절차 반복하기 | 새 작업과 새로운 검사로 시작하는 버전별 작업 레시피 |
-| 코드 작업을 나누어 진행하기 | 명시적인 Git worktree 연결, 선택 파일 스냅샷, 검사 후 fast-forward 통합 |
+Retulo는 등록한 결과물 버전을 원본 자료·결정 사항과 함께 보관합니다. 이전 초안을 확인하고, 다음 대화에서도 같은 작업 ID를 지정해 수정을 이어갈 수 있습니다.
 
-요청을 해석하고 도구를 실행하는 주체는 에이전트입니다. Retulo는 작업공간과 기록을 관리합니다. 질문이나 계획만 요청하면 작업공간을 만들지 않습니다.
+### 자료가 바뀌어 정기 보고서를 갱신해야 할 때
+
+> 이번 달 자료로 보고서를 갱신해줘.
+
+입력과 단계를 미리 정의한 작업에서는 바뀐 자료가 어느 단계에 영향을 주는지 찾아줍니다. 에이전트는 이 계획을 보고 필요한 부분을 다시 작업할 수 있습니다. 같은 절차를 반복하려면 레시피로 저장해 새 자료와 새로운 검사로 시작하세요. [작업 흐름과 레시피 보기](docs/WORKFLOWS.md).
+
+### 여러 코드 작업을 별도 폴더에서 진행하고 싶을 때
+
+> 이 기능은 별도 Git worktree에서 작업하고, 변경 내용을 보여줘.
+
+작업에 worktree를 연결하거나 명시적으로 만들고, Git 상태를 확인하며 선택 파일을 스냅샷으로 보존할 수 있습니다. fast-forward 병합과 정리는 각각 따로 준비하고 실행합니다. worktree 생성에는 허용 경로 설정이 필요하며, 실행 중인 프로세스나 데이터베이스까지 분리하지는 않습니다. [Git 작업공간 안내](docs/GIT_WORKSPACES.md).
+
+![원본 자료와 결과 버전, 기록된 진행 상황을 같은 작업으로 연결해 다른 대화에서 이어가는 흐름.](assets/demo/continuity.svg)
+
+*같은 Retulo 설정과 파일 접근 권한을 가진 대화에서 작업 ID나 작업공간 경로를 지정하세요. Retulo는 기록된 작업 상태를 읽으며, 모든 대화를 자동으로 기억하지는 않습니다.*
+
+요청을 해석하고 내용을 만들거나 수정하는 주체는 연결된 에이전트입니다. **Retulo는 작업공간을 정리하고 파일 저장·검사·승인·남은 일을 기록합니다.** 각 상태는 구분되므로 파일이 저장됐다고 내용 검토나 승인이 끝난 것은 아닙니다. 질문이나 계획만 요청하면 작업공간을 만들지 않습니다.
 
 <a id="quick-start"></a>
 ## Retulo 설치하기
@@ -48,7 +59,7 @@ curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
 retulo --version
 ```
 
-`retulo 0.6.0rc1`이 나오면 됩니다. 설치기는 릴리스 wheel을 내려받아 `SHA256SUMS`로 검증한 뒤, 계속 사용할 수 있는 uv 도구 환경에 설치합니다. 기존 uv를 사용하거나 전용 uv를 설치하고, 필요하면 Python도 내려받습니다. Git이나 소스 폴더, 직접 관리하는 가상환경을 준비할 필요가 없습니다. 이 프리뷰는 PyPI·npm이 아닌 [GitHub 릴리스](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)로 배포합니다.
+`retulo 0.6.0rc1`이 나오면 됩니다. 설치기는 릴리스 wheel을 내려받아 `SHA256SUMS`로 검증한 뒤, 계속 사용할 수 있는 uv 도구 환경에 설치합니다. 기존 uv를 사용하거나 전용 uv를 설치하고, 필요하면 Python도 내려받습니다. 설치와 문서 작업에는 Git이 필요 없으며, 소스 폴더나 직접 관리하는 가상환경도 준비하지 않아도 됩니다. 선택 기능인 worktree를 사용하려면 로컬 Git이 필요합니다. 이 프리뷰는 PyPI·npm이 아닌 [GitHub 릴리스](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)로 배포합니다.
 
 명령 폴더가 `PATH`에 없다는 안내가 나오면 설치기가 표시한 명령을 실행하세요. 기본 위치라면 다음과 같습니다.
 
@@ -56,7 +67,7 @@ retulo --version
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-설치기는 셸 프로필을 수정하지 않습니다. 로컬 검증 환경은 macOS이며, Linux 설치는 CI 검증 대상입니다. 스크립트 확인, 기존 uv를 이용한 설치, 경로 변경과 개발용 소스 설치는 [상세 설치 안내](docs/INSTALLATION.md)에 있습니다.
+설치기는 셸 프로필을 수정하지 않습니다. 로컬에서는 macOS의 로컬 파일시스템으로 검증했습니다. 0.6.0rc1은 [macOS·Ubuntu × Python 3.11·3.14 조합의 GitHub CI를 통과했습니다](https://github.com/TheStack-ai/retulo/actions/runs/42574237876). 스크립트 확인, 기존 uv를 이용한 설치, 경로 변경과 개발용 소스 설치는 [상세 설치 안내](docs/INSTALLATION.md)에 있습니다.
 
 에이전트를 연결하려면 **Codex 또는 Claude Code**를 평소처럼 설치하고 로그인해 두세요. Retulo가 두 클라이언트나 모델 계정을 설치해 주지는 않습니다. 아래에서 하나를 골라 `/absolute/path/to/project`를 **이미 있는 프로젝트 폴더의 절대 경로**로 바꾸세요. 기존 코드는 원래 저장소에서 관리합니다.
 
@@ -120,7 +131,7 @@ retulo capabilities --json
 
 연결한 에이전트에게 요청하세요.
 
-> Retulo로 이 프로젝트의 환영 안내문을 Markdown 파일로 만들어줘. 파일을 쓰기 전에 작업을 시작하고 출력 경로를 예약해줘. 실제 파일을 등록하고 내용과 무결성을 검사한 뒤 작업 ID, 작업공간 경로, 결과 파일 경로를 알려줘.
+> Retulo로 이 프로젝트의 환영 안내문을 Markdown 파일로 만들어줘. 자료와 결과를 함께 보관하고 내용을 확인해줘. 나중에 이어갈 수 있도록 결과 파일과 작업 ID나 작업공간 경로도 알려줘.
 
 실제 파일, 작업 ID와 작업공간 경로, 등록된 결과물 버전과 검사 결과가 나와야 합니다. 등록 파일의 바이트가 일치하면 Retulo의 `verify`는 `ok: true`와 빈 불일치 목록을 반환합니다. 내용도 직접 확인하세요.
 
@@ -209,9 +220,10 @@ Retulo는 작업과 파일 기록을 로컬에 보관합니다. 기존 에이전
 |---|---|
 | 버전 | `0.6.0rc1` 미리보기 |
 | 실행 환경 | Python 3.11 이상; 설치기가 필요할 때 Python을 준비 |
-| 검증 환경 | macOS, 로컬 파일시스템 |
+| 로컬 검증 | macOS, 로컬 파일시스템 |
+| 릴리스 CI | 0.6.0rc1의 macOS·Ubuntu × Python 3.11·3.14 조합 통과 |
 | 인터페이스 | CLI·MCP, 패키지에 포함된 Codex·Claude Code 연결·진단·해제 |
-| 그 밖의 환경 | Linux 설치는 CI 검증 대상; Windows 수동 Python 설치·NAS·여러 호스트·다른 클라이언트는 별도 검증 필요 |
+| 그 밖의 환경 | Windows 수동 Python 설치·NAS·여러 호스트·다른 클라이언트는 별도 검증 필요 |
 
 Retulo는 절차를 통해 등록한 파일과 작업을 관리합니다. 다른 호스트 도구가 수행하는 모든 쓰기 작업을 가로채지는 않습니다. 파일 무결성 확인은 내용 품질이나 사용자 승인을 뜻하지 않습니다. 코어는 모델 호출, 에이전트 실행, 폴더 감시, 외부 게시를 수행하지 않습니다.
 
@@ -238,6 +250,7 @@ Claude Code는 `codex` 대신 `claude`를 사용하세요. 연결 해제는 작�
 - [자주 묻는 질문](docs/FAQ.md)
 - [한국어 사용 안내](docs/USER_GUIDE.ko.md)
 - [작업과 레시피](docs/WORKFLOWS.md)
+- [Git 작업공간·스냅샷·병합](docs/GIT_WORKSPACES.md)
 - [에이전트 연동](docs/INTEGRATIONS.md)
 - [작업 기록과 관리 기본본 갱신](docs/SUSTAINABILITY.md)
 - [파일 형식과 안전 계약](docs/FORMAT_AND_SAFETY.md) · [구조](docs/ARCHITECTURE.md)
@@ -262,5 +275,3 @@ Claude Code는 `codex` 대신 `claude`를 사용하세요. 연결 해제는 작�
 ## 라이선스
 
 Retulo는 [MIT 라이선스](LICENSE)를 사용합니다. 제3자 소프트웨어와 포함된 라이선스 파일은 [의존성 고지](THIRD_PARTY_NOTICES.md)에 정리되어 있습니다.
-
-코드 작업 기능은 로컬 Git과 명시적으로 설정한 worktree 상위 경로가 필요합니다. 설정·복구·지원 범위는 [Git 작업공간 안내](docs/GIT_WORKSPACES.md)를 참조하세요.

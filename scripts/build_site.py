@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 LANGUAGES = ("en", "zh-CN", "ko")
 LOCALE_PATHS = {"en": "", "zh-CN": "zh-CN/", "ko": "ko/"}
-NAV_IDS = ("overview", "how-it-works", "quick-start", "documentation", "help")
+NAV_IDS = ("use-cases", "how-it-works", "quick-start", "documentation", "help")
 CONTINUITY = ".venv/bin/python scripts/demo_continuity.py --output-dir /tmp/retulo-continuity-demo"
 DEMO = ".venv/bin/python scripts/demo_incremental.py --output-dir /tmp/retulo-report-demo"
 
@@ -112,6 +112,7 @@ def render(locale: str, c: dict, content: dict, version: str, args: argparse.Nam
     facts = "".join(f'<div class="fact"><strong>{e(number)}</strong><span>{e(label)}</span></div>' for number, label in c["facts"])
     def feature_list(items: list, offset: int = 0) -> str:
         return "".join(f'<article class="feature"><span class="feature-number">{i:02}</span><div><h3>{e(title)}</h3><p>{e(body)}</p></div></article>' for i, (title, body) in enumerate(items, 1 + offset))
+    cases = "".join(f'<article class="use-case"><h3>{e(title)}</h3><p class="case-situation">{e(situation)}</p><p>{e(outcome)}</p></article>' for title, situation, outcome in c["cases"])
     steps = "".join(f'<article class="how-step"><span>{i:02}</span><h3>{e(title)}</h3><p>{e(body)}</p></article>' for i, (title, body) in enumerate(c["steps"], 1))
     documents = "".join(f'<li><a href="{e(source(path))}"><span><strong>{e(title)}</strong><small>{e(body)}</small></span><span class="arrow" aria-hidden="true">↗</span></a></li>' for title, body, path in c["documents"])
     faqs = "".join(f'<details><summary>{e(question)}</summary><p>{e(answer)}</p></details>' for question, answer in c["faqs"])
@@ -138,16 +139,20 @@ def render(locale: str, c: dict, content: dict, version: str, args: argparse.Nam
   <section class="hero" id="overview" aria-labelledby="hero-title">
     <div><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>{e(preview)}<span class="version-tag">{e(version)}</span></p>
       <h1 id="hero-title">{lines(c['headline'])}</h1><p class="hero-intro">{e(c['intro'])}</p>
-      <div class="hero-actions"><a class="button primary" href="#quick-start">{e(c['start'])}<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#how-it-works">{e(c['see'])}<span class="arrow" aria-hidden="true">↓</span></a></div>
+      <div class="hero-actions"><a class="button primary" href="#quick-start">{e(c['start'])}<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#use-cases">{e(c['see'])}<span class="arrow" aria-hidden="true">↓</span></a></div>
     </div>
     <aside class="workspace-ledger" aria-label="{e(c['ledger_label'])}"><div class="ledger-top"><p>{e(c['ledger_label'])}</p><h2>{lines(c['ledger_title'])}</h2></div><div class="ledger-lines">{ledger}</div></aside>
   </section>
   <div class="facts" aria-label="Retulo {e(version)}">{facts}</div>
+  <section class="section" id="use-cases" aria-labelledby="cases-title">
+    <p class="section-label">{e(c['cases_label'])}</p><div class="section-heading"><h2 id="cases-title">{e(c['cases_title'])}</h2><p>{e(c['cases_intro'])}</p></div>
+    <div class="use-cases">{cases}</div><p class="note">{e(c['cases_note'])}</p>
+  </section>
   <section class="section" aria-labelledby="foundation-title">
     <p class="section-label">{e(c['core_label'])}</p><div class="section-heading"><h2 id="foundation-title">{lines(c['core_title'])}</h2><p>{e(c['core_intro'])}</p></div>
     <div class="features">{feature_list(c['features'])}</div>
     <figure class="diagram"><img src="{e(source('assets/demo/continuity.svg'))}" alt="{e(c['continuity_alt'])}" loading="lazy"><figcaption>{e(c['continuity_caption'])}</figcaption></figure>
-    <div class="demo-code"><h3>{e(c['continuity_demo_title'])}</h3>{code_block('continuity-code', CONTINUITY, c)}<p>{e(c['continuity_demo_note'])}</p></div>
+    <details class="demo-code"><summary>{e(c['continuity_demo_title'])}</summary>{code_block('continuity-code', CONTINUITY, c)}<p>{e(c['continuity_demo_note'])}</p></details>
   </section>
   <section class="section" id="how-it-works" aria-labelledby="how-title">
     <p class="section-label">{e(c['how_label'])}</p><h2 class="single-heading" id="how-title">{lines(c['how_title'])}</h2><div class="how-steps">{steps}</div><p class="note">{e(c['how_note'])}</p>
@@ -162,7 +167,7 @@ def render(locale: str, c: dict, content: dict, version: str, args: argparse.Nam
     <p class="section-label">{e(c['workflow_label'])}</p><div class="section-heading"><h2 id="workflow-title">{lines(c['workflow_title'])}</h2><p>{e(c['workflow_intro'])}</p></div>
     <div class="features workflow-features">{feature_list(c['workflow_features'], 4)}</div>
     <figure class="diagram"><img src="{e(source('assets/demo/workflow.svg'))}" alt="{e(c['workflow_alt'])}" loading="lazy"><figcaption>{e(c['workflow_caption'])}</figcaption></figure>
-    <div class="demo-code"><h3>{e(c['demo_title'])}</h3>{code_block('demo-code', DEMO, c)}<p>{e(c['demo_note'])}</p></div>
+    <details class="demo-code"><summary>{e(c['demo_title'])}</summary>{code_block('demo-code', DEMO, c)}<p>{e(c['demo_note'])}</p></details>
   </section>
   <section class="section" id="documentation" aria-labelledby="docs-title">
     <p class="section-label">{e(c['docs_label'])}</p><h2 class="single-heading" id="docs-title">{lines(c['docs_title'])}</h2>

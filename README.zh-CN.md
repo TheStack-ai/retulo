@@ -7,9 +7,11 @@
 
 # Retulo
 
-**为 AI Agent 提供本地工作区。**
+**让与 AI 一起做的工作，随时可以接着做。**
 
-Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中管理原始资料、历史输出版本、关键决策、剩余工作、检查与审批记录，方便 Agent 追踪进度。配置并信任 Codex 或 Claude Code 集成后，Agent 可在处理日常文件请求时应用这一流程，无需每次指定使用 Retulo。切换到新会话时，指定同一任务或工作区，即可根据已记录的状态继续推进。
+Retulo 是一款开源本地工具，用来整理与 AI Agent 一起完成的文档、文件和代码任务。它将原始资料、输出版本、关键决策与剩余工作保存在同一任务中，方便你查看变化，并在新会话中继续处理。
+
+通过 **Codex、Claude Code 或 CLI** 使用。继续工作时，提供**任务 ID 或工作区路径**，Agent 就能先读取已保存的状态和文件。Retulo 将任务记录存储在你的电脑上，通过 MCP 与 Agent 连接。
 
 [![预览版 0.6.0rc1](assets/badges/preview.svg)](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1)
 [![发布检查](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TheStack-ai/retulo/actions/workflows/ci.yml)
@@ -18,25 +20,34 @@ Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中
 
 **macOS 本地预览版** · CLI 与 MCP · English、简体中文、한국어
 
-[文档站点](https://thestack-ai.github.io/retulo/site/) · [安装](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [运行示例](#demo) · [文档](#documentation) · [获取帮助](#get-help)
+[文档站点](https://thestack-ai.github.io/retulo/site/zh-CN/) · [适用场景](#when-to-use) · [安装](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [运行示例](#demo) · [文档](#documentation) · [获取帮助](#get-help)
 
-![同一任务在不同会话间继续，保留原始资料、输出版本和已记录的进度。](assets/demo/continuity.svg)
+<a id="when-to-use"></a>
+## 这些时候可以使用 Retulo
 
-*这张图说明工作流程：Agent 先识别已有任务，再继续处理。它不代表 Retulo 会自动记住所有会话。*
+### 修改提案，同时保留之前的草稿
 
-## 可以用它做什么
+> 更新价格说明，并保留上一个版本。
 
-| 你的工作 | Retulo 提供的支持 |
-|---|---|
-| 像平常一样提出文件请求 | 为已连接的 Agent 提供工作区工具与指引，无需每次点名调用 Retulo |
-| 换一个会话继续处理 | 保留同一任务的标识、工作区、当前状态与详细历史 |
-| 修改已有结果 | 预留输出路径、保留带编号的输出版本，并检测文件变更 |
-| 确认工作进度 | 分开记录文件保存、内容检查、用户批准与对外交付状态 |
-| 更新分阶段工作流 | 依据已声明的输入变化，识别受影响并需重新执行的步骤 |
-| 用新资料重复一套流程 | 通过带版本的工作流模板创建新任务，并重新进行检查 |
-| 并行处理代码任务 | 显式连接 Git worktree、保存所选文件快照，并在检查后进行 fast-forward 整合 |
+Retulo 将已登记的输出版本与原始资料、决策记录一起保存。你可以查看旧稿，也可以在新会话中提供同一任务 ID，继续修改。
 
-Agent 负责理解请求并调用工具，Retulo 负责管理工作区与记录。单纯提问或制定计划不会创建工作区。
+### 输入资料变了，需要更新定期报告
+
+> 用这个月的数据更新报告。
+
+对于已声明输入和步骤的工作流，Retulo 会识别哪些步骤受到数据变化的影响，Agent 可据此重做相关工作。如果需要重复同一流程，可将它保存为工作流模板，用新资料创建新任务并重新检查。[查看工作流与模板](docs/WORKFLOWS.md)。
+
+### 希望在不同文件夹中并行处理代码
+
+> 在独立的 Git worktree 中开发这个功能，再展示改动。
+
+将任务连接到 worktree，或显式创建一个，查看 Git 状态并保存所选文件快照。fast-forward 整合与清理是分别准备和执行的操作。创建 worktree 需要先配置允许的目录；它不会隔离运行中的进程或数据库。[查看 Git 工作区指南](docs/GIT_WORKSPACES.md)。
+
+![原始资料、输出版本和已记录的进度归于同一任务，便于在新会话中继续。](assets/demo/continuity.svg)
+
+*在使用相同 Retulo 配置并有权访问文件的会话中，提供任务 ID 或工作区路径。Retulo 读取已记录的任务状态，不会自动记住所有会话。*
+
+已连接的 Agent 负责理解请求、创建或修改内容。**Retulo 整理工作区，记录文件保存、检查、批准与剩余工作。**这些状态分别记录：文件已保存，不代表内容已经审阅或批准。单纯提问或制定计划不会创建工作区。
 
 <a id="quick-start"></a>
 ## 安装 Retulo
@@ -48,7 +59,7 @@ curl -fsSL https://thestack-ai.github.io/retulo/install.sh | sh
 retulo --version
 ```
 
-应显示 `retulo 0.6.0rc1`。安装程序下载发布版 wheel，使用发布资产中的 `SHA256SUMS` 验证后，将 Retulo 安装到持久的 uv 工具环境。它会使用已有的 uv，或安装专用副本，并在需要时下载合适的 Python。无需 Git、源码目录或自行维护的虚拟环境。本预览版通过 [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1) 分发，不通过 PyPI 或 npm。
+应显示 `retulo 0.6.0rc1`。安装程序下载发布版 wheel，使用发布资产中的 `SHA256SUMS` 验证后，将 Retulo 安装到持久的 uv 工具环境。它会使用已有的 uv，或安装专用副本，并在需要时下载合适的 Python。安装和文档任务无需 Git，也不需要源码目录或自行维护的虚拟环境。可选的 worktree 功能需要本地 Git。本预览版通过 [GitHub Releases](https://github.com/TheStack-ai/retulo/releases/tag/v0.6.0rc1) 分发，不通过 PyPI 或 npm。
 
 如果提示命令目录不在 `PATH` 中，请运行安装程序显示的命令。默认位置使用：
 
@@ -56,7 +67,7 @@ retulo --version
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-安装程序不会修改 shell 配置文件。已测试的本地环境为 macOS；Linux 安装将由 CI 进行验证。脚本审阅、使用已有 uv、定制路径和开发用源码安装见[安装指南](docs/INSTALLATION.md)。
+安装程序不会修改 shell 配置文件。本地验证使用 macOS 的本地文件系统。0.6.0rc1 已通过 [macOS、Ubuntu × Python 3.11、3.14 的 GitHub CI 检查](https://github.com/TheStack-ai/retulo/actions/runs/42574237876)。脚本审阅、使用已有 uv、定制路径和开发用源码安装见[安装指南](docs/INSTALLATION.md)。
 
 连接 Agent 前，请按通常方式安装并登录 **Codex 或 Claude Code**。Retulo 不安装这两个客户端，也不提供模型账户。选择下面一种连接方式，并将 `/absolute/path/to/project` 换成**已有项目目录的绝对路径**。已有代码仍在原仓库中管理。
 
@@ -120,7 +131,7 @@ retulo capabilities --json
 
 在已连接的 Agent 中提出：
 
-> 使用 Retulo 为这个项目生成 Markdown 欢迎指南。写文件前先开始任务并预留输出路径。登记实际文件，检查内容与完整性，并报告任务 ID、工作区路径和输出路径。
+> 用 Retulo 为这个项目编写 Markdown 欢迎指南。将资料与结果一起保存，检查结果，并给我文件及任务 ID 或工作区路径，方便以后继续处理。
 
 应获得实际文件、任务 ID 与工作区路径、已登记的输出版本和检查结果。登记文件的字节一致时，Retulo 的 `verify` 返回 `ok: true` 且没有不匹配项。请同时自行检查内容。
 
@@ -209,9 +220,10 @@ Retulo 将任务与文件记录保存在本地。通过现有 Agent 或 CLI 客�
 |---|---|
 | 版本 | `0.6.0rc1` 预览版 |
 | 运行环境 | Python 3.11+；安装程序在需要时获取 Python |
-| 已验证环境 | macOS、本地文件系统 |
+| 本地验证 | macOS、本地文件系统 |
+| 发布版 CI | 0.6.0rc1 已通过 macOS、Ubuntu × Python 3.11、3.14 检查 |
 | 接口 | CLI、MCP，以及软件包内的 Codex 和 Claude Code 设置、诊断与断开连接 |
-| 其他环境 | Linux 安装将由 CI 验证；Windows 手动 Python 设置、NAS、多主机及其他客户端需单独验证 |
+| 其他环境 | Windows 手动 Python 设置、NAS、多主机及其他客户端需单独验证 |
 
 Retulo 管理通过其流程登记的文件与任务，不会拦截其他宿主工具的所有写入。文件完整性检查并不等于内容质量确认或用户批准。核心不会调用模型、启动 Agent、监视目录或发布结果。
 
@@ -238,6 +250,7 @@ Claude Code 连接将 `codex` 替换为 `claude`。断开连接会保留任务�
 - [常见问题](docs/FAQ.md)
 - [한국어 사용 안내](docs/USER_GUIDE.ko.md)
 - [工作流与工作流模板](docs/WORKFLOWS.md)
+- [Git 工作区、快照与整合](docs/GIT_WORKSPACES.md)
 - [Agent 集成](docs/INTEGRATIONS.md)
 - [任务历史与受管更新](docs/SUSTAINABILITY.md)
 - [文件格式与安全契约](docs/FORMAT_AND_SAFETY.md) · [架构](docs/ARCHITECTURE.md)
@@ -262,5 +275,3 @@ Claude Code 连接将 `codex` 替换为 `claude`。断开连接会保留任务�
 ## 许可证
 
 Retulo 使用 [MIT 许可证](LICENSE)。第三方软件及随附许可文件详见[依赖声明](THIRD_PARTY_NOTICES.md)。
-
-可选的代码工作流需要本地 Git 和明确配置的 worktree 父目录。设置、恢复及支持范围请参阅 [Git 工作区](docs/GIT_WORKSPACES.md)。

@@ -3,21 +3,21 @@
   "locales": {
     "en": {
       "name": "English",
-      "title": "Retulo — Local workspaces for AI agents",
-      "description": "Keep source material, file versions, decisions and progress together. Continue the same AI agent task across conversations, then update or reuse its workflow.",
+      "title": "Retulo — Keep AI work ready to continue",
+      "description": "Keep source files, output versions, decisions and next steps together. Continue document and code tasks with Codex or Claude Code using the same local workspace.",
       "skip": "Skip to content",
       "nav": [
-        "Overview",
+        "Use cases",
         "How it works",
         "Quick start",
         "Docs",
         "Get help"
       ],
       "preview": "LOCAL PREVIEW",
-      "headline": "Local workspaces\nfor AI agents.",
-      "intro": "Retulo gives AI agents a dedicated local workspace for file-producing work. It keeps source material, output versions, decisions, and checks together. Identify the same task in a new conversation to continue from its recorded state.",
-      "start": "Get started",
-      "see": "See the workflow",
+      "headline": "Keep AI work\nready to continue.",
+      "intro": "Retulo is an open-source local tool for Codex and Claude Code. It keeps source files, output versions, decisions and next steps together. Give your agent the task ID or workspace path to pick up the work in another chat.",
+      "start": "Install Retulo",
+      "see": "See when to use it",
       "ledger_label": "WHAT A WORKSPACE KEEPS",
       "ledger_title": "The files.\nThe progress.\nThe next step.",
       "ledger_items": [
@@ -28,25 +28,25 @@
       ],
       "facts": [
         [
-          "0.6.0rc1",
-          "Preview release"
+          "Documents + code",
+          "Tasks with files to keep"
         ],
         [
-          "macOS",
-          "Tested local filesystem"
+          "On your machine",
+          "Local workspace storage"
         ],
         [
-          "One command",
-          "Package installation"
+          "Codex · Claude",
+          "Use through your agent"
         ],
         [
           "MIT",
           "Open source"
         ]
       ],
-      "core_label": "01 / THE FOUNDATION",
-      "core_title": "Keep the work together.",
-      "core_intro": "A task is more than its latest file. Retulo keeps source material, output history, decisions, and checks organized for your agent.",
+      "core_label": "02 / WHAT STAYS WITH THE TASK",
+      "core_title": "The next step has a starting point.",
+      "core_intro": "A finished file is only part of the work. Keep the inputs, earlier outputs, decisions and remaining steps where your agent can find them.",
       "features": [
         [
           "Use an ordinary request",
@@ -67,8 +67,8 @@
       ],
       "continuity_alt": "A task keeps its source material, versioned outputs and progress when an agent continues it in another conversation using the same task or workspace.",
       "continuity_caption": "Same task. New conversation. Continue from recorded files and progress by identifying the workspace.",
-      "how_label": "02 / HOW IT WORKS",
-      "how_title": "Your agent runs the tools.\nRetulo keeps the task in order.",
+      "how_label": "03 / HOW IT WORKS",
+      "how_title": "Ask. Save progress.\nContinue the same task.",
       "steps": [
         [
           "Describe the work",
@@ -88,9 +88,9 @@
         ]
       ],
       "how_note": "The core runs locally. It does not launch models or agents, execute recipe commands, watch folders, or publish results.",
-      "quick_label": "03 / QUICK START",
+      "quick_label": "04 / START WITH ONE TASK",
       "quick_title": "Install a package. Connect your project.",
-      "quick_intro": "Run the installer in a macOS or Linux terminal. It verifies the release wheel and installs a persistent runtime, obtaining uv and Python when needed. No source checkout or manual virtual environment is required.",
+      "quick_intro": "Install Retulo, connect it to Codex or Claude Code, then try a document you expect to revise. You keep using your agent to ask for work; Retulo supplies the workspace tools.",
       "install_title": "Install Retulo",
       "install_note": "Expect retulo 0.6.0rc1. If the command is not found, run the PATH export printed by the installer (default: export PATH=\"$HOME/.local/bin:$PATH\"). Shell profiles are not edited. This preview is distributed on GitHub Releases.",
       "connect_title": "Connect Codex or Claude Code",
@@ -99,11 +99,11 @@
       "copied": "Copied",
       "copy_failed": "Select and copy the command below.",
       "after_install": "Then ask for ordinary work",
-      "request": "Create a visitor guide as a Markdown file. Preserve the source material.",
-      "continue_request": "Continue this guide in the same workspace. Add a contact section and keep the previous version.",
+      "request": "Draft a proposal from these notes. Keep the sources and save this as a Retulo task.",
+      "continue_request": "Continue the proposal in Retulo workspace /absolute/path/to/workspace. Revise the schedule and preserve the previous version.",
       "continue_label": "In another conversation, include the existing workspace or file reference",
       "source_guide": "Read the installation, diagnosis, and disconnection guide",
-      "workflow_label": "04 / UPDATE AND REPEAT",
+      "workflow_label": "05 / REPEAT AND REFINE",
       "workflow_title": "Change the input.\nKeep the useful work.",
       "workflow_intro": "For declared workflows, Retulo connects inputs, production steps, and exact outputs. The agent can see which steps need work after an input changes.",
       "workflow_features": [
@@ -120,7 +120,7 @@
       "workflow_caption": "Observed report example: five affected steps regenerated, one independent step reused. This is an example result, not a general saving guarantee.",
       "demo_title": "Run the complete local example",
       "demo_note": "Optional source-checkout example: complete the development setup in the installation guide, then run this from that checkout with a new, empty output directory. It creates an HTML report, updates affected steps, preserves earlier reports, and starts a fresh recipe task. No model calls or global setting changes.",
-      "docs_label": "05 / DOCUMENTATION",
+      "docs_label": "06 / GUIDES AND QUESTIONS",
       "docs_title": "Go from the first task\nto the full contract.",
       "documents": [
         [
@@ -176,14 +176,14 @@
         ],
         [
           "What is supported today?",
-          "The tested local environment is macOS with a local filesystem. The bootstrap targets macOS and Linux and obtains Python 3.11+ when needed; Linux installation is intended for CI qualification. Windows manual setup, network storage, multiple hosts, and other clients need separate validation."
+          "Checked locally on macOS and in hosted CI on macOS and Ubuntu with Python 3.11 and 3.14. Windows, network storage, multiple hosts, and other clients need separate validation. A protocol test does not prove that a particular chat follows the workflow."
         ],
         [
           "What do I need to install and connect?",
           "Run the package installer, then use retulo setup codex or retulo setup claude with your existing project. Setup creates the local configuration and managed client guidance. Install and sign in to Codex or Claude Code separately; Retulo supplies neither a model account nor a background service."
         ]
       ],
-      "help_label": "06 / HELP AND CONTRIBUTIONS",
+      "help_label": "07 / HELP AND CONTRIBUTIONS",
       "help_title": "Make the next task easier.",
       "help_intro": "Start with the guides, share a minimal reproduction for a bug, or describe the work a proposed feature should help you complete.",
       "help_links": [
@@ -200,30 +200,51 @@
           "SECURITY.md"
         ]
       ],
-      "publication_note": "Preview release distributed as a GitHub wheel. macOS is locally tested; Linux installation is intended for CI qualification. Read the qualification record for actual checks and current limits.",
-      "footer": "Local workspaces. Recorded progress. Work you can continue.",
+      "publication_note": "Preview release distributed through GitHub. Checked locally on macOS and in hosted CI on macOS and Ubuntu with Python 3.11 and 3.14. See the qualification record for scope and limits.",
+      "footer": "Keep the files. Keep the progress. Continue the work.",
       "source": "Source overview",
       "license": "MIT license",
       "continuity_demo_title": "Run the file-work continuity example",
-      "continuity_demo_note": "Optional source-checkout example: complete the installation guide’s development setup first. Use a new, empty output directory. Separate CLI processes create and revise a guide while preserving the same task and previous version. It tests CLI continuity, not adoption by a new agent chat."
+      "continuity_demo_note": "Optional source-checkout example: complete the installation guide’s development setup first. Use a new, empty output directory. Separate CLI processes create and revise a guide while preserving the same task and previous version. It tests CLI continuity, not adoption by a new agent chat.",
+      "cases_label": "01 / WHEN TO USE RETULO",
+      "cases_title": "Work that takes more than one chat.",
+      "cases_intro": "Use Retulo when the next revision needs the files, choices and progress from the last one.",
+      "cases": [
+        [
+          "Revise a proposal",
+          "You have a draft, source notes and another round of feedback.",
+          "Keep managed output versions and decisions together, then identify the same task to revise it in another chat."
+        ],
+        [
+          "Update a recurring report",
+          "New figures arrive after you have finished the report.",
+          "For a workflow with declared steps, see what needs rebuilding. Reuse a saved recipe to start the next report with fresh checks."
+        ],
+        [
+          "Work on code in parallel",
+          "Two features need separate working folders in one repository.",
+          "Connect each task to a Git worktree. Preserve selected files, review integration, and clean up a managed worktree as a separate action."
+        ]
+      ],
+      "cases_note": "Retulo manages the task record. Your connected agent performs the work. Git worktree creation requires a configured allowed directory."
     },
     "zh-CN": {
       "name": "简体中文",
-      "title": "Retulo — 为 AI Agent 提供本地工作区",
-      "description": "集中管理原始资料、文件版本、决策与进度。在新会话中继续同一任务，并更新或复用工作流。",
+      "title": "Retulo — 让 AI 工作可以继续",
+      "description": "把原始资料、文件版本、决策和下一步集中到同一任务。通过 Codex 或 Claude Code，在同一本地工作区继续文档与代码工作。",
       "skip": "跳转到正文",
       "nav": [
-        "概览",
+        "使用场景",
         "工作原理",
         "快速开始",
         "文档",
         "获取帮助"
       ],
       "preview": "本地预览版",
-      "headline": "为 AI Agent\n提供本地工作区。",
-      "intro": "Retulo 为 AI Agent 的文件生成任务提供独立的本地工作区，集中管理原始资料、输出版本、关键决策与检查记录。在新会话中指定同一任务，即可根据已记录的状态继续推进。",
-      "start": "开始使用",
-      "see": "查看工作流程",
+      "headline": "让 AI 工作，\n下次接着做。",
+      "intro": "Retulo 是连接 Codex 和 Claude Code 的开源本地工具，把原始资料、输出版本、决策和待办事项按任务保存。下次对话时提供任务 ID 或工作区路径，就能从已记录的进度继续。",
+      "start": "安装 Retulo",
+      "see": "查看使用场景",
       "ledger_label": "工作区保留的内容",
       "ledger_title": "文件。\n进度。\n下一步。",
       "ledger_items": [
@@ -234,25 +255,25 @@
       ],
       "facts": [
         [
-          "0.6.0rc1",
-          "预览版本"
+          "文档与代码",
+          "适合会留下文件的任务"
         ],
         [
-          "macOS",
-          "已测本地环境"
+          "本地存储",
+          "工作区保存在你的电脑上"
         ],
         [
-          "一条命令",
-          "软件包安装"
+          "Codex · Claude",
+          "连接已有的 Agent"
         ],
         [
           "MIT",
-          "开源许可"
+          "开源工具"
         ]
       ],
-      "core_label": "01 / 基础功能",
-      "core_title": "将任务所需的信息放在一起。",
-      "core_intro": "一项任务不只是最新生成的文件。Retulo 为已连接的 Agent 整理原始资料、历史版本、决策与检查记录。",
+      "core_label": "02 / 随任务保留的内容",
+      "core_title": "为下一步留下起点。",
+      "core_intro": "最终文件只是工作的一部分。把输入资料、旧版本、决策与待办事项放在一起，方便 Agent 继续工作。",
       "features": [
         [
           "从日常请求开始",
@@ -273,8 +294,8 @@
       ],
       "continuity_alt": "通过指定同一任务或工作区，Agent 可以在新会话中继续使用原始资料、历史输出与任务进度。",
       "continuity_caption": "同一任务，新的会话。指定工作区，从已记录的文件与进度继续。",
-      "how_label": "02 / 工作原理",
-      "how_title": "Agent 运行工具。\nRetulo 整理任务。",
+      "how_label": "03 / 使用流程",
+      "how_title": "提出任务，记录进度，\n继续同一项工作。",
       "steps": [
         [
           "描述工作",
@@ -294,9 +315,9 @@
         ]
       ],
       "how_note": "核心在本地运行，不启动模型或 Agent，不执行模板中的命令，不监视文件夹，也不发布结果。",
-      "quick_label": "03 / 快速开始",
+      "quick_label": "04 / 从一个任务开始",
       "quick_title": "安装软件包，连接你的项目。",
-      "quick_intro": "在 macOS 或 Linux 终端中运行安装程序。它验证发布版 wheel 并安装持久运行环境，必要时获取 uv 和 Python。无需源码目录或手动创建虚拟环境。",
+      "quick_intro": "安装 Retulo，连接 Codex 或 Claude Code，再选一份需要修改的文档试用。你仍向原来的 Agent 提出请求，Retulo 提供管理工作区的工具。",
       "install_title": "安装 Retulo",
       "install_note": "应显示 retulo 0.6.0rc1。若找不到命令，请运行安装程序显示的 PATH 命令（默认：export PATH=\"$HOME/.local/bin:$PATH\"）。不会修改 shell 配置文件。本预览版通过 GitHub Releases 分发。",
       "connect_title": "连接 Codex 或 Claude Code",
@@ -305,11 +326,11 @@
       "copied": "已复制",
       "copy_failed": "请选择并复制下方命令。",
       "after_install": "然后提出日常工作请求",
-      "request": "请制作一份 Markdown 访客指南，并保留原始资料。",
-      "continue_request": "在同一工作区继续这份指南，添加联系方式，并保留上一版本。",
+      "request": "根据这些笔记写一份方案初稿。保留原始资料，并作为 Retulo 任务管理。",
+      "continue_request": "继续 Retulo 工作区 /absolute/path/to/workspace 中的方案。调整时间表，并保留上一版。",
       "continue_label": "在新会话中，请同时提供现有工作区或文件引用",
       "source_guide": "阅读安装、诊断与断开连接指南",
-      "workflow_label": "04 / 更新与复用",
+      "workflow_label": "05 / 重复和改进",
       "workflow_title": "输入发生变动，\n有效成果依然保留。",
       "workflow_intro": "对于已声明的工作流，Retulo 连接输入、生成步骤与具体输出。输入变化后，Agent 可以判断哪些步骤需要重新处理。",
       "workflow_features": [
@@ -326,7 +347,7 @@
       "workflow_caption": "实际报告示例中，5 个受影响步骤重新生成，1 个独立步骤复用。这是单个示例结果，并非普遍节省承诺。",
       "demo_title": "运行完整的本地示例",
       "demo_note": "可选的源码示例：先完成安装指南中的开发设置，再从源码目录运行，并使用新的空输出目录。它生成 HTML 报告、更新受影响步骤、保留旧报告并创建新的模板任务。不调用模型或修改全局设置。",
-      "docs_label": "05 / 文档",
+      "docs_label": "06 / 指南与常见问题",
       "docs_title": "从第一个任务，\n了解完整的工作约定。",
       "documents": [
         [
@@ -382,14 +403,14 @@
         ],
         [
           "目前支持哪些环境？",
-          "已测试的本地环境是 macOS 与本地文件系统。安装程序面向 macOS 和 Linux，并在需要时获取 Python 3.11+；Linux 安装将由 CI 验证。Windows 手动设置、网络存储、多主机和其他客户端需单独验证。"
+          "已完成 macOS 本地验证，以及 macOS、Ubuntu 上 Python 3.11 和 3.14 的 CI 检查。Windows、网络存储、多主机和其他客户端需要单独验证。协议检查不代表某次对话一定遵循工作流程。"
         ],
         [
           "需要安装和连接哪些内容？",
           "运行软件包安装程序，再针对已有项目使用 retulo setup codex 或 retulo setup claude。设置命令创建本地配置和受管客户端指令。请另外安装并登录 Codex 或 Claude Code；Retulo 不提供模型账户或后台服务。"
         ]
       ],
-      "help_label": "06 / 帮助与贡献",
+      "help_label": "07 / 帮助与贡献",
       "help_title": "让下一项工作更顺利。",
       "help_intro": "先查看指南；报告问题时提供最小复现；提出功能建议时说明希望完成的具体工作。",
       "help_links": [
@@ -406,30 +427,51 @@
           "SECURITY.md"
         ]
       ],
-      "publication_note": "本预览版以 GitHub wheel 分发。macOS 已进行本地测试；Linux 安装将由 CI 验证。实际检查与当前限制见验证记录。",
-      "footer": "本地工作区。记录进度。继续未完成的工作。",
+      "publication_note": "通过 GitHub 分发的预览版。已完成 macOS 本地验证，以及 macOS、Ubuntu 上 Python 3.11 和 3.14 的 CI 检查。请查看验证记录中的范围与限制。",
+      "footer": "留下资料与进度，下次接着做。",
       "source": "源代码概览",
       "license": "MIT 许可",
       "continuity_demo_title": "运行文件任务续接示例",
-      "continuity_demo_note": "可选的源码示例：先完成安装指南中的开发设置，使用新的空输出目录。独立 CLI 进程在同一任务中生成并修改指南，保留旧版本。它检查 CLI 续做，不检查新 Agent 会话是否采用流程。"
+      "continuity_demo_note": "可选的源码示例：先完成安装指南中的开发设置，使用新的空输出目录。独立 CLI 进程在同一任务中生成并修改指南，保留旧版本。它检查 CLI 续做，不检查新 Agent 会话是否采用流程。",
+      "cases_label": "01 / 适用场景",
+      "cases_title": "适合一次对话做不完的工作。",
+      "cases_intro": "当下一次修改需要上次的资料、决定和进度时，为工作留下清楚的起点。",
+      "cases": [
+        [
+          "反复修改方案",
+          "已有初稿和参考资料，又收到了一轮反馈。",
+          "集中保留受管理的输出版本和决策。新对话中指定同一任务，继续修改方案。"
+        ],
+        [
+          "更新定期报告",
+          "报告完成后，又有了新的数据。",
+          "对已定义步骤的工作流，查看哪些部分需要重做。通过保存的工作流模板开始下一份报告，并重新检查结果。"
+        ],
+        [
+          "并行开发代码",
+          "同一代码仓库中的两个功能需要各自的工作目录。",
+          "把每个任务连接到 Git worktree，保留选定文件，检查整合计划，再分别执行合并和受管理工作目录的清理。"
+        ]
+      ],
+      "cases_note": "连接的 Agent 执行工作，Retulo 管理任务记录。创建 Git 工作目录前，需要先配置允许的路径。"
     },
     "ko": {
       "name": "한국어",
-      "title": "Retulo — AI 에이전트를 위한 로컬 작업공간",
-      "description": "원본 자료와 파일 버전, 결정 사항, 진행 기록을 함께 관리합니다. 새 대화에서 같은 작업을 이어가고 작업 절차를 갱신하거나 재사용합니다.",
+      "title": "Retulo — AI와 하던 일을 이어서 완성하세요",
+      "description": "자료, 파일 버전, 결정과 남은 일을 작업별로 정리합니다. Codex·Claude Code에서 문서와 코드 작업을 같은 로컬 작업공간으로 이어가세요.",
       "skip": "본문으로 건너뛰기",
       "nav": [
-        "소개",
+        "사용 상황",
         "작동 방식",
         "빠른 시작",
         "문서",
         "도움받기"
       ],
       "preview": "로컬 공개 준비본",
-      "headline": "AI 에이전트를 위한\n로컬 작업공간.",
-      "intro": "Retulo는 AI 에이전트의 파일 작업에 독립된 로컬 작업공간을 제공합니다. 원본 자료, 결과물 버전, 결정 사항과 검증 기록을 한곳에 보관합니다. 새 대화에서 같은 작업을 지정하면 기록된 상태에서 계속 진행할 수 있습니다.",
-      "start": "시작하기",
-      "see": "작업 흐름 보기",
+      "headline": "AI와 하던 일을,\n이어서 완성하세요.",
+      "intro": "Retulo는 Codex·Claude Code에 연결하는 오픈소스 로컬 도구입니다. 자료, 파일 버전, 결정과 남은 일을 작업별로 정리합니다. 다음 대화에서 작업 ID나 경로를 지정해 하던 일을 이어가세요.",
+      "start": "Retulo 설치하기",
+      "see": "사용 상황 보기",
       "ledger_label": "작업공간이 함께 보관하는 것",
       "ledger_title": "파일.\n진행 상황.\n다음 할 일.",
       "ledger_items": [
@@ -440,25 +482,25 @@
       ],
       "facts": [
         [
-          "0.6.0rc1",
-          "프리뷰 버전"
+          "문서와 코드",
+          "파일이 남는 작업에"
         ],
         [
-          "macOS",
-          "검증한 로컬 환경"
+          "내 컴퓨터",
+          "로컬 작업공간에 보관"
         ],
         [
-          "명령 하나",
-          "패키지 설치"
+          "Codex · Claude",
+          "쓰던 에이전트에 연결"
         ],
         [
           "MIT",
-          "오픈소스 라이선스"
+          "오픈소스 도구"
         ]
       ],
-      "core_label": "01 / 기본 작업 관리",
-      "core_title": "작업에 필요한 것을 한곳에.",
-      "core_intro": "작업은 마지막 결과물 파일 하나로 끝나지 않습니다. Retulo는 연결된 에이전트가 참조할 수 있도록 원본 자료, 버전 내역, 결정 사항과 검증 기록을 체계적으로 보관합니다.",
+      "core_label": "02 / 작업과 함께 남는 것",
+      "core_title": "다음 작업의 출발점을 남깁니다.",
+      "core_intro": "완성된 파일만으로는 어떤 자료를 썼고 무엇을 바꿔야 하는지 알기 어렵습니다. 원본 자료, 이전 결과, 결정과 남은 일을 함께 정리합니다.",
       "features": [
         [
           "평소처럼 요청하기",
@@ -479,8 +521,8 @@
       ],
       "continuity_alt": "에이전트가 같은 작업이나 작업공간을 지정해 새 대화에서도 원본 자료, 결과물 버전과 진행 기록을 이어 사용하는 흐름.",
       "continuity_caption": "같은 작업, 새로운 대화. 작업공간을 지정해 기록된 파일과 진행 상황에서 이어갑니다.",
-      "how_label": "02 / 작동 방식",
-      "how_title": "에이전트가 도구를 실행하고,\nRetulo가 작업을 관리합니다.",
+      "how_label": "03 / 사용하는 흐름",
+      "how_title": "요청하고, 기록하고,\n같은 작업을 이어갑니다.",
       "steps": [
         [
           "할 일 설명",
@@ -500,9 +542,9 @@
         ]
       ],
       "how_note": "코어는 로컬에서 동작합니다. 모델이나 에이전트를 시작하거나 레시피 명령을 실행하지 않으며 폴더 감시와 결과 공개도 하지 않습니다.",
-      "quick_label": "03 / 빠른 시작",
+      "quick_label": "04 / 작업 하나로 시작하기",
       "quick_title": "패키지를 설치하고 프로젝트를 연결하세요.",
-      "quick_intro": "macOS 또는 Linux 터미널에서 설치기를 실행하세요. 릴리스 wheel을 검증하고 지속되는 실행 환경을 설치하며, 필요하면 uv와 Python도 준비합니다. 소스 폴더나 수동 가상환경은 필요하지 않습니다.",
+      "quick_intro": "Retulo를 설치하고 Codex 또는 Claude Code에 연결하세요. 다시 수정할 문서 하나로 시작하면 됩니다. 작업 요청은 쓰던 에이전트에게 하고, Retulo가 제공하는 도구로 작업공간을 관리합니다.",
       "install_title": "Retulo 설치",
       "install_note": "retulo 0.6.0rc1이 나오면 됩니다. 명령을 찾지 못하면 설치기가 표시한 PATH 명령을 실행하세요. 기본값은 export PATH=\"$HOME/.local/bin:$PATH\"이며 셸 프로필은 수정하지 않습니다. GitHub 릴리스로 배포합니다.",
       "connect_title": "Codex 또는 Claude Code 연결",
@@ -511,11 +553,11 @@
       "copied": "복사됨",
       "copy_failed": "아래 명령을 선택해 복사하세요.",
       "after_install": "그다음 평소처럼 작업 요청",
-      "request": "방문객 안내문을 Markdown 파일로 만들어줘. 원본 자료는 보존해줘.",
-      "continue_request": "같은 작업공간에서 이 안내문을 이어서 수정해줘. 연락처를 추가하고 이전 버전도 남겨줘.",
+      "request": "이 메모로 제안서 초안을 만들어줘. 원본 자료를 보존하고 Retulo 작업으로 관리해줘.",
+      "continue_request": "Retulo 작업공간 /absolute/path/to/workspace의 제안서를 이어서 수정해줘. 일정표를 바꾸고 이전 버전도 남겨줘.",
       "continue_label": "새 대화에서는 기존 작업공간이나 파일 참조를 함께 제공",
       "source_guide": "설치·진단·연결 해제 안내 읽기",
-      "workflow_label": "04 / 갱신과 반복",
+      "workflow_label": "05 / 반복 작업에 활용하기",
       "workflow_title": "자료가 바뀌어도,\n쓸 수 있는 작업은 그대로.",
       "workflow_intro": "단계가 명시된 작업에서는 Retulo가 입력 자료, 제작 단계, 정확한 결과물을 연결합니다. 입력이 바뀌면 에이전트가 어느 단계에 작업이 필요한지 확인합니다.",
       "workflow_features": [
@@ -532,7 +574,7 @@
       "workflow_caption": "실제 보고서 예제에서 관련 5단계를 다시 만들고 독립된 1단계를 재사용했습니다. 개별 예제의 결과이며 일반적인 절감률을 뜻하지 않습니다.",
       "demo_title": "완전한 로컬 예제 실행",
       "demo_note": "선택적인 소스 예제입니다. 상세 설치 안내의 개발 환경을 준비한 뒤 소스 폴더에서 새로운 빈 출력 폴더를 지정해 실행하세요. HTML 보고서 생성, 영향받은 단계 갱신, 이전 결과 보존과 새 레시피 작업을 확인합니다. 모델 호출이나 전역 설정 변경은 없습니다.",
-      "docs_label": "05 / 문서",
+      "docs_label": "06 / 안내와 자주 묻는 질문",
       "docs_title": "첫 작업부터\n상세 사용 규칙까지.",
       "documents": [
         [
@@ -588,14 +630,14 @@
         ],
         [
           "현재 확인된 환경은 무엇인가요?",
-          "로컬 검증 환경은 macOS와 로컬 파일 시스템입니다. 설치기는 macOS·Linux용이며 필요하면 Python 3.11 이상을 준비합니다. Linux 설치는 CI 검증 대상이고 Windows 수동 설치·네트워크 저장소·여러 호스트·다른 클라이언트는 별도 검증이 필요합니다."
+          "macOS 로컬 환경과 macOS·Ubuntu의 Python 3.11·3.14 CI에서 확인했습니다. Windows·네트워크 저장소·여러 호스트·다른 클라이언트는 별도 검증이 필요합니다. 통신 검사가 특정 대화의 작업 절차 준수까지 보장하지는 않습니다."
         ],
         [
           "무엇을 설치하고 연결해야 하나요?",
           "패키지 설치기를 실행한 뒤 기존 프로젝트를 지정해 retulo setup codex 또는 retulo setup claude를 사용하세요. 로컬 설정과 관리 지침을 함께 만듭니다. Codex 또는 Claude Code의 설치·로그인은 별도로 하며, Retulo가 모델 계정이나 백그라운드 서비스를 추가하지는 않습니다."
         ]
       ],
-      "help_label": "06 / 도움과 기여",
+      "help_label": "07 / 도움과 참여",
       "help_title": "다음 작업이 더 쉬워지도록.",
       "help_intro": "먼저 안내를 확인하고, 버그는 작은 재현 예제로, 새 기능은 그 기능으로 끝내고 싶은 작업과 함께 설명해 주세요.",
       "help_links": [
@@ -612,12 +654,33 @@
           "SECURITY.md"
         ]
       ],
-      "publication_note": "GitHub wheel로 배포하는 프리뷰 버전입니다. macOS는 로컬에서 검증했고 Linux 설치는 CI 검증 대상입니다. 실제 검사와 현재 한계는 검증 기록에서 확인하세요.",
-      "footer": "로컬 작업공간. 남겨진 진행 기록. 이어갈 수 있는 작업.",
+      "publication_note": "GitHub에서 배포하는 프리뷰입니다. macOS 로컬 환경과 macOS·Ubuntu의 Python 3.11·3.14 CI에서 검증했습니다. 검증 기록에서 범위와 제한을 확인하세요.",
+      "footer": "자료와 진행을 남기고, 하던 일을 이어가세요.",
       "source": "소스 소개",
       "license": "MIT 라이선스",
       "continuity_demo_title": "파일 작업 이어 하기 예제 실행",
-      "continuity_demo_note": "선택적인 소스 예제입니다. 상세 설치 안내의 개발 환경을 먼저 준비하고 새로운 빈 출력 폴더를 사용하세요. 별도 CLI 프로세스가 같은 작업으로 안내문을 만들고 수정하며 이전 버전을 보존합니다. 새 에이전트 대화의 연동 채택까지 검사하지는 않습니다."
+      "continuity_demo_note": "선택적인 소스 예제입니다. 상세 설치 안내의 개발 환경을 먼저 준비하고 새로운 빈 출력 폴더를 사용하세요. 별도 CLI 프로세스가 같은 작업으로 안내문을 만들고 수정하며 이전 버전을 보존합니다. 새 에이전트 대화의 연동 채택까지 검사하지는 않습니다.",
+      "cases_label": "01 / 이럴 때 사용하세요",
+      "cases_title": "한 번의 대화로 끝나지 않는 일에.",
+      "cases_intro": "다음 수정에 이전 자료와 결정이 필요할 때, 작업을 정리하는 기준이 생깁니다.",
+      "cases": [
+        [
+          "제안서를 여러 번 수정할 때",
+          "초안과 참고 자료가 있고, 새로운 피드백이 들어왔습니다.",
+          "관리하는 결과물의 이전 버전과 결정 사항을 함께 보관합니다. 새 대화에서도 같은 작업을 지정해 수정을 이어갑니다."
+        ],
+        [
+          "정기 보고서를 다시 만들 때",
+          "보고서를 완성한 뒤 새로운 수치가 들어왔습니다.",
+          "단계를 정의해 둔 작업에서 다시 만들 부분을 확인합니다. 저장한 레시피로 다음 보고서를 시작하되 검증은 새로 진행합니다."
+        ],
+        [
+          "여러 코드 작업을 나눠 진행할 때",
+          "같은 저장소에서 두 기능을 별도 폴더로 개발해야 합니다.",
+          "작업별로 Git worktree를 연결합니다. 선택한 파일을 보존하고 변경사항을 검토한 뒤, 병합과 작업 폴더 정리를 각각 진행합니다."
+        ]
+      ],
+      "cases_note": "작업은 연결된 에이전트가 수행하고 Retulo는 작업 기록을 관리합니다. Git 작업 폴더를 새로 만들려면 허용 경로를 먼저 설정해야 합니다."
     }
   },
   "installCommands": [
