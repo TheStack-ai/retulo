@@ -27,7 +27,7 @@ Use it through **Codex, Claude Code or the CLI**. When continuing, give the agen
 
 [![Watch the 60-second Retulo demo: create a draft, continue in a new Codex conversation, and keep both versions.](assets/demo/retulo-60s-poster.jpg)](https://thestack-ai.github.io/retulo/site/#demo)
 
-Create a first draft, resume the same task in a new Codex conversation, and save a revision while the earlier version stays intact. [Watch the video with subtitles](https://thestack-ai.github.io/retulo/site/#demo).
+Create a first draft, resume the same task in a new Codex conversation, and save a revision while the earlier version stays intact. [Open the captioned version on the documentation site](https://thestack-ai.github.io/retulo/site/#demo).
 
 *A proposal revision across two real Codex conversations, edited into 60 seconds. The video includes a recorded Retulo command replay on the same fictional demo task. The run record and both file versions are available to inspect. [View the run record and files](examples/real-session/README.md).*
 
