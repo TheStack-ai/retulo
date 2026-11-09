@@ -21,7 +21,7 @@
   <link rel="alternate" hreflang="x-default" href="https://thestack-ai.github.io/retulo/site/">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Retulo", "description": "자료, 파일 버전, 결정과 남은 일을 작업별로 정리합니다. Codex·Claude Code에서 문서와 코드 작업을 같은 로컬 작업공간으로 이어가세요.", "url": "https://thestack-ai.github.io/retulo/site/ko/", "softwareVersion": "0.6.0rc1", "programmingLanguage": "Python", "runtimePlatform": "Python 3.11+", "operatingSystem": "macOS", "license": "https://opensource.org/license/mit", "inLanguage": "ko", "codeRepository": "https://github.com/TheStack-ai/retulo"}</script>
   <link rel="icon" type="image/svg+xml" href="../../assets/brand/symbol.svg">
-  <link rel="stylesheet" href="../styles.css?v=31d3d98bb553">
+  <link rel="stylesheet" href="../styles.css?v=32afe0b9965f">
   <script defer src="../app.js?v=313cf9c6bd0a"></script>
 </head>
 <body>
@@ -35,11 +35,24 @@
   <section class="hero" id="overview" aria-labelledby="hero-title">
     <div><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>프리뷰 버전<span class="version-tag">0.6.0rc1</span></p>
       <h1 id="hero-title">AI와 하던 일을,<br>이어서 완성하세요.</h1><p class="hero-intro">Retulo는 Codex·Claude Code에 연결하는 오픈소스 로컬 도구입니다. 자료, 파일 버전, 결정과 남은 일을 작업별로 정리합니다. 다음 대화에서 작업 ID나 경로를 지정해 하던 일을 이어가세요.</p>
-      <div class="hero-actions"><a class="button primary" href="#quick-start">Retulo 설치하기<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#use-cases">사용 상황 보기<span class="arrow" aria-hidden="true">↓</span></a></div>
+      <div class="hero-actions"><a class="button primary" href="#quick-start">Retulo 설치하기<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#demo">60초 데모 보기<span class="arrow" aria-hidden="true">↓</span></a></div>
     </div>
     <aside class="workspace-ledger" aria-label="작업공간이 함께 보관하는 것"><div class="ledger-top"><p>작업공간이 함께 보관하는 것</p><h2>파일.<br>진행 상황.<br>다음 할 일.</h2></div><div class="ledger-lines"><div class="ledger-line"><span>01</span><span>원본 자료</span></div><div class="ledger-line"><span>02</span><span>결과물 버전</span></div><div class="ledger-line"><span>03</span><span>결정 사항과 남은 일</span></div><div class="ledger-line"><span>04</span><span>검증과 승인 기록</span></div></div></aside>
   </section>
   <div class="facts" aria-label="Retulo 0.6.0rc1"><div class="fact"><strong>문서와 코드</strong><span>파일이 남는 작업에</span></div><div class="fact"><strong>내 컴퓨터</strong><span>로컬 작업공간에 보관</span></div><div class="fact"><strong>Codex · Claude</strong><span>쓰던 에이전트에 연결</span></div><div class="fact"><strong>MIT</strong><span>오픈소스 도구</span></div></div>
+  <section class="section video-demo" id="demo" aria-labelledby="video-title">
+    <p class="section-label">60초 데모</p><div class="section-heading"><h2 id="video-title">새 대화에서도 같은 작업, 이전 버전까지.</h2><p>첫 초안을 만든 뒤 새 Codex 대화에서 수정합니다. 같은 작업 ID로 이어가고, 이전 버전이 그대로 남는 과정을 확인하세요.</p></div>
+    <figure class="demo-player">
+      <video controls playsinline preload="metadata" width="1280" height="720" poster="../../assets/demo/retulo-60s-poster.jpg" aria-labelledby="video-title" aria-describedby="video-caption video-subtitles">
+        <source src="../../assets/demo/retulo-60s.mp4" type="video/mp4">
+        <track kind="subtitles" src="../../assets/demo/retulo-60s.en.vtt" srclang="en" label="English"><track kind="subtitles" src="../../assets/demo/retulo-60s.ko.vtt" srclang="ko" label="한국어" default><track kind="subtitles" src="../../assets/demo/retulo-60s.zh-CN.vtt" srclang="zh-CN" label="简体中文">
+        <p>이 브라우저에서는 영상을 재생할 수 없습니다. <a href="../../assets/demo/retulo-60s.mp4">60초 영상 내려받기</a></p>
+      </video>
+      <figcaption id="video-caption">두 번의 실제 Codex 대화에서 같은 제안서를 이어서 수정한 과정을 60초로 편집했습니다. 가상 데모 작업에서 Retulo 명령을 다시 실행한 터미널 화면을 담았습니다. 실행 기록과 두 버전의 파일도 확인할 수 있습니다.</figcaption>
+    </figure>
+    <p class="video-subtitles" id="video-subtitles">영어 영상이며 영어·한국어·중국어 간체 자막을 제공합니다.</p>
+    <div class="video-links"><a href="https://github.com/TheStack-ai/retulo/blob/main/examples/real-session/README.md">실행 기록 보기 <span aria-hidden="true">↗</span></a><a href="../../assets/demo/retulo-60s.mp4" download>60초 영상 내려받기 <span aria-hidden="true">↓</span></a></div>
+  </section>
   <section class="section" id="use-cases" aria-labelledby="cases-title">
     <p class="section-label">01 / 이럴 때 사용하세요</p><div class="section-heading"><h2 id="cases-title">한 번의 대화로 끝나지 않는 일에.</h2><p>다음 수정에 이전 자료와 결정이 필요할 때, 작업을 정리하는 기준이 생깁니다.</p></div>
     <div class="use-cases"><article class="use-case"><h3>제안서를 여러 번 수정할 때</h3><p class="case-situation">초안과 참고 자료가 있고, 새로운 피드백이 들어왔습니다.</p><p>관리하는 결과물의 이전 버전과 결정 사항을 함께 보관합니다. 새 대화에서도 같은 작업을 지정해 수정을 이어갑니다.</p></article><article class="use-case"><h3>정기 보고서를 다시 만들 때</h3><p class="case-situation">보고서를 완성한 뒤 새로운 수치가 들어왔습니다.</p><p>단계를 정의해 둔 작업에서 다시 만들 부분을 확인합니다. 저장한 레시피로 다음 보고서를 시작하되 검증은 새로 진행합니다.</p></article><article class="use-case"><h3>여러 코드 작업을 나눠 진행할 때</h3><p class="case-situation">같은 저장소에서 두 기능을 별도 폴더로 개발해야 합니다.</p><p>작업별로 Git worktree를 연결합니다. 선택한 파일을 보존하고 변경사항을 검토한 뒤, 병합과 작업 폴더 정리를 각각 진행합니다.</p></article></div><p class="note">작업은 연결된 에이전트가 수행하고 Retulo는 작업 기록을 관리합니다. Git 작업 폴더를 새로 만들려면 허용 경로를 먼저 설정해야 합니다.</p>

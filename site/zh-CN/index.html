@@ -21,7 +21,7 @@
   <link rel="alternate" hreflang="x-default" href="https://thestack-ai.github.io/retulo/site/">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Retulo", "description": "把原始资料、文件版本、决策和下一步集中到同一任务。通过 Codex 或 Claude Code，在同一本地工作区继续文档与代码工作。", "url": "https://thestack-ai.github.io/retulo/site/zh-CN/", "softwareVersion": "0.6.0rc1", "programmingLanguage": "Python", "runtimePlatform": "Python 3.11+", "operatingSystem": "macOS", "license": "https://opensource.org/license/mit", "inLanguage": "zh-CN", "codeRepository": "https://github.com/TheStack-ai/retulo"}</script>
   <link rel="icon" type="image/svg+xml" href="../../assets/brand/symbol.svg">
-  <link rel="stylesheet" href="../styles.css?v=31d3d98bb553">
+  <link rel="stylesheet" href="../styles.css?v=32afe0b9965f">
   <script defer src="../app.js?v=313cf9c6bd0a"></script>
 </head>
 <body>
@@ -35,11 +35,24 @@
   <section class="hero" id="overview" aria-labelledby="hero-title">
     <div><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>预览版<span class="version-tag">0.6.0rc1</span></p>
       <h1 id="hero-title">让 AI 工作，<br>下次接着做。</h1><p class="hero-intro">Retulo 是连接 Codex 和 Claude Code 的开源本地工具，把原始资料、输出版本、决策和待办事项按任务保存。下次对话时提供任务 ID 或工作区路径，就能从已记录的进度继续。</p>
-      <div class="hero-actions"><a class="button primary" href="#quick-start">安装 Retulo<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#use-cases">查看使用场景<span class="arrow" aria-hidden="true">↓</span></a></div>
+      <div class="hero-actions"><a class="button primary" href="#quick-start">安装 Retulo<span class="arrow" aria-hidden="true">↗</span></a><a class="button" href="#demo">观看 60 秒演示<span class="arrow" aria-hidden="true">↓</span></a></div>
     </div>
     <aside class="workspace-ledger" aria-label="工作区保留的内容"><div class="ledger-top"><p>工作区保留的内容</p><h2>文件。<br>进度。<br>下一步。</h2></div><div class="ledger-lines"><div class="ledger-line"><span>01</span><span>原始资料</span></div><div class="ledger-line"><span>02</span><span>输出版本</span></div><div class="ledger-line"><span>03</span><span>决策与剩余工作</span></div><div class="ledger-line"><span>04</span><span>检查与审批记录</span></div></div></aside>
   </section>
   <div class="facts" aria-label="Retulo 0.6.0rc1"><div class="fact"><strong>文档与代码</strong><span>适合会留下文件的任务</span></div><div class="fact"><strong>本地存储</strong><span>工作区保存在你的电脑上</span></div><div class="fact"><strong>Codex · Claude</strong><span>连接已有的 Agent</span></div><div class="fact"><strong>MIT</strong><span>开源工具</span></div></div>
+  <section class="section video-demo" id="demo" aria-labelledby="video-title">
+    <p class="section-label">60 秒演示</p><div class="section-heading"><h2 id="video-title">新会话，同一任务，保留两个版本。</h2><p>先创建初稿，再在新的 Codex 会话中修改。沿用同一任务 ID，看看修改后的文件和旧版本如何一起保留。</p></div>
+    <figure class="demo-player">
+      <video controls playsinline preload="metadata" width="1280" height="720" poster="../../assets/demo/retulo-60s-poster.jpg" aria-labelledby="video-title" aria-describedby="video-caption video-subtitles">
+        <source src="../../assets/demo/retulo-60s.mp4" type="video/mp4">
+        <track kind="subtitles" src="../../assets/demo/retulo-60s.en.vtt" srclang="en" label="English"><track kind="subtitles" src="../../assets/demo/retulo-60s.ko.vtt" srclang="ko" label="한국어"><track kind="subtitles" src="../../assets/demo/retulo-60s.zh-CN.vtt" srclang="zh-CN" label="简体中文" default>
+        <p>你的浏览器无法播放此视频。 <a href="../../assets/demo/retulo-60s.mp4">下载 60 秒视频</a></p>
+      </video>
+      <figcaption id="video-caption">将两次真实 Codex 会话中继续修订同一提案的过程剪辑为 60 秒，并加入在同一虚构演示任务上重新执行 Retulo 命令的终端录像。运行记录和两个文件版本均可查阅。</figcaption>
+    </figure>
+    <p class="video-subtitles" id="video-subtitles">英语视频，提供英语、韩语和简体中文字幕。</p>
+    <div class="video-links"><a href="https://github.com/TheStack-ai/retulo/blob/main/examples/real-session/README.md">查看运行记录 <span aria-hidden="true">↗</span></a><a href="../../assets/demo/retulo-60s.mp4" download>下载 60 秒视频 <span aria-hidden="true">↓</span></a></div>
+  </section>
   <section class="section" id="use-cases" aria-labelledby="cases-title">
     <p class="section-label">01 / 适用场景</p><div class="section-heading"><h2 id="cases-title">适合一次对话做不完的工作。</h2><p>当下一次修改需要上次的资料、决定和进度时，为工作留下清楚的起点。</p></div>
     <div class="use-cases"><article class="use-case"><h3>反复修改方案</h3><p class="case-situation">已有初稿和参考资料，又收到了一轮反馈。</p><p>集中保留受管理的输出版本和决策。新对话中指定同一任务，继续修改方案。</p></article><article class="use-case"><h3>更新定期报告</h3><p class="case-situation">报告完成后，又有了新的数据。</p><p>对已定义步骤的工作流，查看哪些部分需要重做。通过保存的工作流模板开始下一份报告，并重新检查结果。</p></article><article class="use-case"><h3>并行开发代码</h3><p class="case-situation">同一代码仓库中的两个功能需要各自的工作目录。</p><p>把每个任务连接到 Git worktree，保留选定文件，检查整合计划，再分别执行合并和受管理工作目录的清理。</p></article></div><p class="note">连接的 Agent 执行工作，Retulo 管理任务记录。创建 Git 工作目录前，需要先配置允许的路径。</p>

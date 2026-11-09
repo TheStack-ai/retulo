@@ -1,0 +1,51 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.000
+A new chat. The same work, ready to continue.
+
+2
+00:00:05.060 --> 00:00:09.300
+Start with fictional notes for a website proposal.
+
+3
+00:00:09.300 --> 00:00:13.300
+Save the source material and first draft as a Retulo task.
+
+4
+00:00:13.300 --> 00:00:19.100
+The first version is saved as proposal-v001.md.
+
+5
+00:00:19.600 --> 00:00:22.900
+The task ID connects the sources, output and saved progress.
+
+6
+00:00:22.900 --> 00:00:26.500
+In a new Codex chat, ask for a three-week schedule
+and keep the first version.
+
+7
+00:00:26.500 --> 00:00:32.900
+We replay the actual Retulo command on the same demo task.
+The output identifies the original file.
+
+8
+00:00:33.600 --> 00:00:37.400
+The original file becomes the starting point for the revision.
+
+9
+00:00:37.400 --> 00:00:44.050
+Only the schedule changes. The page scope and constraints stay the same.
+
+10
+00:00:45.050 --> 00:00:49.250
+The first version has the same SHA-256 before and after.
+
+11
+00:00:49.250 --> 00:00:54.000
+Version 1 stays intact. Version 2 is saved as a separate file.
+
+12
+00:00:55.000 --> 00:01:00.000
+Keep the files. Continue the work. Retulo.

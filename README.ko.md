@@ -22,6 +22,15 @@ Retulo는 AI와 진행하는 문서·파일·코드 작업을 정리하는 오�
 
 [문서 사이트](https://thestack-ai.github.io/retulo/site/ko/) · [이럴 때 사용하세요](#when-to-use) · [설치](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [실행 예제](#demo) · [문서](#documentation) · [도움받기](#get-help)
 
+<a id="demo"></a>
+## 60초로 보는 실제 작업 이어가기
+
+[![60초 Retulo 데모: 초안 생성, 새 Codex 대화에서 재개, 이전 버전 보존.](assets/demo/retulo-60s-poster.jpg)](https://thestack-ai.github.io/retulo/site/ko/#demo)
+
+첫 초안을 만든 뒤 새 Codex 대화에서 같은 작업을 이어 수정합니다. 새 파일을 저장해도 이전 버전은 그대로 남습니다. [자막과 함께 영상 보기](https://thestack-ai.github.io/retulo/site/ko/#demo).
+
+*두 번의 실제 Codex 대화에서 같은 제안서를 이어서 수정한 과정을 60초로 편집했습니다. 가상 데모 작업에서 Retulo 명령을 다시 실행한 터미널 화면을 담았습니다. 실행 기록과 두 버전의 파일도 확인할 수 있습니다. [실행 기록과 파일 보기](examples/real-session/README.md).*
+
 <a id="when-to-use"></a>
 ## 이럴 때 사용하세요
 
@@ -164,7 +173,7 @@ retulo capabilities --json
 
 클라이언트 근거: [OpenAI Docs: Codex MCP](https://developers.openai.com/codex/mcp) · [Claude Code MCP](https://code.claude.com/docs/en/mcp) · [Claude 프로젝트 지침](https://code.claude.com/docs/en/memory).
 
-<a id="demo"></a>
+<a id="cli-examples"></a>
 ## 실행 예제
 
 아래는 선택적으로 준비한 [개발용 소스 폴더](docs/INSTALLATION.md#development-only-source-checkout)에서 실행하는 예제입니다. 일반 설치나 에이전트 연결에 소스 폴더는 필요하지 않습니다.

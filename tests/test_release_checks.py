@@ -128,6 +128,26 @@ class ReleaseChecksTests(unittest.TestCase):
         findings, _ = checks.check_source(self.root)
         self.assertEqual(self.codes(findings), {"symlink"})
 
+    def test_only_pinned_demo_video_can_exceed_the_text_limit(self):
+        video = self.root / checks.PUBLIC_DEMO_VIDEO
+        video.parent.mkdir(parents=True)
+        raw = b"\x00" * checks.MAX_FILE_BYTES + b"\x01"
+        video.write_bytes(raw)
+        with (patch.object(checks, "PUBLIC_DEMO_VIDEO_BYTES", len(raw)),
+              patch.object(checks, "PUBLIC_DEMO_VIDEO_SHA256", hashlib.sha256(raw).hexdigest())):
+            findings, _ = checks.check_source(self.root)
+            self.assertEqual(findings, [])
+            source = self.base / "retulo-demo.tar.gz"
+            with tarfile.open(source, "w:gz") as archive:
+                archive.add(self.root, arcname="retulo-demo")
+            findings, _ = checks.check_archive(source)
+            self.assertEqual(findings, [])
+
+            video.with_name("other.mp4").write_bytes(raw)
+            video.write_bytes(raw[:-1] + b"\x02")
+            findings, _ = checks.check_source(self.root)
+            self.assertEqual(self.codes(findings), {"demo_media_mismatch", "oversized_file"})
+
     def test_wheel_requires_runtime_schema_and_license(self):
         path = self.wheel()
         findings, members = checks.check_archive(path)

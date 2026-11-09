@@ -22,6 +22,15 @@ Use it through **Codex, Claude Code or the CLI**. When continuing, give the agen
 
 [Documentation site](https://thestack-ai.github.io/retulo/site/) · [When to use it](#when-to-use) · [Install](#quick-start) · [Codex](#codex) · [Claude Code](#claude-code) · [Demo](#demo) · [Docs](#documentation) · [Get help](#get-help)
 
+<a id="demo"></a>
+## See a task continue in 60 seconds
+
+[![Watch the 60-second Retulo demo: create a draft, continue in a new Codex conversation, and keep both versions.](assets/demo/retulo-60s-poster.jpg)](https://thestack-ai.github.io/retulo/site/#demo)
+
+Create a first draft, resume the same task in a new Codex conversation, and save a revision while the earlier version stays intact. [Watch the video with subtitles](https://thestack-ai.github.io/retulo/site/#demo).
+
+*A proposal revision across two real Codex conversations, edited into 60 seconds. The video includes a recorded Retulo command replay on the same fictional demo task. The run record and both file versions are available to inspect. [View the run record and files](examples/real-session/README.md).*
+
 <a id="when-to-use"></a>
 ## When Retulo helps
 
@@ -164,7 +173,7 @@ See [installation and diagnosis](docs/INSTALLATION.md), [integration details](do
 
 Client references: [OpenAI Docs: Codex MCP](https://developers.openai.com/codex/mcp) · [Claude Code MCP](https://code.claude.com/docs/en/mcp) · [Claude project instructions](https://code.claude.com/docs/en/memory).
 
-<a id="demo"></a>
+<a id="cli-examples"></a>
 ## See it work
 
 The optional source-checkout demos require the [development setup](docs/INSTALLATION.md#development-only-source-checkout); they are not needed to install or connect Retulo. Run these commands from that checkout.
